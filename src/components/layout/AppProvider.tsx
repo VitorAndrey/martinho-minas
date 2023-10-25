@@ -5,14 +5,17 @@ import {
 
 import { View } from "react-native";
 import { UserContextProvider } from "@contexts/UserContext";
+import { ShoppingListProvider } from "@contexts/ShoppingList";
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   return (
     <View className="flex-1">
       <UserContextProvider>
-        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          {children}
-        </SafeAreaProvider>
+        <ShoppingListProvider>
+          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+            {children}
+          </SafeAreaProvider>
+        </ShoppingListProvider>
       </UserContextProvider>
     </View>
   );
