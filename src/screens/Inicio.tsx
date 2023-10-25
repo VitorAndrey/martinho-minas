@@ -6,8 +6,8 @@ import { AuthNavigationRoutesProps } from "../routes/auth.routes";
 
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
-import { Logo } from "@layout/Logo";
 import { TextBtn } from "@ui/TextBtn";
+import { Header } from "@layout/Header";
 
 export function Inicio() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();
@@ -17,11 +17,7 @@ export function Inicio() {
   }
   return (
     <SafeAreaView className="flex-1">
-      <View className="flex-row items-center justify-center gap-1">
-        <Logo />
-
-        <Text className="text-2xl font-bold">Martinho de Minas</Text>
-      </View>
+      <Header />
 
       <View className="flex-1 justify-center px-12">
         <Text className="mb-10 text-center text-xl font-semibold">
