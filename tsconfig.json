@@ -6,6 +6,7 @@
     "paths": {
       "@screens/*": ["./src/screens/*"],
       "@routes/*": ["./src/routes/*"],
+      "@assets/*": ["./src/assets/*"],
       "@contexts/*": ["./src/contexts/*"],
       "@layout/*": ["./src/components/layout/*"],
       "@ui/*": ["./src/components/ui/*"]

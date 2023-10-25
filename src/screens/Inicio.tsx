@@ -1,14 +1,13 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 
-import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthNavigationRoutesProps } from "../routes/auth.routes";
 
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
+import { Logo } from "@layout/Logo";
 import { TextBtn } from "@ui/TextBtn";
-
-const Logo = "../assets/logomt.png";
 
 export function Inicio() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();
@@ -19,7 +18,8 @@ export function Inicio() {
   return (
     <SafeAreaView className="flex-1">
       <View className="flex-row items-center justify-center gap-1">
-        <Image className="h-12 w-12" source={require(Logo)} />
+        <Logo />
+
         <Text className="text-2xl font-bold">Martinho de Minas</Text>
       </View>
 
