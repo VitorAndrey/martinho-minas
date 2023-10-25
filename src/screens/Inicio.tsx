@@ -1,8 +1,9 @@
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import { AuthNavigationRoutesProps } from "../routes/auth.routes";
+import { Text } from "@ui/Text";
 
 const Logo = "../assets/logomt.png";
 

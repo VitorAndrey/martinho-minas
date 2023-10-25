@@ -1,6 +1,7 @@
 import { UserContext } from "@contexts/UserContext";
+import { Text } from "@ui/Text";
 import { useContext } from "react";
-import { View, Text, TouchableOpacity, Image, TextInput } from "react-native";
+import { View, TouchableOpacity, Image, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Logo = "../assets/logomt.png";
