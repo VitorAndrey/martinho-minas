@@ -17,9 +17,11 @@ import { Text } from "@ui/Text";
 const Logo = "../assets/logomt.png";
 
 export function Compras() {
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState<CategoryType[]>([]);
 
   function addCategory(category: CategoryType) {
+    console.log(category);
+
     setCart((prevState) => {
       return {
         ...prevState,
@@ -262,12 +264,12 @@ export function Compras() {
           <Text className="p-9 pl-10 pt-5 text-3xl font-semibold">Lista</Text>
         </View>
       </View>
-      {/*
+
       <FlatList
         data={cart}
         renderItem={({ item }) => <Text>{item.name}</Text>}
         keyExtractor={(item) => item.name}
-      /> */}
+      />
 
       {/* 👇 Menu verde*/}
     </SafeAreaView>
