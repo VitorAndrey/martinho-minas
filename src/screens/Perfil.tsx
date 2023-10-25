@@ -1,6 +1,7 @@
 import { UserContext } from "@contexts/UserContext";
+import { Text } from "@ui/Text";
 import { useContext } from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Pressable } from "react-native";
 
 export function Perfil() {
   const { handleUserUnlogged } = useContext(UserContext);

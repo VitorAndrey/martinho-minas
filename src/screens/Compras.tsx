@@ -17,11 +17,24 @@ export function Compras() {
   const categories = [
     {
       id: "1",
-      name: "basicos",
+      name: "açougue",
+      url: "https://github.com/marcella.png",
     },
     {
       id: "2",
-      name: "frios",
+      name: "basicos",
+      url: "https://github.com/marcella.png",
+    },
+
+    {
+      id: "3",
+      name: "bebidas",
+      url: "https://github.com/marcella.png",
+    },
+    {
+      id: "4",
+      name: "bebidas",
+      url: "https://github.com/marcella.png",
     },
   ];
 
@@ -75,6 +88,7 @@ export function Compras() {
           data={categories}
           renderItem={({ item }) => <IconeCategoria data={item} />}
           keyExtractor={(item) => item.id}
+          contentContainerStyle={{ gap: 25, paddingHorizontal: 25 }}
         />
       </View>
 
