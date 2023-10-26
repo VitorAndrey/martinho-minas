@@ -1,4 +1,3 @@
-import { CategoryType } from "@layout/IconeCategoria";
 import { IconeCategoria } from "@layout/IconeCategoria";
 import { MoveRight, Search } from "lucide-react-native";
 import {
@@ -10,16 +9,44 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Text } from "@ui/Text";
 import { ShoppingListContext } from "@contexts/ShoppingList";
+import { Category, Product } from "@models/index";
+import { fetchCategories, fetchProducts } from "@services/get";
 
 const Logo = "../assets/logomt.png";
 
 export function Compras() {
-  const { cartList, addCartItem, removeCartItem } =
+  const [categories, setCategories] = useState<Category[]>();
+  const [products, setProducts] = useState<Product[]>();
+  const [filters, setFilters] = useState<string[]>([]);
+
+  const { cartList, addProduct, removeProduct } =
     useContext(ShoppingListContext);
+
+  function handleToggleQueryParams() {
+    setFilters([]);
+  }
+
+  async function handleFecthProducts() {
+    const filteredProducts = await fetchProducts(filters);
+    setProducts(filteredProducts);
+  }
+
+  async function handleFecthCategories() {
+    const categoriesList = await fetchCategories();
+    setCategories(categoriesList);
+  }
+
+  useEffect(() => {
+    handleFecthProducts();
+  }, [filters]);
+
+  useEffect(() => {
+    handleFecthCategories();
+  }, []);
 
   return (
     // 👇 Coloca o que tiver dentro em area segura
@@ -70,7 +97,7 @@ export function Compras() {
           showsHorizontalScrollIndicator={false}
           data={categories}
           renderItem={({ item }) => (
-            <IconeCategoria data={item} onAddCategory={addCategory} />
+            <IconeCategoria data={item} onPress={handleToggleQueryParams} />
           )}
           keyExtractor={(item) => item.id}
           contentContainerStyle={{ gap: 25, paddingHorizontal: 25 }}
@@ -91,7 +118,7 @@ export function Compras() {
       </View>
 
       <FlatList
-        data={cart}
+        data={products}
         renderItem={({ item }) => <Text>{item.name}</Text>}
         keyExtractor={(item) => item.name}
       />

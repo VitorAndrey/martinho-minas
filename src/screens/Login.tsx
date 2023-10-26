@@ -53,7 +53,6 @@ export function Login() {
   }
 
   return (
-    // 👇 Coloca o que tiver dentro em area segura
     <SafeAreaView className="flex-1">
       <Header />
 
