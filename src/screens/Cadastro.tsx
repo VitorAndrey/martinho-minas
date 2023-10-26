@@ -149,7 +149,7 @@ export function Cadastro() {
             )}
           </View>
 
-          <TextBtn className="mt-10" onPress={handleSubmit(onSubmit)}>
+          <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
             Avançar
           </TextBtn>
         </View>

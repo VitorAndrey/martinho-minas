@@ -16,6 +16,11 @@ export function Inicio() {
   function navegarCadastro() {
     navigation.navigate("Cadastro");
   }
+
+  function handleNavigateLogin() {
+    navigation.navigate("Login");
+  }
+
   return (
     <SafeAreaView className="flex-1">
       <Header />
@@ -28,15 +33,13 @@ export function Inicio() {
         <View className="gap-6">
           <Btn>Entrar com Google</Btn>
 
-          <Btn>Sou cliente MartMais</Btn>
+          <Btn onPress={handleNavigateLogin}>Sou cliente MartMais</Btn>
         </View>
 
-        <View className="flex-row items-center justify-center gap-2 pt-6">
+        <View className="flex-row items-center justify-center gap-2 pt-10">
           <Text>Não tem conta?</Text>
 
-          <TextBtn className="mt-10" onPress={navegarCadastro}>
-            Cadastar!
-          </TextBtn>
+          <TextBtn onPress={navegarCadastro}>Cadastar!</TextBtn>
         </View>
       </View>
 

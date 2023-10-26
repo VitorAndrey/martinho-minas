@@ -1,13 +1,50 @@
-import { UserContext } from "@contexts/UserContext";
-import { Text } from "@ui/Text";
 import { useContext } from "react";
-import { View, TouchableOpacity, Image, TextInput } from "react-native";
+import { ScrollView, View } from "react-native";
+
+import { UserContext } from "@contexts/UserContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const Logo = "../assets/logomt.png";
+import { Text } from "@ui/Text";
+import { Input } from "@ui/Input";
+import { TextBtn } from "@ui/TextBtn";
+import { Header } from "@layout/Header";
+import { GreenFooter } from "@layout/GreenFooter";
+
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    Email: yup
+      .string()
+      .required("Preencha o Email.")
+      .email("Insira um Email válido."),
+    Passwd: yup
+      .string()
+      .required("Insira sua Senha.")
+      .min(8, "A senha deve ter no mínimo 8 caracteres."),
+  })
+  .required();
+
+type FormData = yup.InferType<typeof schema>;
 
 export function Login() {
   const { handleUserLogged } = useContext(UserContext);
+
+  const {
+    control,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
+  const onSubmit = (data: FormData) => {
+    console.log(data);
+    reset();
+    handleUserLogin();
+  };
 
   function handleUserLogin() {
     // await login
@@ -17,43 +54,67 @@ export function Login() {
 
   return (
     // 👇 Coloca o que tiver dentro em area segura
-    <SafeAreaView className="flex-1 bg-slate-50">
-      {/* 👇 Cabeçalho */}
-      <View className="flex-row items-center justify-center gap-1 pt-5">
-        {/* 👇 Ícone */}
-        <Image style={{ width: 51, height: 51 }} source={require(Logo)} />
-        {/* 👇 Título */}
-        <Text className="h-20 pt-5 text-2xl font-bold">Martinho de Minas</Text>
-      </View>
+    <SafeAreaView className="flex-1">
+      <Header />
 
-      {/* 👇 Conteúdo */}
-      <View className="flex-1 items-center justify-center gap-6">
-        {/* 👇 Texto de login */}
-        <Text className="text-xl font-semibold">Faça seu Login!</Text>
-
-        {/* 👇 Container de botões */}
-        {/* 👇 email*/}
-        <View className="h-[54] w-[280] flex-row gap-3 rounded-2xl bg-[#B9FFB2]">
-          <Text className="text-lg font-semibold">Email:</Text>
-          <TextInput className="w-[190] pb-3 text-base" />
-        </View>
-
-        {/* 👇 Senha*/}
-        <View className="h-[54] w-[280] flex-row gap-3 rounded-2xl bg-[#B9FFB2]">
-          <Text className="text-lg font-semibold">Senha:</Text>
-          <TextInput className="w-[190] pb-3 text-base" />
-        </View>
-
-        {/* 👇 Link para a tela de cadastro*/}
-        <TouchableOpacity onPress={handleUserLogin}>
-          <Text className="justify-center pt-6 text-center text-base font-semibold text-[#10C700]">
-            Avançar
+      <ScrollView
+        contentContainerStyle={{
+          flexGrow: 1,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        <View className="flex-1 justify-center p-10">
+          <Text className="mb-10 text-center text-xl font-semibold">
+            Faça o Login!
           </Text>
-        </TouchableOpacity>
-      </View>
 
-      {/* 👇 Barra verde*/}
-      <View className="h-[31] w-full bg-[#10C700]"></View>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                label="Email:"
+              />
+            )}
+            name="Email"
+          />
+          <View className="h-6 justify-center px-4">
+            {errors.Email && (
+              <Text className="text-xs text-red-500">
+                {errors.Email?.message}
+              </Text>
+            )}
+          </View>
+
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                onChangeText={onChange}
+                onBlur={onBlur}
+                value={value}
+                label="Senha:"
+              />
+            )}
+            name="Passwd"
+          />
+          <View className="h-6 justify-center px-4">
+            {errors.Passwd && (
+              <Text className="text-xs text-red-500">
+                {errors.Passwd?.message}
+              </Text>
+            )}
+          </View>
+
+          <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+            Avançar
+          </TextBtn>
+        </View>
+
+        <GreenFooter />
+      </ScrollView>
     </SafeAreaView>
   );
 }
