@@ -83,7 +83,7 @@ export function Cadastro() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Name && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.Name?.message}
               </Text>
             )}
@@ -103,7 +103,7 @@ export function Cadastro() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Email && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.Email?.message}
               </Text>
             )}
@@ -123,7 +123,7 @@ export function Cadastro() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Passwd && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.Passwd?.message}
               </Text>
             )}
@@ -143,7 +143,7 @@ export function Cadastro() {
           />
           <View className="h-6 justify-center px-4">
             {errors.ConfirmPasswd && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.ConfirmPasswd?.message}
               </Text>
             )}

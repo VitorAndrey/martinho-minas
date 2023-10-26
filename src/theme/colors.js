@@ -1,7 +1,15 @@
 module.exports = {
   "theme-green": {
-    100: "#B9FFB2",
-    200: "#10C700",
+    300: "#B9FFB2",
+    500: "#10C700",
+  },
+
+  "theme-pink": {
+    300: "#FF9C9C",
+  },
+
+  "theme-red": {
+    500: "#ff0000",
   },
 
   "theme-bg": {

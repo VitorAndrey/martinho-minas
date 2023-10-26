@@ -1,5 +1,40 @@
 export function fetchProducts(filtersArray: string[]) {
-  return [];
+  return [
+    {
+      id: "1",
+      name: "Batata",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "2",
+      name: "Cenoura",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "3",
+      name: "Pera",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "4",
+      name: "Rúcula",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "5",
+      name: "Arroz",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+  ];
 }
 
 export function fetchCategories() {
@@ -8,26 +43,26 @@ export function fetchCategories() {
       id: "1",
       name: "açougue",
       url: "https://cdn-icons-png.flaticon.com/128/1134/1134447.png",
-      color: "#CB4646",
+      color: "#FF9C9C",
     },
     {
       id: "2",
       name: "basicos",
       url: "https://github.com/marcella.png",
-      color: "#B0FCFF",
+      color: "#FF9C9C",
     },
 
     {
       id: "3",
       name: "bebidas",
       url: "https://github.com/marcella.png",
-      color: "#AC6FBD",
+      color: "#FF9C9C",
     },
     {
       id: "4",
       name: "biscoitos",
       url: "https://github.com/marcella.png",
-      color: "##C8703A",
+      color: "##FF9C9C",
     },
     {
       id: "5",

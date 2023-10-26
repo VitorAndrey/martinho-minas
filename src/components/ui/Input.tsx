@@ -22,7 +22,7 @@ export function Input({
   return (
     <View
       className={twMerge(
-        "bg-theme-green-100 h-12 flex-row items-center rounded-2xl px-4",
+        "bg-theme-green-300 h-12 flex-row items-center rounded-2xl px-4",
         className,
       )}
       {...rest}

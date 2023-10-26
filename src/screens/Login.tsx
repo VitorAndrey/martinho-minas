@@ -81,7 +81,7 @@ export function Login() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Email && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.Email?.message}
               </Text>
             )}
@@ -101,7 +101,7 @@ export function Login() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Passwd && (
-              <Text className="text-xs text-red-500">
+              <Text className="text-theme-red-500 text-xs">
                 {errors.Passwd?.message}
               </Text>
             )}

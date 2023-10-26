@@ -1,9 +1,13 @@
-import { View, Text } from "react-native";
+import {} from "react-native";
+
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Text } from "@ui/Text";
 
 export function Mapa() {
   return (
-    <View>
+    <SafeAreaView className="flex-1 items-center justify-center">
       <Text>Mapa</Text>
-    </View>
+    </SafeAreaView>
   );
 }
