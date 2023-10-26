@@ -40,12 +40,14 @@ export function Cadastro() {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
   const onSubmit = (data: FormData) => {
     console.log(data);
+    reset();
     navegarLogin();
   };
 
