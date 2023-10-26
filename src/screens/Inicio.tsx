@@ -8,6 +8,7 @@ import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
+import { GreenFooter } from "@layout/GreenFooter";
 
 export function Inicio() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();
@@ -37,7 +38,7 @@ export function Inicio() {
         </View>
       </View>
 
-      <View className="bg-theme-green-200 h-8 w-full"></View>
+      <GreenFooter />
     </SafeAreaView>
   );
 }

@@ -9,7 +9,7 @@ export function Header({ className, ...rest }: HeaderProps) {
   return (
     <View
       className={twMerge(
-        "flex-row items-center justify-center gap-1",
+        "h-20 flex-row items-center justify-center gap-1 ",
         className,
       )}
       {...rest}
