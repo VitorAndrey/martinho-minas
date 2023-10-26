@@ -5,9 +5,20 @@ import { twMerge } from "tailwind-merge";
 type InputProps = ViewProps & {
   inputClass?: TextInputProps["className"];
   label: string;
+  onChangeText: TextInputProps["onChangeText"];
+  onBlur: TextInputProps["onBlur"];
+  value: TextInputProps["value"];
 };
 
-export function Input({ className, label, inputClass, ...rest }: InputProps) {
+export function Input({
+  className,
+  onBlur,
+  onChangeText,
+  value,
+  label,
+  inputClass,
+  ...rest
+}: InputProps) {
   return (
     <View
       className={twMerge(
@@ -22,6 +33,9 @@ export function Input({ className, label, inputClass, ...rest }: InputProps) {
           "flex-1 px-2 font-poppins-400 text-base",
           inputClass,
         )}
+        onBlur={onBlur}
+        onChangeText={onChangeText}
+        value={value}
       />
     </View>
   );

@@ -34,7 +34,9 @@ export function Inicio() {
         <View className="flex-row items-center justify-center gap-2 pt-6">
           <Text>Não tem conta?</Text>
 
-          <TextBtn onPress={navegarCadastro}>Cadastar!</TextBtn>
+          <TextBtn className="mt-10" onPress={navegarCadastro}>
+            Cadastar!
+          </TextBtn>
         </View>
       </View>
 
