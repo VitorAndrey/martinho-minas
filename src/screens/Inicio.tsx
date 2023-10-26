@@ -27,7 +27,7 @@ export function Inicio() {
 
       <View className="flex-1 justify-center px-12">
         <Text className="mb-10 text-center text-xl font-semibold">
-          Faça seu Login!
+          Seja bem vindo!
         </Text>
 
         <View className="gap-6">
