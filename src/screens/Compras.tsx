@@ -7,6 +7,7 @@ import { Category, Product } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 import { fetchCategories, fetchProducts } from "@services/get";
 
+import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { SearchBar } from "@ui/SearchBar";
@@ -75,11 +76,12 @@ export function Compras() {
             keyExtractor={(item) => item.id}
             contentContainerStyle={{
               gap: 25,
-              paddingBottom: 25,
             }}
           />
         </View>
       </View>
+
+      <Btn className="my-4 mx-8">Ver carrinho</Btn>
     </SafeAreaView>
   );
 }

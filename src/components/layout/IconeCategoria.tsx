@@ -11,7 +11,7 @@ export function IconeCategoria({ data, onPress }: IconeCategoriaProps) {
   return (
     <TouchableOpacity
       onPress={() => onPress(data)}
-      className={`flex h-[122] w-[123] items-center justify-center rounded-3xl bg-[${data.color}]`}
+      className={`flex h-12 w-[123] items-center justify-center rounded-3xl bg-[${data.color}]`}
     >
       <Text>{data.name}</Text>
       {/* <Image

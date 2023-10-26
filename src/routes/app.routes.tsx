@@ -6,7 +6,7 @@ import {
 import { Compras } from "@screens/Compras";
 import { Mapa } from "@screens/Mapa";
 import { Perfil } from "@screens/Perfil";
-import { Map, ShoppingCart, User2 } from "lucide-react-native";
+import { Map, Store, User2 } from "lucide-react-native";
 
 type AppRoutes = {
   Compras: undefined;
@@ -38,7 +38,7 @@ export function AppRoutes() {
       <Screen
         name="Compras"
         component={Compras}
-        options={{ tabBarIcon: ({ color }) => <ShoppingCart color={color} /> }}
+        options={{ tabBarIcon: ({ color }) => <Store color={color} /> }}
       />
       <Screen
         name="Mapa"

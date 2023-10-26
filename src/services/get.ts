@@ -132,7 +132,7 @@ export function fetchCategories() {
     },
     {
       id: "16",
-      name: "Limpeza colorporal",
+      name: "Limpeza corporal",
       url: "https://github.com/marcella.png",
       color: "#EDE6E0",
     },

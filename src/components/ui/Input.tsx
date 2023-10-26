@@ -22,7 +22,7 @@ export function Input({
   return (
     <View
       className={twMerge(
-        "bg-theme-green-300 h-12 flex-row items-center rounded-2xl px-4",
+        "h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4",
         className,
       )}
       {...rest}
@@ -30,7 +30,7 @@ export function Input({
       <Text className="">{label}</Text>
       <TextInput
         className={twMerge(
-          "flex-1 px-2 font-poppins-400 text-base",
+          "h-12 flex-1 px-2 font-poppins-400 text-base",
           inputClass,
         )}
         onBlur={onBlur}
