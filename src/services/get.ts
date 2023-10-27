@@ -34,6 +34,27 @@ export function fetchProducts(filtersArray: string[]) {
       basePrice: 1,
       discountPercentage: 1,
     },
+
+    {
+      id: "6",
+      name: "Batata",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "7",
+      name: "Cenoura",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
+
+    {
+      id: "8",
+      name: "Pera",
+      basePrice: 1,
+      discountPercentage: 1,
+    },
   ];
 }
 

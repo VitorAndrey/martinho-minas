@@ -8,7 +8,6 @@ import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
-import { GreenFooter } from "@layout/GreenFooter";
 
 export function Inicio() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();
@@ -42,8 +41,6 @@ export function Inicio() {
           <TextBtn onPress={navegarCadastro}>Cadastar!</TextBtn>
         </View>
       </View>
-
-      <GreenFooter />
     </SafeAreaView>
   );
 }

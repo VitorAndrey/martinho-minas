@@ -8,7 +8,6 @@ import { Text } from "@ui/Text";
 import { Input } from "@ui/Input";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
-import { GreenFooter } from "@layout/GreenFooter";
 
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -81,7 +80,7 @@ export function Login() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Email && (
-              <Text className="text-theme-red-500 text-xs">
+              <Text className="text-xs text-theme-red-500">
                 {errors.Email?.message}
               </Text>
             )}
@@ -101,7 +100,7 @@ export function Login() {
           />
           <View className="h-6 justify-center px-4">
             {errors.Passwd && (
-              <Text className="text-theme-red-500 text-xs">
+              <Text className="text-xs text-theme-red-500">
                 {errors.Passwd?.message}
               </Text>
             )}
@@ -111,8 +110,6 @@ export function Login() {
             Avançar
           </TextBtn>
         </View>
-
-        <GreenFooter />
       </ScrollView>
     </SafeAreaView>
   );

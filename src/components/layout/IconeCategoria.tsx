@@ -1,6 +1,6 @@
 import { Category } from "@models/index";
 import { Text } from "@ui/Text";
-import { TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 export type IconeCategoriaProps = {
   data: Category;
@@ -11,13 +11,9 @@ export function IconeCategoria({ data, onPress }: IconeCategoriaProps) {
   return (
     <TouchableOpacity
       onPress={() => onPress(data)}
-      className={`flex h-12 w-[123] items-center justify-center rounded-3xl bg-[${data.color}]`}
+      className={`flex h-10 items-center justify-center rounded-xl border px-3 bg-[${data.color}]`}
     >
       <Text>{data.name}</Text>
-      {/* <Image
-        className="h-10 w-10"
-        source={{ uri: "https://github.com/Ana.png" }}
-      /> */}
     </TouchableOpacity>
   );
 }

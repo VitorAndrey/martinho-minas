@@ -3,14 +3,26 @@ import {
   BottomTabNavigationProp,
 } from "@react-navigation/bottom-tabs";
 
-import { Compras } from "@screens/Compras";
 import { Mapa } from "@screens/Mapa";
+import { Sales } from "@screens/Sales";
 import { Perfil } from "@screens/Perfil";
-import { Map, Store, User2 } from "lucide-react-native";
+import { Compras } from "@screens/Compras";
+
+import {
+  BadgePercent,
+  Map,
+  ShoppingCart,
+  Store,
+  User2,
+} from "lucide-react-native";
+import { Cart } from "@screens/Cart";
+import { CartIcon } from "@ui/CartIcon";
 
 type AppRoutes = {
   Compras: undefined;
+  Sales: undefined;
   Mapa: undefined;
+  Cart: undefined;
   Perfil: undefined;
 };
 
@@ -21,7 +33,7 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 export function AppRoutes() {
   return (
     <Navigator
-      initialRouteName="Compras"
+      initialRouteName="Sales"
       sceneContainerStyle={{ backgroundColor: "transparent" }}
       backBehavior="history"
       screenOptions={{
@@ -36,6 +48,11 @@ export function AppRoutes() {
       }}
     >
       <Screen
+        name="Sales"
+        component={Sales}
+        options={{ tabBarIcon: ({ color }) => <BadgePercent color={color} /> }}
+      />
+      <Screen
         name="Compras"
         component={Compras}
         options={{ tabBarIcon: ({ color }) => <Store color={color} /> }}
@@ -45,6 +62,13 @@ export function AppRoutes() {
         component={Mapa}
         options={{ tabBarIcon: ({ color }) => <Map color={color} /> }}
       />
+
+      <Screen
+        name="Cart"
+        component={Cart}
+        options={{ tabBarIcon: ({ color }) => <CartIcon color={color} /> }}
+      />
+
       <Screen
         name="Perfil"
         component={Perfil}

@@ -62,7 +62,7 @@ export function Compras() {
               <IconeCategoria data={item} onPress={handleToggleQueryParams} />
             )}
             keyExtractor={(item) => item.id}
-            contentContainerStyle={{ gap: 25, paddingHorizontal: 30 }}
+            contentContainerStyle={{ gap: 10, paddingHorizontal: 30 }}
           />
         </View>
 
@@ -75,7 +75,7 @@ export function Compras() {
             renderItem={({ item }) => <ProductItemList product={item} />}
             keyExtractor={(item) => item.id}
             contentContainerStyle={{
-              gap: 25,
+              gap: 10,
             }}
           />
         </View>
