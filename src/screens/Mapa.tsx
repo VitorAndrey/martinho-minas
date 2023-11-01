@@ -51,6 +51,10 @@ export function Mapa() {
         <Col style={styles.caixa}>
           <View></View>
         </Col>
+
+        <Col>
+          <View></View>
+        </Col>
       </Grid>
     </SafeAreaView>
   );
