@@ -1,9 +1,9 @@
-import { View, Text } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 
 export function Loading() {
   return (
-    <View>
-      <Text>Loading</Text>
+    <View className="w-full flex-1 items-center justify-center">
+      <ActivityIndicator />
     </View>
   );
 }

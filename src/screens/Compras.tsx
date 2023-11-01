@@ -15,6 +15,7 @@ import { ProductItemList } from "@layout/ProductItemList";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchCategories, fetchProducts } from "@services/get";
+import { Loading } from "@layout/Loading";
 
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
@@ -81,15 +82,20 @@ export function Compras() {
         <View className="flex-1 gap-4 px-8">
           <Text>Adicione Produtos</Text>
 
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            data={products}
-            renderItem={({ item }) => <ProductItemList product={item} />}
-            keyExtractor={(item) => item.id}
-            contentContainerStyle={{
-              gap: 10,
-            }}
-          />
+          {!isLoadingProducts ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              data={products}
+              renderItem={({ item }) => <ProductItemList product={item} />}
+              keyExtractor={(item) => item.id}
+              contentContainerStyle={{
+                flexGrow: 1,
+                gap: 10,
+              }}
+            />
+          ) : (
+            <Loading />
+          )}
         </View>
       </View>
 
