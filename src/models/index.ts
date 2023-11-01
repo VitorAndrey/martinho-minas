@@ -8,6 +8,4 @@ export type Product = {
 export type Category = {
   id: string;
   name: string;
-  url: string;
-  color: string;
 };

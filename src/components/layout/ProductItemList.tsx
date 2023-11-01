@@ -12,7 +12,7 @@ type ProductItemListProps = {
 export function ProductItemList({ product }: ProductItemListProps) {
   return (
     <TouchableOpacity className="flex-row items-center rounded-2xl bg-zinc-200 p-4">
-      <Text className="flex-1">{product.name}</Text>
+      <Text className="flex-1">{product.name_products}</Text>
 
       <Plus color="black" size={20} />
     </TouchableOpacity>

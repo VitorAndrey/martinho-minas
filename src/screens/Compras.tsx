@@ -5,7 +5,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Category, Product } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
-import { fetchCategories, fetchProducts } from "@services/get";
 
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
@@ -14,35 +13,45 @@ import { SearchBar } from "@ui/SearchBar";
 import { IconeCategoria } from "@layout/IconeCategoria";
 import { ProductItemList } from "@layout/ProductItemList";
 
-export function Compras() {
-  const [categories, setCategories] = useState<Category[]>();
-  const [products, setProducts] = useState<Product[]>();
-  const [filters, setFilters] = useState<string[]>([]);
+import { useQuery } from "@tanstack/react-query";
+import { fetchCategories, fetchProducts } from "@services/get";
 
+export function Compras() {
   const { cartList, addProduct, removeProduct } =
     useContext(ShoppingListContext);
 
-  function handleToggleQueryParams() {
-    setFilters([]);
+  const {
+    data: categories,
+    refetch: refetchCategories,
+    isLoading: isLoadingCateories,
+  } = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+
+  const {
+    data: products,
+    refetch: refetchProducts,
+    isLoading: isLoadingProducts,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: fetchProducts,
+  });
+
+  const [filters, setFilters] = useState<string[]>([]);
+
+  function handleUpdateFiltersList(category: Category) {
+    const filteredList = [...filters];
+    const matches = filters.includes(category.id);
+
+    if (matches) {
+      const index = filteredList.indexOf(category.id);
+      if (index !== -1) {
+        filteredList.splice(index, 1);
+      }
+    } else {
+      filteredList.push(category.id);
+    }
+
+    setFilters(filteredList);
   }
-
-  async function handleFecthProducts() {
-    const filteredProducts = await fetchProducts(filters);
-    setProducts(filteredProducts);
-  }
-
-  async function handleFecthCategories() {
-    const categoriesList = await fetchCategories();
-    setCategories(categoriesList);
-  }
-
-  useEffect(() => {
-    handleFecthProducts();
-  }, [filters]);
-
-  useEffect(() => {
-    handleFecthCategories();
-  }, []);
 
   return (
     <SafeAreaView className="flex-1">
@@ -59,7 +68,11 @@ export function Compras() {
             showsHorizontalScrollIndicator={false}
             data={categories}
             renderItem={({ item }) => (
-              <IconeCategoria data={item} onPress={handleToggleQueryParams} />
+              <IconeCategoria
+                data={item}
+                onPress={(item) => handleUpdateFiltersList(item)}
+                active={filters.includes(item.id)}
+              />
             )}
             keyExtractor={(item) => item.id}
             contentContainerStyle={{ gap: 10, paddingHorizontal: 30 }}
