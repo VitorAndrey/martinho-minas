@@ -1,10 +1,10 @@
 import { Text } from "@ui/Text";
-import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export function Sales() {
   return (
-    <View>
+    <SafeAreaView>
       <Text>Sales</Text>
-    </View>
+    </SafeAreaView>
   );
 }

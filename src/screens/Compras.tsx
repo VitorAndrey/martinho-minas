@@ -13,26 +13,21 @@ import { SearchBar } from "@ui/SearchBar";
 import { IconeCategoria } from "@layout/IconeCategoria";
 import { ProductItemList } from "@layout/ProductItemList";
 
+import { Loading } from "@layout/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCategories, fetchProducts } from "@services/get";
-import { Loading } from "@layout/Loading";
 
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
   const { cartList, addProduct, removeProduct } =
     useContext(ShoppingListContext);
 
-  const {
-    data: categories,
-    refetch: refetchCategories,
-    isLoading: isLoadingCateories,
-  } = useQuery({ queryKey: ["categories"], queryFn: fetchCategories });
+  const { data: categories, isLoading: isLoadingCateories } = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchCategories,
+  });
 
-  const {
-    data: products,
-    refetch: refetchProducts,
-    isLoading: isLoadingProducts,
-  } = useQuery({
+  const { data: products, isLoading: isLoadingProducts } = useQuery({
     queryKey: ["products", filtersList],
     queryFn: () => fetchProducts(filtersList),
   });
