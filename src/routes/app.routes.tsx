@@ -4,7 +4,7 @@ import {
 } from "@react-navigation/bottom-tabs";
 
 import { Mapa } from "@screens/Mapa";
-import { Sales } from "@screens/Sales";
+import { Promocoes } from "@screens/Promocoes";
 import { Perfil } from "@screens/Perfil";
 import { Compras } from "@screens/Compras";
 
@@ -20,7 +20,7 @@ import { CartIcon } from "@ui/CartIcon";
 
 type AppRoutes = {
   Compras: undefined;
-  Sales: undefined;
+  Promocoes: undefined;
   Mapa: undefined;
   Cart: undefined;
   Perfil: undefined;
@@ -33,7 +33,7 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 export function AppRoutes() {
   return (
     <Navigator
-      initialRouteName="Sales"
+      initialRouteName="Promocoes"
       sceneContainerStyle={{ backgroundColor: "transparent" }}
       backBehavior="history"
       screenOptions={{
@@ -48,8 +48,8 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="Sales"
-        component={Sales}
+        name="Promocoes"
+        component={Promocoes}
         options={{ tabBarIcon: ({ color }) => <BadgePercent color={color} /> }}
       />
       <Screen
