@@ -1,4 +1,4 @@
-import { ScrollView, View } from "react-native";
+import { ActivityIndicator, ScrollView, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,9 +9,12 @@ import { Input } from "@ui/Input";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+
+import { registerUser } from "@services/auth";
+import { useState } from "react";
 
 const schema = yup
   .object({
@@ -34,6 +37,7 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 export function Cadastro() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation<AuthNavigationRoutesProps>();
 
   const {
@@ -44,10 +48,18 @@ export function Cadastro() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    reset();
-    navegarLogin();
+  const onSubmit = async (data: FormData) => {
+    setIsLoading(true);
+
+    try {
+      await registerUser(data.Name, data.Email, data.Passwd);
+      reset();
+      navegarLogin();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   function navegarLogin() {
@@ -148,9 +160,13 @@ export function Cadastro() {
             )}
           </View>
 
-          <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
-            Avançar
-          </TextBtn>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+              Avançar
+            </TextBtn>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
