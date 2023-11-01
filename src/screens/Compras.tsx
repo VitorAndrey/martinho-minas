@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 
 import { View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Category, Product } from "@models/index";
+import { Category } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { Btn } from "@ui/Btn";
@@ -17,6 +17,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchCategories, fetchProducts } from "@services/get";
 
 export function Compras() {
+  const [filtersList, setFiltersList] = useState<string[]>([]);
   const { cartList, addProduct, removeProduct } =
     useContext(ShoppingListContext);
 
@@ -31,15 +32,13 @@ export function Compras() {
     refetch: refetchProducts,
     isLoading: isLoadingProducts,
   } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
+    queryKey: ["products", filtersList],
+    queryFn: () => fetchProducts(filtersList),
   });
 
-  const [filters, setFilters] = useState<string[]>([]);
-
   function handleUpdateFiltersList(category: Category) {
-    const filteredList = [...filters];
-    const matches = filters.includes(category.id);
+    const filteredList = [...filtersList];
+    const matches = filtersList.includes(category.id);
 
     if (matches) {
       const index = filteredList.indexOf(category.id);
@@ -50,7 +49,7 @@ export function Compras() {
       filteredList.push(category.id);
     }
 
-    setFilters(filteredList);
+    setFiltersList(filteredList);
   }
 
   return (
@@ -71,7 +70,7 @@ export function Compras() {
               <IconeCategoria
                 data={item}
                 onPress={(item) => handleUpdateFiltersList(item)}
-                active={filters.includes(item.id)}
+                active={filtersList.includes(item.id)}
               />
             )}
             keyExtractor={(item) => item.id}
