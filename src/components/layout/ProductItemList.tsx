@@ -1,19 +1,28 @@
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 import { Plus } from "lucide-react-native";
 
 import { Text } from "@ui/Text";
 import { Product } from "@models/index";
+import { twMerge } from "tailwind-merge";
 
-type ProductItemListProps = {
+type ProductItemListProps = TouchableOpacityProps & {
   product: Product;
 };
 
-export function ProductItemList({ product }: ProductItemListProps) {
+export function ProductItemList({
+  className,
+  product,
+  ...rest
+}: ProductItemListProps) {
   return (
     <TouchableOpacity
-      className="flex-row items-center rounded-2xl bg-zinc-200 px-4"
+      className={twMerge(
+        "flex-row items-center rounded-2xl bg-zinc-200 px-4",
+        className,
+      )}
       style={{ height: 50 }}
+      {...rest}
     >
       <Text className="flex-1">{product.name_products}</Text>
 

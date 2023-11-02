@@ -1,16 +1,24 @@
-import { Image, View } from "react-native";
+import { Image, View, ViewProps } from "react-native";
 
 import { Product } from "@models/index";
 
 import { Text } from "@ui/Text";
+import { twMerge } from "tailwind-merge";
 
-type PromotionItemListProps = {
+type PromotionItemListProps = ViewProps & {
   product: Product;
 };
 
-export function PromotionItemList({ product }: PromotionItemListProps) {
+export function PromotionItemList({
+  className,
+  product,
+  ...rest
+}: PromotionItemListProps) {
   return (
-    <View className="flex-1 rounded-3xl bg-theme-green-300">
+    <View
+      className={twMerge("flex-1 rounded-3xl bg-theme-green-300", className)}
+      {...rest}
+    >
       <Image source={{ uri: product.imageUrl }} />
 
       <View className="items-center">

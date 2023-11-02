@@ -1,4 +1,4 @@
-import { FlatList, View, Image } from "react-native";
+import { FlatList, View } from "react-native";
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchPromotions } from "@services/get";
@@ -10,6 +10,7 @@ import { Header } from "@layout/Header";
 import { Product } from "@models/index";
 import { useCallback } from "react";
 import { PromotionItemList } from "@layout/PromotionItemList";
+import { Loading } from "@layout/Loading";
 
 export function Promocoes() {
   const { data: promotions, isLoading: isLoadingPromotions } = useQuery({
@@ -25,32 +26,36 @@ export function Promocoes() {
   );
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <Header />
 
-      <View>
-        <Text className="p-10 px-8 text-3xl font-semibold">Promoções</Text>
+      <View className="px-6 py-4">
+        <Text className="text-2xl font-semibold">Promoções</Text>
       </View>
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={promotions}
-        numColumns={2}
-        renderItem={renderPromotion}
-        keyExtractor={(item) => item.id}
-        columnWrapperStyle={{
-          flex: 1,
-          justifyContent: "space-around",
-          gap: 50,
-        }}
-        contentContainerStyle={{
-          flexGrow: 1,
-          gap: 30,
-          paddingHorizontal: 30,
-          paddingVertical: 5,
-          paddingBottom: 190,
-        }}
-      />
+      {!isLoadingPromotions ? (
+        <FlatList
+          className="mb-4"
+          data={promotions}
+          renderItem={renderPromotion}
+          keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
+          numColumns={2}
+          columnWrapperStyle={{
+            flexGrow: 1,
+            justifyContent: "space-around",
+            columnGap: 20,
+          }}
+          contentContainerStyle={{
+            flexGrow: 1,
+            gap: 30,
+            paddingHorizontal: 20,
+            paddingBottom: 30,
+          }}
+        />
+      ) : (
+        <Loading />
+      )}
     </SafeAreaView>
   );
 }
