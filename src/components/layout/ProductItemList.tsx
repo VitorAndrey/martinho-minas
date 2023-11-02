@@ -11,7 +11,10 @@ type ProductItemListProps = {
 
 export function ProductItemList({ product }: ProductItemListProps) {
   return (
-    <TouchableOpacity className="flex-row items-center rounded-2xl bg-zinc-200 p-4">
+    <TouchableOpacity
+      className="flex-row items-center rounded-2xl bg-zinc-200 px-4"
+      style={{ height: 50 }}
+    >
       <Text className="flex-1">{product.name_products}</Text>
 
       <Plus color="black" size={20} />

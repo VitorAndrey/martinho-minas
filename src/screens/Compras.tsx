@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 
 import { View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Category } from "@models/index";
+import { Category, Product } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { Btn } from "@ui/Btn";
@@ -48,6 +48,22 @@ export function Compras() {
     setFiltersList(filteredList);
   }
 
+  const renderProduct = useCallback(
+    ({ item }: { item: Product }) => (
+      <ProductItemList product={item} key={item.id} />
+    ),
+    [],
+  );
+
+  const getItemLayout = useCallback(
+    (data: ArrayLike<Product> | null | undefined, index: number) => ({
+      length: 50,
+      offset: 50 * index,
+      index,
+    }),
+    [],
+  );
+
   return (
     <SafeAreaView className="flex-1">
       <Header />
@@ -61,6 +77,8 @@ export function Compras() {
           <FlatList
             horizontal
             showsHorizontalScrollIndicator={false}
+            initialNumToRender={5}
+            updateCellsBatchingPeriod={1000}
             data={categories}
             renderItem={({ item }) => (
               <IconeCategoria
@@ -80,8 +98,10 @@ export function Compras() {
           {!isLoadingProducts ? (
             <FlatList
               showsVerticalScrollIndicator={false}
+              getItemLayout={getItemLayout}
+              initialNumToRender={7}
               data={products}
-              renderItem={({ item }) => <ProductItemList product={item} />}
+              renderItem={renderProduct}
               keyExtractor={(item) => item.id}
               contentContainerStyle={{
                 flexGrow: 1,
