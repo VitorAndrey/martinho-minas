@@ -43,11 +43,11 @@ export function Login() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
     try {
-      login(data.Email, data.Passwd);
+      await login(data.Email, data.Passwd);
       reset();
       handleUserLogged();
     } catch (error) {
