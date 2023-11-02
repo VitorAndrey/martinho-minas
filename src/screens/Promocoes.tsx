@@ -1,71 +1,19 @@
-import { Text } from "@ui/Text";
+import { FlatList, View, Image } from "react-native";
+
+import { useQuery } from "@tanstack/react-query";
+import { fetchPromotions } from "@services/get";
+
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
-import { FlatList, View, Image, ScrollView } from "react-native";
 
 export function Promocoes() {
-  const produtos = [
-    {
-      id: "1",
-      name: "Batata",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-    {
-      id: "2",
-      name: "Maca",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-    {
-      id: "3",
-      name: "Pera",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-    {
-      id: "4",
-      name: "Morango",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
+  const { data: promotions, isLoading: isLoadingPromotions } = useQuery({
+    queryKey: ["categories"],
+    queryFn: fetchPromotions,
+  });
 
-    {
-      id: "5",
-      name: "Marshmallow",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-
-    {
-      id: "6",
-      name: "Jujuba",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-
-    {
-      id: "7",
-      name: "Caju",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-
-    {
-      id: "8",
-      name: "Beterraba",
-      imageUrl: "https://github.com/ana",
-      price: 99.99,
-      discountPercentage: 5,
-    },
-  ];
   return (
     <SafeAreaView>
       <Header />
@@ -74,7 +22,7 @@ export function Promocoes() {
       </View>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={produtos}
+        data={promotions}
         numColumns={2}
         renderItem={({ item }) => (
           <View className="flex-1 columns-1">
@@ -83,7 +31,7 @@ export function Promocoes() {
             </View>
             <View className="items-center">
               <Text className="p-2">{item.name}</Text>
-              <Text>{item.price}</Text>
+              <Text>{item.basePrice}</Text>
             </View>
           </View>
         )}
