@@ -35,7 +35,6 @@ export function Promocoes() {
 
       {!isLoadingPromotions ? (
         <FlatList
-          className="mb-4"
           data={promotions}
           renderItem={renderPromotion}
           keyExtractor={(item) => item.id}
@@ -48,9 +47,9 @@ export function Promocoes() {
           }}
           contentContainerStyle={{
             flexGrow: 1,
-            gap: 30,
+            gap: 20,
             paddingHorizontal: 20,
-            paddingBottom: 30,
+            paddingVertical: 20,
           }}
         />
       ) : (

@@ -17,3 +17,16 @@ export async function registerUser(
     throw new Error("Error while creating a new user!");
   }
 }
+
+export async function login(email: string, password: String) {
+  const url = "https://supermercadoapi.vercel.app/login";
+
+  try {
+    await axios.post(url, {
+      email,
+      password,
+    });
+  } catch (error) {
+    throw new Error("Error while logging in!");
+  }
+}

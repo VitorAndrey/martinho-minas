@@ -1,4 +1,4 @@
-import { ActivityIndicator, ScrollView, View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,12 +9,13 @@ import { Input } from "@ui/Input";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
 
-import { useForm, Controller, set } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { registerUser } from "@services/auth";
 import { useState } from "react";
+import { Loading } from "@layout/Loading";
 
 const schema = yup
   .object({
@@ -48,6 +49,7 @@ export function Cadastro() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
@@ -161,7 +163,7 @@ export function Cadastro() {
           </View>
 
           {isLoading ? (
-            <ActivityIndicator />
+            <Loading className="mt-7 flex-[0]" />
           ) : (
             <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
               Avançar

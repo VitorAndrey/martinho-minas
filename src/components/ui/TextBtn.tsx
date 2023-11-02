@@ -8,7 +8,7 @@ type TextBtnProps = TouchableOpacityProps & {
 export function TextBtn({ children, ...rest }: TextBtnProps) {
   return (
     <TouchableOpacity {...rest} activeOpacity={0.6}>
-      <Text className="text-theme-green-500 text-center font-semibold">
+      <Text className="text-center font-semibold text-theme-green-500">
         {children}
       </Text>
     </TouchableOpacity>

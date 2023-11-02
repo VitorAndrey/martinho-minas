@@ -16,7 +16,10 @@ export function PromotionItemList({
 }: PromotionItemListProps) {
   return (
     <View
-      className={twMerge("flex-1 rounded-3xl bg-theme-green-300", className)}
+      className={twMerge(
+        "h-60 flex-1 rounded-3xl bg-theme-green-300",
+        className,
+      )}
       {...rest}
     >
       <Image source={{ uri: product.imageUrl }} />

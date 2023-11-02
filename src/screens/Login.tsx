@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import { UserContext } from "@contexts/UserContext";
@@ -12,6 +12,8 @@ import { Header } from "@layout/Header";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { login } from "@services/auth";
+import { Loading } from "@layout/Loading";
 
 const schema = yup
   .object({
@@ -29,6 +31,7 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 export function Login() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { handleUserLogged } = useContext(UserContext);
 
   const {
@@ -39,17 +42,20 @@ export function Login() {
   } = useForm<FormData>({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data: FormData) => {
-    console.log(data);
-    reset();
-    handleUserLogin();
+    setIsLoading(true);
+
+    try {
+      login(data.Email, data.Passwd);
+      reset();
+      handleUserLogged();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
-
-  function handleUserLogin() {
-    // await login
-
-    handleUserLogged();
-  }
 
   return (
     <SafeAreaView className="flex-1">
@@ -106,9 +112,13 @@ export function Login() {
             )}
           </View>
 
-          <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
-            Avançar
-          </TextBtn>
+          {isLoading ? (
+            <Loading className="mt-7 flex-[0]" />
+          ) : (
+            <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+              Avançar
+            </TextBtn>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
