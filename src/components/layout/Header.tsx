@@ -16,7 +16,7 @@ export function Header({ className, ...rest }: HeaderProps) {
     >
       <Logo />
 
-      <Text className="text-2xl font-bold">Martinho de Minas</Text>
+      <Text className="font-poppins-600 text-2xl">Martinho de Minas</Text>
     </View>
   );
 }

@@ -8,7 +8,8 @@ module.exports = {
     extend: {
       fontFamily: {
         "poppins-400": "Poppins_400Regular",
-        "itim-400": "Itim_400Regular",
+        "poppins-600": "Poppins_600SemiBold",
+        "poppins-700": "Poppins_700Bold",
       },
       colors: colors,
     },
