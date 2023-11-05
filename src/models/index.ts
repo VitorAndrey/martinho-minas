@@ -10,3 +10,11 @@ export type Category = {
   id: string;
   name: string;
 };
+
+export type RegisterUser = {
+  name: string;
+  email: string;
+  password: string;
+};
+
+export type UserLogin = Omit<RegisterUser, "name">;

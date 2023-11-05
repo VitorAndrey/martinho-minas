@@ -1,16 +1,16 @@
+import { useCallback } from "react";
 import { FlatList, View } from "react-native";
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchPromotions } from "@services/get";
+import { fetchPromotions } from "@services/fetchData";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { Product } from "@models/index";
-import { useCallback } from "react";
-import { PromotionItemList } from "@layout/PromotionItemList";
 import { Loading } from "@layout/Loading";
+import { PromotionItemList } from "@layout/PromotionItemList";
 
 export function Promocoes() {
   const { data: promotions, isLoading: isLoadingPromotions } = useQuery({

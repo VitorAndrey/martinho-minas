@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { ScrollView, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -8,33 +9,32 @@ import { Text } from "@ui/Text";
 import { Input } from "@ui/Input";
 import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
-
-import { useForm, Controller } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-
-import { registerUser } from "@services/auth";
-import { useState } from "react";
 import { Loading } from "@layout/Loading";
+
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm, Controller } from "react-hook-form";
+
+import { RegisterUser } from "@models/index";
+import { registerUser } from "@services/authentication";
 
 const schema = yup
   .object({
-    Name: yup.string().required("Preencha o Nome."),
-    Email: yup
+    name: yup.string().required("Preencha o Nome."),
+    email: yup
       .string()
       .required("Preencha o Email.")
       .email("Insira um Email válido."),
-    Passwd: yup
+    password: yup
       .string()
       .required("Defina uma Senha.")
       .min(8, "A senha deve ter no mínimo 8 caracteres."),
-    ConfirmPasswd: yup
+    confirmPassword: yup
       .string()
       .required("Confirme sua Senha.")
       .oneOf([yup.ref("Passwd")], "As duas senhas devem combinar."),
   })
   .required();
-
 type FormData = yup.InferType<typeof schema>;
 
 export function Cadastro() {
@@ -53,8 +53,15 @@ export function Cadastro() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
+    const { name, email, password } = data;
+
     try {
-      await registerUser(data.Name, data.Email, data.Passwd);
+      await registerUser({
+        name,
+        email,
+        password,
+      } satisfies RegisterUser);
+
       reset();
       navegarLogin();
     } catch (error) {
@@ -92,12 +99,12 @@ export function Cadastro() {
                 label="Nome:"
               />
             )}
-            name="Name"
+            name="name"
           />
           <View className="h-6 justify-center px-4">
-            {errors.Name && (
+            {errors.name && (
               <Text className="text-xs text-theme-red-500">
-                {errors.Name?.message}
+                {errors.name?.message}
               </Text>
             )}
           </View>
@@ -112,12 +119,12 @@ export function Cadastro() {
                 label="Email:"
               />
             )}
-            name="Email"
+            name="email"
           />
           <View className="h-6 justify-center px-4">
-            {errors.Email && (
+            {errors.email && (
               <Text className="text-xs text-theme-red-500">
-                {errors.Email?.message}
+                {errors.email?.message}
               </Text>
             )}
           </View>
@@ -132,12 +139,12 @@ export function Cadastro() {
                 label="Senha:"
               />
             )}
-            name="Passwd"
+            name="password"
           />
           <View className="h-6 justify-center px-4">
-            {errors.Passwd && (
+            {errors.password && (
               <Text className="text-xs text-theme-red-500">
-                {errors.Passwd?.message}
+                {errors.password?.message}
               </Text>
             )}
           </View>
@@ -152,12 +159,12 @@ export function Cadastro() {
                 label="Comfirmar senha:"
               />
             )}
-            name="ConfirmPasswd"
+            name="confirmPassword"
           />
           <View className="h-6 justify-center px-4">
-            {errors.ConfirmPasswd && (
+            {errors.confirmPassword && (
               <Text className="text-xs text-theme-red-500">
-                {errors.ConfirmPasswd?.message}
+                {errors.confirmPassword?.message}
               </Text>
             )}
           </View>

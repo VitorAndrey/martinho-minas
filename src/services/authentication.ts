@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export async function registerUser(
-  name: string,
-  email: string,
-  password: string,
-) {
+import { RegisterUser, UserLogin } from "@models/index";
+
+export async function registerUser(data: RegisterUser) {
   const url = "https://supermercadoapi.vercel.app/register";
+
+  const { name, email, password } = data;
 
   try {
     await axios.post(url, {
@@ -18,8 +18,10 @@ export async function registerUser(
   }
 }
 
-export async function login(email: string, password: String) {
+export async function loginUser(data: UserLogin) {
   const url = "https://supermercadoapi.vercel.app/login";
+
+  const { email, password } = data;
 
   try {
     await axios.post(url, {
