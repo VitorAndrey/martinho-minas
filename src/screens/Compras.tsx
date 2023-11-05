@@ -15,7 +15,7 @@ import { ProductItemList } from "@layout/ProductItemList";
 
 import { Loading } from "@layout/Loading";
 import { useQuery } from "@tanstack/react-query";
-import { fetchCategories, fetchProducts } from "@services/get";
+import { fetchCategories, fetchProducts } from "@services/fetchData";
 
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
@@ -83,7 +83,7 @@ export function Compras() {
             renderItem={({ item }) => (
               <IconeCategoria
                 data={item}
-                onPress={(item) => handleUpdateFiltersList(item)}
+                onPress={() => handleUpdateFiltersList(item)}
                 active={filtersList.includes(item.id)}
               />
             )}

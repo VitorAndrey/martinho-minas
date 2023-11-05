@@ -12,16 +12,17 @@ import { Header } from "@layout/Header";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "@services/auth";
+import { loginUser } from "@services/authentication";
 import { Loading } from "@layout/Loading";
+import { UserLogin } from "@models/index";
 
 const schema = yup
   .object({
-    Email: yup
+    email: yup
       .string()
       .required("Preencha o Email.")
       .email("Insira um Email válido."),
-    Passwd: yup
+    password: yup
       .string()
       .required("Insira sua Senha.")
       .min(8, "A senha deve ter no mínimo 8 caracteres."),
@@ -46,8 +47,14 @@ export function Login() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
+    const { email, password } = data;
+
     try {
-      await login(data.Email, data.Passwd);
+      // await loginUser({
+      //   email,
+      //   password,
+      // } satisfies UserLogin);
+
       reset();
       handleUserLogged();
     } catch (error) {
@@ -79,15 +86,15 @@ export function Login() {
                 onChangeText={onChange}
                 onBlur={onBlur}
                 value={value}
-                label="Email:"
+                label="E-mail:"
               />
             )}
-            name="Email"
+            name="email"
           />
           <View className="h-6 justify-center px-4">
-            {errors.Email && (
+            {errors.email && (
               <Text className="text-xs text-theme-red-500">
-                {errors.Email?.message}
+                {errors.email?.message}
               </Text>
             )}
           </View>
@@ -102,12 +109,12 @@ export function Login() {
                 label="Senha:"
               />
             )}
-            name="Passwd"
+            name="password"
           />
           <View className="h-6 justify-center px-4">
-            {errors.Passwd && (
+            {errors.password && (
               <Text className="text-xs text-theme-red-500">
-                {errors.Passwd?.message}
+                {errors.password?.message}
               </Text>
             )}
           </View>

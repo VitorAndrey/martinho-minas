@@ -1,6 +1,7 @@
 import { UserContext } from "@contexts/UserContext";
 import { Header } from "@layout/Header";
 import { Text } from "@ui/Text";
+import { Pencil } from "lucide-react-native";
 import { useContext } from "react";
 import { View, Pressable, Image } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -29,10 +30,7 @@ export function Perfil() {
               <Text children={undefined}></Text>
             </View>
             <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Image
-                className="h-5 w-5"
-                source={require("@assets/caneta.png")}
-              />
+              <Pencil />
             </Pressable>
           </View>
         </View>
@@ -44,10 +42,7 @@ export function Perfil() {
               <Text children={undefined}></Text>
             </View>
             <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Image
-                className="h-5 w-5"
-                source={require("@assets/caneta.png")}
-              />
+              <Pencil />
             </Pressable>
           </View>
         </View>
@@ -59,10 +54,7 @@ export function Perfil() {
               <Text children={undefined}></Text>
             </View>
             <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Image
-                className="h-5 w-5"
-                source={require("@assets/caneta.png")}
-              />
+              <Pencil />
             </Pressable>
           </View>
         </View>
@@ -74,10 +66,7 @@ export function Perfil() {
               <Text children={undefined}></Text>
             </View>
             <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Image
-                className="h-5 w-5"
-                source={require("@assets/caneta.png")}
-              />
+              <Pencil />
             </Pressable>
           </View>
         </View>
