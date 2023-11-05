@@ -15,22 +15,17 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff",
-        "googleServicesFile": "./google-services.json"
+        "backgroundColor": "#ffffff"
       },
       "package": "app.supermercado.senac"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      "@react-native-google-signin/google-signin"
-    ]
+    }
   }
 }
