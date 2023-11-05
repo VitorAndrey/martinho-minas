@@ -1,41 +1,33 @@
 import { TextInput, View, ViewProps, TextInputProps } from "react-native";
 import { Text } from "./Text";
-import { twMerge } from "tailwind-merge";
+import { twMerge, ClassNameValue } from "tailwind-merge";
 
-type InputProps = ViewProps & {
-  inputClass?: TextInputProps["className"];
-  label: string;
-  onChangeText: TextInputProps["onChangeText"];
-  onBlur: TextInputProps["onBlur"];
-  value: TextInputProps["value"];
+type InputProps = {
+  containerProps?: ViewProps & {
+    containerClass?: ClassNameValue;
+  };
+  inputProps?: TextInputProps & {
+    inputClass?: ClassNameValue;
+  };
+  label?: string;
 };
 
-export function Input({
-  className,
-  onBlur,
-  onChangeText,
-  value,
-  label,
-  inputClass,
-  ...rest
-}: InputProps) {
+export function Input({ containerProps, inputProps, label }: InputProps) {
   return (
     <View
       className={twMerge(
         "h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4",
-        className,
+        containerProps?.containerClass,
       )}
-      {...rest}
+      {...containerProps}
     >
-      <Text className="">{label}</Text>
+      {label && <Text className="">{label}</Text>}
       <TextInput
         className={twMerge(
           "h-12 flex-1 px-2 font-poppins-400 text-base",
-          inputClass,
+          inputProps?.inputClass,
         )}
-        onBlur={onBlur}
-        onChangeText={onChangeText}
-        value={value}
+        {...inputProps}
       />
     </View>
   );
