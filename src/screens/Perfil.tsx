@@ -1,17 +1,17 @@
-import { UserContext } from "@contexts/UserContext";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Header } from "@layout/Header";
-import { Btn } from "@ui/Btn";
-import { IconBtn } from "@ui/IconBtn";
-import { Input } from "@ui/Input";
-import { Text } from "@ui/Text";
-import { TextBtn } from "@ui/TextBtn";
-import { Pencil } from "lucide-react-native";
-import { useContext, useState } from "react";
-import { Controller, useForm } from "react-hook-form";
-import { View, TouchableOpacity } from "react-native";
+import { View, Keyboard } from "react-native";
+import { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+import { UserContext } from "@contexts/UserContext";
+
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+
+import { Btn } from "@ui/Btn";
+import { Text } from "@ui/Text";
+import { Header } from "@layout/Header";
+import { UserInfoInput } from "@ui/UserInfoInput";
 
 const schema = yup
   .object({
@@ -28,8 +28,9 @@ const schema = yup
 type FormData = yup.InferType<typeof schema>;
 
 export function Perfil() {
-  const [isEditing, setIsEditing] = useState<boolean>(true);
   const { handleUserUnlogged } = useContext(UserContext);
+
+  const { userInfo } = useContext(UserContext);
 
   const {
     control,
@@ -48,6 +49,10 @@ export function Perfil() {
     handleUserUnlogged();
   }
 
+  function handleSaveData() {
+    handleSubmit(onSubmit);
+  }
+
   return (
     <SafeAreaView className="flex-1">
       <Header />
@@ -55,37 +60,63 @@ export function Perfil() {
       <View className="flex-1 p-8">
         <Text className="mb-8 text-lg">Perfil</Text>
 
-        <Text className="mb-2">Nome:</Text>
-        <View className="flex-row items-center gap-1">
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Input
-                containerProps={{
-                  containerClass: "flex-1",
-                }}
-                inputProps={{
-                  editable: isEditing,
-                  onChange,
-                  onBlur,
-                  value,
-                }}
-              />
-            )}
-            name="newName"
-          />
-          <IconBtn>
-            <Pencil color="black" />
-          </IconBtn>
-        </View>
-      </View>
+        <Text className="px-2">Nome:</Text>
+        <Controller
+          defaultValue={userInfo.name}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <UserInfoInput
+              onSaveData={handleSaveData}
+              inputProps={{
+                onChangeText: onChange,
+                onBlur: onBlur,
+                value: value,
+              }}
+              containerProps={{
+                containerClass: "mb-6",
+              }}
+            />
+          )}
+          name="newName"
+        />
 
-      <TextBtn disabled={!isEditing} onPress={handleSubmit(onSubmit)}>
-        Salvar
-      </TextBtn>
+        <Text className="px-2">E-mail:</Text>
+        <Controller
+          defaultValue={userInfo.email}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <UserInfoInput
+              onSaveData={handleSaveData}
+              inputProps={{
+                onChangeText: onChange,
+                onBlur: onBlur,
+                value: value,
+              }}
+              containerProps={{
+                containerClass: "mb-6",
+              }}
+            />
+          )}
+          name="newEmail"
+        />
+
+        <Text className="px-2">Senha:</Text>
+        <Controller
+          defaultValue={userInfo.password}
+          control={control}
+          render={({ field: { onChange, onBlur, value } }) => (
+            <UserInfoInput
+              onSaveData={handleSaveData}
+              inputProps={{
+                onChangeText: onChange,
+                onBlur: onBlur,
+                value: value,
+              }}
+            />
+          )}
+          name="newPassword"
+        />
+      </View>
 
       <Btn className="my-4 mx-8" onPress={handleLoggOut}>
         Sair

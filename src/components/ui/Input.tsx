@@ -21,7 +21,7 @@ export function Input({ containerProps, inputProps, label }: InputProps) {
       )}
       {...containerProps}
     >
-      {label && <Text className="">{label}</Text>}
+      {label && <Text>{label}</Text>}
       <TextInput
         className={twMerge(
           "h-12 flex-1 px-2 font-poppins-400 text-base",

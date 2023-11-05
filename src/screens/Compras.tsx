@@ -16,6 +16,8 @@ import { ProductItemList } from "@layout/ProductItemList";
 import { Loading } from "@layout/Loading";
 import { useQuery } from "@tanstack/react-query";
 import { fetchCategories, fetchProducts } from "@services/fetchData";
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigationRoutesProps } from "@routes/app.routes";
 
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
@@ -31,6 +33,8 @@ export function Compras() {
     queryKey: ["products", filtersList],
     queryFn: () => fetchProducts(filtersList),
   });
+
+  const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleUpdateFiltersList(category: Category) {
     const filteredList = [...filtersList];
@@ -48,8 +52,12 @@ export function Compras() {
     setFiltersList(filteredList);
   }
 
+  function handleNavigateToCart() {
+    navigation.navigate("Cart");
+  }
+
   const renderProduct = useCallback(
-    ({ item }: { item: Product }) => (
+    ({ item }: { item: Product; index: number }) => (
       <ProductItemList product={item} key={item.id} />
     ),
     [],
@@ -80,14 +88,14 @@ export function Compras() {
             initialNumToRender={5}
             updateCellsBatchingPeriod={1000}
             data={categories}
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <IconeCategoria
+                key={index}
                 data={item}
                 onPress={() => handleUpdateFiltersList(item)}
                 active={filtersList.includes(item.id)}
               />
             )}
-            keyExtractor={(item) => item.id}
             contentContainerStyle={{ gap: 10, paddingHorizontal: 30 }}
           />
         </View>
@@ -102,7 +110,6 @@ export function Compras() {
               initialNumToRender={7}
               data={products}
               renderItem={renderProduct}
-              keyExtractor={(item) => item.id}
               contentContainerStyle={{
                 flexGrow: 1,
                 gap: 10,
@@ -114,7 +121,9 @@ export function Compras() {
         </View>
       </View>
 
-      <Btn className="my-4 mx-8">Ver carrinho</Btn>
+      <Btn className="my-4 mx-8" onPress={handleNavigateToCart}>
+        Ver carrinho
+      </Btn>
     </SafeAreaView>
   );
 }

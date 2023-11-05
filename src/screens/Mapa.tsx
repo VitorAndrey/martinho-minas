@@ -4,7 +4,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export function Mapa() {
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <Text>Mapa</Text>
     </SafeAreaView>
   );
