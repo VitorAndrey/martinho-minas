@@ -11,10 +11,12 @@ export type Category = {
   name: string;
 };
 
-export type RegisterUser = {
+export type User = {
   name: string;
   email: string;
   password: string;
 };
+
+export type RegisterUser = User;
 
 export type UserLogin = Omit<RegisterUser, "name">;
