@@ -15,6 +15,7 @@ import * as yup from "yup";
 import { loginUser } from "@services/authentication";
 import { Loading } from "@layout/Loading";
 import { UserLogin } from "@models/index";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
 
 const schema = yup
   .object({
@@ -83,41 +84,33 @@ export function Login() {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="E-mail:"
               />
             )}
             name="email"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.email && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.email?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.email?.message} />
 
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="Senha:"
               />
             )}
             name="password"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.password && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.password?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.password?.message} />
 
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />

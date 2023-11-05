@@ -1,13 +1,47 @@
 import { UserContext } from "@contexts/UserContext";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Header } from "@layout/Header";
+import { Btn } from "@ui/Btn";
+import { IconBtn } from "@ui/IconBtn";
+import { Input } from "@ui/Input";
 import { Text } from "@ui/Text";
+import { TextBtn } from "@ui/TextBtn";
 import { Pencil } from "lucide-react-native";
-import { useContext } from "react";
-import { View, Pressable, Image } from "react-native";
+import { useContext, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { View, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import * as yup from "yup";
+
+const schema = yup
+  .object({
+    newName: yup.string(),
+    newEmail: yup.string().email("Insira um Email válido."),
+    newPassword: yup
+      .string()
+      .min(8, "A senha deve ter no mínimo 8 caracteres."),
+    confirmNewPassword: yup
+      .string()
+      .oneOf([yup.ref("Passwd")], "As duas senhas devem combinar."),
+  })
+  .required();
+type FormData = yup.InferType<typeof schema>;
 
 export function Perfil() {
+  const [isEditing, setIsEditing] = useState<boolean>(true);
   const { handleUserUnlogged } = useContext(UserContext);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = async (data: FormData) => {
+    console.log(data);
+  };
 
   function handleLoggOut() {
     // await logout
@@ -15,77 +49,47 @@ export function Perfil() {
   }
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="flex-1">
       <Header />
 
-      <View className="px-3 pt-9 pb-3">
-        <Text className="text-3xl">Perfil do usuário</Text>
-      </View>
+      <View className="flex-1 p-8">
+        <Text className="mb-8 text-lg">Perfil</Text>
 
-      <View className="px-7 pt-3">
-        <View className="gap-2 pb-6">
-          <Text className="text-xl">Nome</Text>
-          <View className="flex flex-row gap-4">
-            <View className="h-[38] w-[240] rounded-2xl bg-[#B9FFB2]">
-              <Text children={undefined}></Text>
-            </View>
-            <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Pencil />
-            </Pressable>
-          </View>
-        </View>
-
-        <View className="gap-2 pb-6">
-          <Text className="text-xl">Email</Text>
-          <View className="flex flex-row gap-4">
-            <View className="h-[38] w-[240] rounded-2xl bg-[#B9FFB2]">
-              <Text children={undefined}></Text>
-            </View>
-            <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Pencil />
-            </Pressable>
-          </View>
-        </View>
-
-        <View className="gap-2 pb-6 ">
-          <Text className="text-xl">Telefone</Text>
-          <View className="flex flex-row gap-4">
-            <View className="h-[38] w-[240] rounded-2xl bg-[#B9FFB2]">
-              <Text children={undefined}></Text>
-            </View>
-            <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Pencil />
-            </Pressable>
-          </View>
-        </View>
-
-        <View className="gap-2">
-          <Text className="text-xl">Senha</Text>
-          <View className="flex flex-row gap-4">
-            <View className="h-[38] w-[240] rounded-2xl bg-[#B9FFB2]">
-              <Text children={undefined}></Text>
-            </View>
-            <Pressable className="h-[38] w-[38] items-center justify-center rounded-full bg-[#f78d8d]">
-              <Pencil />
-            </Pressable>
-          </View>
+        <Text className="mb-2">Nome:</Text>
+        <View className="flex-row items-center gap-1">
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                containerProps={{
+                  containerClass: "flex-1",
+                }}
+                inputProps={{
+                  editable: isEditing,
+                  onChange,
+                  onBlur,
+                  value,
+                }}
+              />
+            )}
+            name="newName"
+          />
+          <IconBtn>
+            <Pencil color="black" />
+          </IconBtn>
         </View>
       </View>
 
-      <View className=" mx-14 p-10">
-        <View className="ml-4 flex-row gap-10">
-          <Pressable className="h-7 w-20 items-center justify-center rounded-3xl bg-[#52A6E2]">
-            <Text>Salvar</Text>
-          </Pressable>
+      <TextBtn disabled={!isEditing} onPress={handleSubmit(onSubmit)}>
+        Salvar
+      </TextBtn>
 
-          <Pressable
-            onPress={handleLoggOut}
-            className="h-7 w-20 items-center justify-center rounded-3xl bg-[#52A6E2]"
-          >
-            <Text>Sair</Text>
-          </Pressable>
-        </View>
-      </View>
+      <Btn className="my-4 mx-8" onPress={handleLoggOut}>
+        Sair
+      </Btn>
     </SafeAreaView>
   );
 }

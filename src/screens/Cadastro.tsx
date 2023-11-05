@@ -17,6 +17,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import { RegisterUser } from "@models/index";
 import { registerUser } from "@services/authentication";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
 
 const schema = yup
   .object({
@@ -32,7 +33,7 @@ const schema = yup
     confirmPassword: yup
       .string()
       .required("Confirme sua Senha.")
-      .oneOf([yup.ref("Passwd")], "As duas senhas devem combinar."),
+      .oneOf([yup.ref("password")], "As duas senhas devem combinar."),
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
@@ -56,11 +57,11 @@ export function Cadastro() {
     const { name, email, password } = data;
 
     try {
-      await registerUser({
-        name,
-        email,
-        password,
-      } satisfies RegisterUser);
+      // await registerUser({
+      //   name,
+      //   email,
+      //   password,
+      // } satisfies RegisterUser);
 
       reset();
       navegarLogin();
@@ -93,81 +94,65 @@ export function Cadastro() {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="Nome:"
               />
             )}
             name="name"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.name && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.name?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.name?.message} />
 
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="Email:"
               />
             )}
             name="email"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.email && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.email?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.email?.message} />
 
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="Senha:"
               />
             )}
             name="password"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.password && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.password?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.password?.message} />
 
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                }}
                 label="Comfirmar senha:"
               />
             )}
             name="confirmPassword"
           />
-          <View className="h-6 justify-center px-4">
-            {errors.confirmPassword && (
-              <Text className="text-xs text-theme-red-500">
-                {errors.confirmPassword?.message}
-              </Text>
-            )}
-          </View>
+          <InputErrorMessage message={errors.confirmPassword?.message} />
 
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
