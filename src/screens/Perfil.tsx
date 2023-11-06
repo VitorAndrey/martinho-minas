@@ -1,5 +1,5 @@
 import { View, Keyboard } from "react-native";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { UserContext } from "@contexts/UserContext";
@@ -12,6 +12,7 @@ import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { UserInfoInput } from "@ui/UserInfoInput";
+import { LogOut } from "lucide-react-native";
 
 const schema = yup
   .object({
@@ -27,7 +28,10 @@ const schema = yup
   .required();
 type FormData = yup.InferType<typeof schema>;
 
+export type ActiveInputType = "name" | "email" | "password" | null;
+
 export function Perfil() {
+  const [activeInput, setActiveInput] = useState<ActiveInputType>(null);
   const { handleUserUnlogged } = useContext(UserContext);
 
   const { userInfo } = useContext(UserContext);
@@ -53,6 +57,12 @@ export function Perfil() {
     handleSubmit(onSubmit);
   }
 
+  function handleChangeActiveInput(value: ActiveInputType) {
+    setActiveInput((prev) => {
+      return prev === value ? null : value;
+    });
+  }
+
   return (
     <SafeAreaView className="flex-1">
       <Header />
@@ -66,6 +76,9 @@ export function Perfil() {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <UserInfoInput
+              name="name"
+              isActive={activeInput === "name"}
+              onChangeActiveInput={handleChangeActiveInput}
               onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,
@@ -86,6 +99,9 @@ export function Perfil() {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <UserInfoInput
+              name="email"
+              isActive={activeInput === "email"}
+              onChangeActiveInput={handleChangeActiveInput}
               onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,
@@ -106,6 +122,9 @@ export function Perfil() {
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
             <UserInfoInput
+              name="password"
+              isActive={activeInput === "password"}
+              onChangeActiveInput={handleChangeActiveInput}
               onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,

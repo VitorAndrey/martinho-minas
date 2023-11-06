@@ -8,7 +8,7 @@ type BtnProps = TouchableOpacityProps & {
 export function Btn({ children, ...rest }: BtnProps) {
   return (
     <TouchableOpacity
-      className="bg-theme-green-300 h-12 items-center justify-center rounded-2xl"
+      className="h-12 flex-row items-center justify-center rounded-2xl bg-theme-green-300"
       activeOpacity={0.6}
       {...rest}
     >
