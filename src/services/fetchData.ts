@@ -113,3 +113,67 @@ export async function fetchPromotions(): Promise<Product[]> {
 
   return data;
 }
+
+export async function fetchShoppingRoute(shoppingList: Product[]) {
+  let data = null;
+
+  data = [
+    {
+      aisle: 1,
+      products: [
+        {
+          id: "1",
+          name: "Arroz",
+        },
+        {
+          id: "4",
+          name: "Feijão",
+        },
+      ],
+      promotions: [
+        {
+          id: "8",
+          name: "macarrao",
+        },
+        {
+          id: "22",
+          name: "Molho de tomate",
+        },
+      ],
+    },
+    {
+      aisle: 5,
+      products: [
+        {
+          id: "65",
+          name: "Shampoo",
+        },
+        {
+          id: "67",
+          name: "Condicionador",
+        },
+      ],
+      promotions: [
+        {
+          id: "79",
+          name: "Sabonete",
+        },
+        {
+          id: "75",
+          name: "Pasta de dente",
+        },
+      ],
+    },
+  ];
+
+  // const url = "https://supermercadoapi.vercel.app/shoppingroute";
+
+  // try {
+  //   const response = await axios.post(url, shoppingList);
+  //   data = response.data;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+
+  return data;
+}

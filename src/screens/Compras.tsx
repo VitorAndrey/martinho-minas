@@ -95,19 +95,22 @@ export function Compras() {
 
         <View className="mb-4 gap-2">
           <Text className="px-8">Filtrar</Text>
-
-          <FlatList
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            initialNumToRender={5}
-            updateCellsBatchingPeriod={1000}
-            data={categories}
-            renderItem={renderCategory}
-            contentContainerStyle={{
-              gap: 10,
-              paddingHorizontal: 30,
-            }}
-          />
+          {!isLoadingCateories ? (
+            <FlatList
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              initialNumToRender={5}
+              updateCellsBatchingPeriod={1000}
+              data={categories}
+              renderItem={renderCategory}
+              contentContainerStyle={{
+                gap: 10,
+                paddingHorizontal: 30,
+              }}
+            />
+          ) : (
+            <Loading />
+          )}
         </View>
 
         <View className="flex-1 gap-4 px-8">
