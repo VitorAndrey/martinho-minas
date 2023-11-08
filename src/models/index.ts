@@ -1,9 +1,11 @@
 export type Product = {
   id: string;
   name: string;
-  // basePrice: number;
-  // discountPercentage: number;
-  // imageUrl: string;
+  basePrice: number;
+  discountPercentage: number;
+  imageUrl: string;
+  aisle: number;
+  categorie: Category;
 };
 
 export type Category = {

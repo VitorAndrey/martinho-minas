@@ -177,3 +177,22 @@ export async function fetchShoppingRoute(shoppingList: Product[]) {
 
   return data;
 }
+
+[
+  {
+    id_class: 3,
+    id_products: 153,
+    name_products: "Açafrão",
+    porcent_desc: null,
+    preco_padr: null,
+    url_img: null,
+  },
+  {
+    id_class: 13,
+    id_products: 144,
+    name_products: "Açai",
+    porcent_desc: null,
+    preco_padr: null,
+    url_img: null,
+  },
+];

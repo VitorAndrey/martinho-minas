@@ -1,6 +1,6 @@
 import { Product } from "@models/index";
 
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type ShoppingListContextProps = {
   cartList: Product[];
@@ -29,6 +29,10 @@ export function ShoppingListProvider({
     );
     setCartList(filteredList);
   }
+
+  useEffect(() => {
+    console.log(cartList);
+  }, [cartList]);
 
   return (
     <ShoppingListContext.Provider
