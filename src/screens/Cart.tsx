@@ -1,5 +1,5 @@
 import { ShoppingListContext } from "@contexts/ShoppingList";
-import { CartItem } from "@layout/CartItem";
+import { CartItemList } from "@layout/CartItemList";
 import { Header } from "@layout/Header";
 import { Text } from "@ui/Text";
 import { useContext } from "react";
@@ -11,6 +11,21 @@ import { v4 as uuidv4 } from "uuid";
 export function Cart() {
   const { cartList } = useContext(ShoppingListContext);
 
+  const dadosFalsos = [
+    {
+      name: "Batata",
+    },
+    {
+      name: "Arroz",
+    },
+    {
+      name: "Feijao",
+    },
+    {
+      name: "Rucula",
+    },
+  ];
+
   return (
     <SafeAreaView className="flex-1">
       <Header />
@@ -18,8 +33,8 @@ export function Cart() {
       <Text className="mx-8 my-8">Seu carrinho</Text>
 
       <FlatList
-        data={cartList}
-        renderItem={({ item }) => <CartItem product={item} />}
+        data={dadosFalsos}
+        renderItem={({ item }) => <CartItemList product={item} />}
         keyExtractor={() => uuidv4()}
         contentContainerStyle={{
           gap: 10,

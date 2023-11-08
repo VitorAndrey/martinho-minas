@@ -86,10 +86,6 @@ export function Compras() {
     [],
   );
 
-  useEffect(() => {
-    console.log(categories, products);
-  }, [categories, products]);
-
   return (
     <SafeAreaView className="flex-1">
       <Header />

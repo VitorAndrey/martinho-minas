@@ -2,10 +2,10 @@ import { Product } from "@models/index";
 import { View, Text } from "react-native";
 
 type CartItemProps = {
-  product: Product;
+  product: { name: string };
 };
 
-export function CartItem({ product }: CartItemProps) {
+export function CartItemList({ product }: CartItemProps) {
   return (
     <View>
       <Text>{product.name_products}</Text>

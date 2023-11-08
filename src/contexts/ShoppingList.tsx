@@ -30,10 +30,6 @@ export function ShoppingListProvider({
     setCartList(filteredList);
   }
 
-  useEffect(() => {
-    console.log(cartList);
-  }, [cartList]);
-
   return (
     <ShoppingListContext.Provider
       value={{ addProduct, removeProduct, cartList }}
