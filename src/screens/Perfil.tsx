@@ -12,7 +12,6 @@ import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { UserInfoInput } from "@ui/UserInfoInput";
-import { LogOut } from "lucide-react-native";
 
 const schema = yup
   .object({
@@ -53,13 +52,15 @@ export function Perfil() {
     handleUserUnlogged();
   }
 
-  function handleSaveData() {
-    handleSubmit(onSubmit);
-  }
-
   function handleChangeActiveInput(value: ActiveInputType) {
     setActiveInput((prev) => {
-      return prev === value ? null : value;
+      if (prev === value) {
+        handleSubmit(onSubmit);
+
+        return null;
+      } else {
+        return value;
+      }
     });
   }
 
@@ -79,7 +80,6 @@ export function Perfil() {
               name="name"
               isActive={activeInput === "name"}
               onChangeActiveInput={handleChangeActiveInput}
-              onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,
@@ -102,7 +102,6 @@ export function Perfil() {
               name="email"
               isActive={activeInput === "email"}
               onChangeActiveInput={handleChangeActiveInput}
-              onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,
@@ -125,7 +124,6 @@ export function Perfil() {
               name="password"
               isActive={activeInput === "password"}
               onChangeActiveInput={handleChangeActiveInput}
-              onSaveData={handleSaveData}
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,

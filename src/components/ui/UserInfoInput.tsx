@@ -18,7 +18,6 @@ type InputProps = {
   inputProps?: TextInputProps & {
     inputClass?: ClassNameValue;
   };
-  onSaveData: () => void;
   onChangeActiveInput: (value: ActiveInputType) => void;
   isActive: boolean;
   name: "email" | "name" | "password";
@@ -26,7 +25,6 @@ type InputProps = {
 
 export function UserInfoInput({
   containerProps,
-  onSaveData,
   inputProps,
   onChangeActiveInput,
   isActive,

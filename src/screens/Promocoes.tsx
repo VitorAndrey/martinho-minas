@@ -12,6 +12,8 @@ import { Product } from "@models/index";
 import { Loading } from "@layout/Loading";
 import { PromotionItemList } from "@layout/PromotionItemList";
 
+import { v4 as uuidv4 } from "uuid";
+
 export function Promocoes() {
   const { data: promotions, isLoading: isLoadingPromotions } = useQuery({
     queryKey: ["categories"],
@@ -20,7 +22,7 @@ export function Promocoes() {
 
   const renderPromotion = useCallback(
     ({ item }: { item: Product }) => (
-      <PromotionItemList product={item} key={item.id} />
+      <PromotionItemList product={item} key={uuidv4()} />
     ),
     [],
   );
@@ -37,7 +39,6 @@ export function Promocoes() {
         <FlatList
           data={promotions}
           renderItem={renderPromotion}
-          keyExtractor={(item) => item.id}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           columnWrapperStyle={{

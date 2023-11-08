@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,6 +19,8 @@ import { fetchCategories, fetchProducts } from "@services/fetchData";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigationRoutesProps } from "@routes/app.routes";
 
+import { v4 as uuidv4 } from "uuid";
+
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
   const { cartList, addProduct, removeProduct } =
@@ -38,15 +40,15 @@ export function Compras() {
 
   function handleUpdateFiltersList(category: Category) {
     const filteredList = [...filtersList];
-    const matches = filtersList.includes(category.id);
+    const matches = filtersList.includes(category.id_class);
 
     if (matches) {
-      const index = filteredList.indexOf(category.id);
+      const index = filteredList.indexOf(category.id_class);
       if (index !== -1) {
         filteredList.splice(index, 1);
       }
     } else {
-      filteredList.push(category.id);
+      filteredList.push(category.id_class);
     }
 
     setFiltersList(filteredList);
@@ -57,8 +59,20 @@ export function Compras() {
   }
 
   const renderProduct = useCallback(
-    ({ item }: { item: Product; index: number }) => (
-      <ProductItemList product={item} key={item.id} />
+    ({ item }: { item: Product }) => (
+      <ProductItemList product={item} key={uuidv4()} />
+    ),
+    [],
+  );
+
+  const renderCategory = useCallback(
+    ({ item }: { item: Category }) => (
+      <IconeCategoria
+        key={uuidv4()}
+        category={item}
+        onPress={() => handleUpdateFiltersList(item)}
+        active={filtersList.includes(item.id_class)}
+      />
     ),
     [],
   );
@@ -88,15 +102,11 @@ export function Compras() {
             initialNumToRender={5}
             updateCellsBatchingPeriod={1000}
             data={categories}
-            renderItem={({ item, index }) => (
-              <IconeCategoria
-                key={index}
-                data={item}
-                onPress={() => handleUpdateFiltersList(item)}
-                active={filtersList.includes(item.id)}
-              />
-            )}
-            contentContainerStyle={{ gap: 10, paddingHorizontal: 30 }}
+            renderItem={renderCategory}
+            contentContainerStyle={{
+              gap: 10,
+              paddingHorizontal: 30,
+            }}
           />
         </View>
 

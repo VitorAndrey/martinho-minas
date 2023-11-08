@@ -24,7 +24,9 @@ export function ShoppingListProvider({
   }
 
   function removeProduct(product: Product) {
-    const filteredList = cartList.filter((item) => item.id !== product.id);
+    const filteredList = cartList.filter(
+      (item) => item.id_products !== product.id_products,
+    );
     setCartList(filteredList);
   }
 
