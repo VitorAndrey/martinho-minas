@@ -60,7 +60,10 @@ export function AppRoutes() {
       <Screen
         name="Mapa"
         component={Mapa}
-        options={{ tabBarIcon: ({ color }) => <Map color={color} /> }}
+        options={{
+          tabBarIcon: ({ color }) => <Map color={color} />,
+          tabBarStyle: { display: "none" },
+        }}
       />
 
       <Screen

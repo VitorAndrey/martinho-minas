@@ -44,9 +44,9 @@ export function ProductItemList({
       <Text className="flex-1">{product.name}</Text>
 
       {isInCart ? (
-        <Trash2 color="black" size={20} />
+        <Trash2 color="black" size={16} />
       ) : (
-        <Plus color="black" size={20} />
+        <Plus color="black" size={18} />
       )}
     </TouchableOpacity>
   );

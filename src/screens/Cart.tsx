@@ -13,13 +13,14 @@ import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { CartItemList } from "@layout/CartItemList";
+import { EmptyCart } from "@layout/EmptyCart";
 
 export function Cart() {
   const { cartList } = useContext(ShoppingListContext);
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleNavigateToMap() {
-    navigation.navigate("Cart");
+    navigation.navigate("Mapa");
   }
 
   const renderCartItem = useCallback(
@@ -45,6 +46,7 @@ export function Cart() {
 
           flexGrow: 1,
         }}
+        ListEmptyComponent={() => <EmptyCart />}
       />
 
       <Btn
