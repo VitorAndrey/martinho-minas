@@ -83,13 +83,22 @@ export function Mapa() {
         <Loading />
       )}
 
-      <View className="h-52 bg-red-700 p-4">
+      <View className="h-52 bg-[#D9D9D9] p-4">
+        <View className="m-1 mb-4">
+          <Text>Corredor Atual</Text>
+        </View>
         <View className="flex-row gap-2">
-          <TouchableOpacity onPress={() => setCurrentList("products")}>
+          <TouchableOpacity
+            onPress={() => setCurrentList("products")}
+            className="m-2 h-[33] w-[110] items-center justify-center bg-[#FAFAFA]"
+          >
             <Text>Produtos</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => setCurrentList("promotions")}>
+          <TouchableOpacity
+            onPress={() => setCurrentList("promotions")}
+            className="m-2 h-[33] w-[110] items-center justify-center bg-[#FAFAFA]"
+          >
             <Text>Promoções</Text>
           </TouchableOpacity>
         </View>
