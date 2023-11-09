@@ -72,9 +72,9 @@ export function Compras() {
     [],
   );
 
-  useEffect(() => {
-    console.log(categories, products);
-  }, [categories, products]);
+  // useEffect(() => {
+  //   console.log(categories, products);
+  // }, [categories, products]);
 
   return (
     <SafeAreaView className="flex-1">

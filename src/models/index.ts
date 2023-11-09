@@ -13,6 +13,12 @@ export type Category = {
   name: string;
 };
 
+export type Aisle = {
+  id: number;
+  products: Product[];
+  promotions: Product[];
+};
+
 export type User = {
   name: string;
   email: string;

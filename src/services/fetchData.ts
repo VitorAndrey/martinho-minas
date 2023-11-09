@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { Category, Product } from "@models/index";
+import { Aisle, Category, Product } from "@models/index";
 
 export async function fetchProducts(
   filtersList?: string[],
@@ -122,12 +122,12 @@ export async function fetchPromotions(): Promise<Product[]> {
   return data;
 }
 
-export async function fetchShoppingRoute(shoppingList: Product[]) {
-  let data = null;
+export async function fetchShoppingRoute(shoppingList?: Product[]) {
+  // let data = null;
 
-  data = [
+  const data: Aisle = [
     {
-      aisle: 1,
+      id: "1",
       products: [
         {
           id: "1",
@@ -150,7 +150,7 @@ export async function fetchShoppingRoute(shoppingList: Product[]) {
       ],
     },
     {
-      aisle: 5,
+      id: "5",
       products: [
         {
           id: "65",

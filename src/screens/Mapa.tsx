@@ -1,37 +1,101 @@
 import { ShoppingListContext } from "@contexts/ShoppingList";
+import { AisleCircle } from "@layout/AisleCircle";
+import { AisleSeparator } from "@layout/AisleSeparator";
+import { Loading } from "@layout/Loading";
+import { Aisle } from "@models/index";
 import { useNavigation } from "@react-navigation/native";
 import { fetchShoppingRoute } from "@services/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react-native";
-import React, { useContext } from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import React, { useCallback, useContext, useState } from "react";
+import { Text, View, TouchableOpacity, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export function Mapa() {
+  const [currentAisle, setCurrentAisle] = useState<number | null>(null);
+  const [currentList, setCurrentList] = useState<"products" | "promotions">(
+    "products",
+  );
+
   const { cartList } = useContext(ShoppingListContext);
 
   const navigation = useNavigation();
 
-  const { data: shoppingRoute, isLoading: isLoadingShoppingRoute } = useQuery({
+  const {
+    data: shoppingRoute,
+    isLoading: isLoadingShoppingRoute,
+    isSuccess,
+  } = useQuery({
     queryKey: ["shoppingRoute"],
-    queryFn: () => fetchShoppingRoute(cartList),
+    queryFn: () => fetchShoppingRoute(),
   });
+
+  console.log(shoppingRoute);
+
+  // if (isSuccess) {
+  //   setCurrentAisle(shoppingRoute[0].aisle);
+  // }
 
   function handleNavigateBack() {
     navigation.goBack();
   }
 
+  // function handleSetCurrentList() {
+  //   if (currentList === "products") {
+  //     setCurrentList("promotions");
+  //   } else setCurrentList("products");
+  // }
+
+  // const renderAisleCircle = useCallback(
+  //   ({ item }: { item: Aisle }) => <AisleCircle data={item} key={item.id} />,
+  //   [],
+  // );
+
+  // const renderAisleSeparator = useCallback(
+  //   ({ item }: { item: Aisle }) => <AisleSeparator key={item.id} />,
+  //   [],
+  // );
+
+  // const productList = shoppingRoute?.find((aisle) => (aisle.id = currentAisle));
+
   return (
     <SafeAreaView className="flex-1">
-      <View className="px-4 py-2">
+      <View className="mb-10 px-4 py-2">
         <TouchableOpacity onPress={handleNavigateBack}>
           <X color="black" size={20} />
         </TouchableOpacity>
       </View>
 
-      <View>
-        <Text>hio</Text>
-      </View>
+      {!isLoadingShoppingRoute ? (
+        <FlatList
+          data={shoppingRoute}
+          renderItem={({ item }) => (
+            <AisleCircle data={item} onPress={() => setCurrentAisle(item.id)} />
+          )}
+          ItemSeparatorComponent={(item) => <AisleSeparator />}
+          contentContainerStyle={{
+            flexGrow: 1,
+            alignItems: "center",
+            paddingVertical: 30,
+          }}
+        />
+      ) : (
+        <Loading />
+      )}
+
+      {/* <View>
+        <View>
+          <TouchableOpacity onPress={handleSetCurrentList}>
+            <Text>Trocar Lista</Text>
+          </TouchableOpacity>
+        </View>
+
+        {currentList === "products" ? (
+          <FlatList data={productList} renderItem={} />
+        ) : (
+          <Flatlist data={promotionsList} renderItem={} />
+        )}
+      </View> */}
     </SafeAreaView>
   );
 }

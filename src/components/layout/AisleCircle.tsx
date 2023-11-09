@@ -1,10 +1,17 @@
+import { Aisle } from "@models/index";
 import { Text } from "@ui/Text";
 import { View } from "react-native";
 
-export function AisleCircle() {
+type AisleCircleProps = {
+  data: Aisle;
+};
+
+export function AisleCircle({ data }: AisleCircleProps) {
+  console.log(data);
+
   return (
-    <View className="">
-      <Text>1</Text>
+    <View className="h-20 w-20 items-center justify-center rounded-full bg-theme-green-300">
+      <Text className="text-2xl ">{data.id}</Text>
     </View>
   );
 }
