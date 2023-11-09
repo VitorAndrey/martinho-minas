@@ -30,7 +30,7 @@ export function Promocoes() {
       <Header />
 
       <View className="px-6 py-4">
-        <Text className="text-2xl font-semibold">Promoções</Text>
+        <Text className="text-xl font-semibold">Promoções</Text>
       </View>
 
       {!isLoadingPromotions ? (

@@ -5,7 +5,7 @@ import { Plus, Trash2 } from "lucide-react-native";
 import { Text } from "@ui/Text";
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 type ProductItemListProps = TouchableOpacityProps & {
@@ -23,13 +23,15 @@ export function ProductItemList({
 
   function handleAddToCart() {
     if (isInCart) {
-      removeProduct(product);
       setIsInCart(false);
+      removeProduct(product);
     } else {
-      addProduct(product);
       setIsInCart(true);
+      addProduct(product);
     }
   }
+
+  useEffect(() => {}, [isInCart]);
 
   return (
     <TouchableOpacity

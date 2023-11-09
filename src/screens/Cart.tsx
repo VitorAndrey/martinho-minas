@@ -34,7 +34,7 @@ export function Cart() {
     <SafeAreaView className="flex-1">
       <Header />
 
-      <Text className="mx-8 my-8">Seu carrinho</Text>
+      <Text className="mx-8 my-8 text-xl">Seu carrinho</Text>
 
       <FlatList
         data={cartList}

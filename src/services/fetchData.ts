@@ -37,151 +37,33 @@ export async function fetchCategories(): Promise<Category[]> {
 }
 
 export async function fetchPromotions(): Promise<Product[]> {
-  //  let data = null;
+  let data = null;
 
-  const data = [
-    {
-      id: "1",
-      name: "Batata",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 1,
-    },
-    {
-      id: "2",
-      name: "Maca",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 2,
-    },
-    {
-      id: "3",
-      name: "Pera",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 3,
-    },
-    {
-      id: "4",
-      name: "Morango",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 4,
-    },
+  const url = "https://supermercadoapi.vercel.app/promotions";
 
-    {
-      id: "5",
-      name: "Marshmallow",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 5,
-    },
-
-    {
-      id: "6",
-      name: "Jujuba",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 6,
-    },
-
-    {
-      id: "7",
-      name: "Caju",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 7,
-    },
-
-    {
-      id: "8",
-      name: "Beterraba",
-      imageUrl: "https://github.com/ana",
-      basePrice: 99.99,
-      discountPercentage: 5,
-      aisle: 8,
-    },
-  ];
-
-  // const url = "https://supermercadoapi.vercel.app/promotions";
-
-  // try {
-  //   const response = await axios.get(url);
-  //   data = response.data;
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    const response = await axios.get(url);
+    data = response.data;
+  } catch (error) {
+    console.log(error);
+  }
 
   return data;
 }
 
-export async function fetchShoppingRoute(shoppingList?: Product[]) {
-  // let data = null;
+export async function fetchShoppingRoute(
+  shoppingList?: Product[],
+): Promise<Aisle[]> {
+  let data = null;
 
-  const data: Aisle = [
-    {
-      id: "1",
-      products: [
-        {
-          id: "1",
-          name: "Arroz",
-        },
-        {
-          id: "4",
-          name: "Feijão",
-        },
-      ],
-      promotions: [
-        {
-          id: "8",
-          name: "macarrao",
-        },
-        {
-          id: "22",
-          name: "Molho de tomate",
-        },
-      ],
-    },
-    {
-      id: "5",
-      products: [
-        {
-          id: "65",
-          name: "Shampoo",
-        },
-        {
-          id: "67",
-          name: "Condicionador",
-        },
-      ],
-      promotions: [
-        {
-          id: "79",
-          name: "Sabonete",
-        },
-        {
-          id: "75",
-          name: "Pasta de dente",
-        },
-      ],
-    },
-  ];
+  const url = "https://supermercadoapi.vercel.app/shoppingroute";
 
-  // const url = "https://supermercadoapi.vercel.app/shoppingroute";
-
-  // try {
-  //   const response = await axios.post(url, shoppingList);
-  //   data = response.data;
-  // } catch (error) {
-  //   console.log(error);
-  // }
+  try {
+    const response = await axios.post(url, shoppingList);
+    data = response.data;
+  } catch (error) {
+    console.log(error);
+  }
 
   return data;
 }

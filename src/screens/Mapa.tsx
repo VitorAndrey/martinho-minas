@@ -40,11 +40,11 @@ export function Mapa() {
     navigation.goBack();
   }
 
-  // function handleSetCurrentList() {
-  //   if (currentList === "products") {
-  //     setCurrentList("promotions");
-  //   } else setCurrentList("products");
-  // }
+  function handleSetCurrentList() {
+    if (currentList === "products") {
+      setCurrentList("promotions");
+    } else setCurrentList("products");
+  }
 
   // const renderAisleCircle = useCallback(
   //   ({ item }: { item: Aisle }) => <AisleCircle data={item} key={item.id} />,
@@ -83,19 +83,23 @@ export function Mapa() {
         <Loading />
       )}
 
-      {/* <View>
-        <View>
-          <TouchableOpacity onPress={handleSetCurrentList}>
-            <Text>Trocar Lista</Text>
+      <View className="h-52 bg-red-700 p-4">
+        <View className="flex-row gap-2">
+          <TouchableOpacity onPress={() => setCurrentList("products")}>
+            <Text>Produtos</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => setCurrentList("promotions")}>
+            <Text>Promoções</Text>
           </TouchableOpacity>
         </View>
 
         {currentList === "products" ? (
-          <FlatList data={productList} renderItem={} />
+          <Text>Products</Text>
         ) : (
-          <Flatlist data={promotionsList} renderItem={} />
+          <Text>Promotions</Text>
         )}
-      </View> */}
+      </View>
     </SafeAreaView>
   );
 }

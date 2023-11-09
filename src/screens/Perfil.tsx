@@ -69,7 +69,7 @@ export function Perfil() {
       <Header />
 
       <View className="flex-1 p-8">
-        <Text className="mb-8 text-lg">Perfil</Text>
+        <Text className="mb-8 text-xl">Perfil</Text>
 
         <Text className="px-2">Nome:</Text>
         <Controller
