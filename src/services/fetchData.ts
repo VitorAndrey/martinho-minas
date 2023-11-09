@@ -46,6 +46,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 1,
     },
     {
       id: "2",
@@ -53,6 +54,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 2,
     },
     {
       id: "3",
@@ -60,6 +62,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 3,
     },
     {
       id: "4",
@@ -67,6 +70,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 4,
     },
 
     {
@@ -75,6 +79,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 5,
     },
 
     {
@@ -83,6 +88,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 6,
     },
 
     {
@@ -91,6 +97,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 7,
     },
 
     {
@@ -99,6 +106,7 @@ export async function fetchPromotions(): Promise<Product[]> {
       imageUrl: "https://github.com/ana",
       basePrice: 99.99,
       discountPercentage: 5,
+      aisle: 8,
     },
   ];
 
@@ -177,22 +185,3 @@ export async function fetchShoppingRoute(shoppingList: Product[]) {
 
   return data;
 }
-
-[
-  {
-    id_class: 3,
-    id_products: 153,
-    name_products: "Açafrão",
-    porcent_desc: null,
-    preco_padr: null,
-    url_img: null,
-  },
-  {
-    id_class: 13,
-    id_products: 144,
-    name_products: "Açai",
-    porcent_desc: null,
-    preco_padr: null,
-    url_img: null,
-  },
-];

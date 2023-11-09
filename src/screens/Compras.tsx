@@ -1,10 +1,9 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Category, Product } from "@models/index";
-import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
@@ -19,12 +18,8 @@ import { fetchCategories, fetchProducts } from "@services/fetchData";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigationRoutesProps } from "@routes/app.routes";
 
-import { v4 as uuidv4 } from "uuid";
-
 export function Compras() {
   const [filtersList, setFiltersList] = useState<string[]>([]);
-  const { cartList, addProduct, removeProduct } =
-    useContext(ShoppingListContext);
 
   const { data: categories, isLoading: isLoadingCateories } = useQuery({
     queryKey: ["categories"],
@@ -40,15 +35,15 @@ export function Compras() {
 
   function handleUpdateFiltersList(category: Category) {
     const filteredList = [...filtersList];
-    const matches = filtersList.includes(category.id_class);
+    const matches = filtersList.includes(category.id);
 
     if (matches) {
-      const index = filteredList.indexOf(category.id_class);
+      const index = filteredList.indexOf(category.id);
       if (index !== -1) {
         filteredList.splice(index, 1);
       }
     } else {
-      filteredList.push(category.id_class);
+      filteredList.push(category.id);
     }
 
     setFiltersList(filteredList);
@@ -60,7 +55,7 @@ export function Compras() {
 
   const renderProduct = useCallback(
     ({ item }: { item: Product }) => (
-      <ProductItemList product={item} key={uuidv4()} />
+      <ProductItemList product={item} key={item.id} />
     ),
     [],
   );
@@ -68,23 +63,18 @@ export function Compras() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <IconeCategoria
-        key={uuidv4()}
+        key={item.id}
         category={item}
         onPress={() => handleUpdateFiltersList(item)}
-        active={filtersList.includes(item.id_class)}
+        active={filtersList.includes(item.id)}
       />
     ),
     [],
   );
 
-  const getItemLayout = useCallback(
-    (data: ArrayLike<Product> | null | undefined, index: number) => ({
-      length: 50,
-      offset: 50 * index,
-      index,
-    }),
-    [],
-  );
+  useEffect(() => {
+    console.log(categories, products);
+  }, [categories, products]);
 
   return (
     <SafeAreaView className="flex-1">
@@ -119,7 +109,6 @@ export function Compras() {
           {!isLoadingProducts ? (
             <FlatList
               showsVerticalScrollIndicator={false}
-              getItemLayout={getItemLayout}
               initialNumToRender={7}
               data={products}
               renderItem={renderProduct}

@@ -5,7 +5,7 @@ export type Product = {
   discountPercentage: number;
   imageUrl: string;
   aisle: number;
-  categorie: Category;
+  category?: Category;
 };
 
 export type Category = {

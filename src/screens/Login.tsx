@@ -51,10 +51,10 @@ export function Login() {
     const { email, password } = data;
 
     try {
-      // await loginUser({
-      //   email,
-      //   password,
-      // } satisfies UserLogin);
+      await loginUser({
+        email,
+        password,
+      } satisfies UserLogin);
 
       reset();
       handleUserLogged();

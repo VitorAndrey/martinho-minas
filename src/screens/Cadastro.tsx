@@ -57,11 +57,11 @@ export function Cadastro() {
     const { name, email, password } = data;
 
     try {
-      // await registerUser({
-      //   name,
-      //   email,
-      //   password,
-      // } satisfies RegisterUser);
+      await registerUser({
+        name,
+        email,
+        password,
+      } satisfies RegisterUser);
 
       reset();
       navegarLogin();
