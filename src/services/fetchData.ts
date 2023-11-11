@@ -53,13 +53,17 @@ export async function fetchPromotions(): Promise<Product[]> {
 
 export async function fetchShoppingRoute(
   shoppingList?: Product[],
-): Promise<Aisle[]> {
+): Promise<Aisle[] | null> {
+  if (!shoppingList) return null;
+
+  const shoppingListIds = shoppingList.map((product) => product.id);
+
   let data = null;
 
   const url = "https://supermercadoapi.vercel.app/shoppingroute";
 
   try {
-    const response = await axios.post(url, shoppingList);
+    const response = await axios.post(url, shoppingListIds);
     data = response.data;
   } catch (error) {
     console.log(error);

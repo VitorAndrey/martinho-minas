@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 
-import { View, FlatList } from "react-native";
+import { View, FlatList, TouchableOpacity, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Category, Product } from "@models/index";
@@ -8,28 +8,29 @@ import { Category, Product } from "@models/index";
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
-import { SearchBar } from "@ui/SearchBar";
 import { IconeCategoria } from "@layout/IconeCategoria";
 import { ProductItemList } from "@layout/ProductItemList";
 
 import { Loading } from "@layout/Loading";
-import { useQuery } from "@tanstack/react-query";
 import { fetchCategories, fetchProducts } from "@services/fetchData";
 import { useNavigation } from "@react-navigation/native";
 import { AppNavigationRoutesProps } from "@routes/app.routes";
+import { Search } from "lucide-react-native";
 
 export function Compras() {
+  const [categories, setCategories] = useState<Category[]>();
+  const [isLoadingCategories, setIsLoadingCategories] =
+    useState<boolean>(false);
+
+  const [products, setProducts] = useState<Product[]>();
+  const [filterdBySearchProducts, setFilteredBySearchProducts] = useState<
+    Product[] | null
+  >();
+  const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
+
   const [filtersList, setFiltersList] = useState<string[]>([]);
 
-  const { data: categories, isLoading: isLoadingCateories } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
-  });
-
-  const { data: products, isLoading: isLoadingProducts } = useQuery({
-    queryKey: ["products", filtersList],
-    queryFn: () => fetchProducts(filtersList),
-  });
+  const [searchInputValue, setSearchInputValue] = useState<string>("");
 
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
@@ -72,20 +73,72 @@ export function Compras() {
     [],
   );
 
-  // useEffect(() => {
-  //   console.log(categories, products);
-  // }, [categories, products]);
+  async function handleFetchCategories() {
+    setIsLoadingCategories(true);
+
+    try {
+      const data = await fetchCategories();
+      setCategories(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingCategories(false);
+    }
+  }
+
+  async function handleFetchProducts() {
+    setIsLoadingProducts(true);
+
+    try {
+      const data = await fetchProducts();
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingProducts(false);
+    }
+  }
+
+  function handleUpdateFilteredProducts() {
+    const filteredList = products?.filter((product) =>
+      product.name.includes(searchInputValue),
+    );
+
+    setFilteredBySearchProducts(filteredList);
+  }
+
+  useEffect(() => {
+    handleUpdateFilteredProducts();
+  }, [searchInputValue]);
+
+  useEffect(() => {
+    handleFetchCategories();
+  }, []);
+
+  useEffect(() => {
+    handleFetchProducts();
+  }, [filtersList]);
 
   return (
     <SafeAreaView className="flex-1">
       <Header />
 
       <View className="flex-1">
-        <SearchBar className="my-4 px-8" />
+        <View className="flex-row gap-2 py-4 px-8">
+          <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-theme-pink-300">
+            <Search color="black" size={16} />
+          </TouchableOpacity>
+
+          <TextInput
+            value={searchInputValue}
+            onChangeText={setSearchInputValue}
+            className="h-12 flex-1 rounded-full bg-theme-green-300 px-5 text-base"
+          />
+        </View>
 
         <View className="mb-4 gap-2">
           <Text className="px-8">Filtrar</Text>
-          {!isLoadingCateories ? (
+          {!isLoadingCategories ? (
             <FlatList
               horizontal
               showsHorizontalScrollIndicator={false}
@@ -110,7 +163,7 @@ export function Compras() {
             <FlatList
               showsVerticalScrollIndicator={false}
               initialNumToRender={7}
-              data={products}
+              data={filterdBySearchProducts}
               renderItem={renderProduct}
               contentContainerStyle={{
                 flexGrow: 1,

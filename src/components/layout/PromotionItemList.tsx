@@ -4,6 +4,7 @@ import { Product } from "@models/index";
 
 import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
+import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
 
 type PromotionItemListProps = ViewProps & {
   product: Product;
@@ -17,16 +18,20 @@ export function PromotionItemList({
   return (
     <View
       className={twMerge(
-        "h-60 flex-1 rounded-3xl bg-theme-green-300",
+        "h-52 flex-1 items-center rounded-3xl bg-theme-green-300 p-4",
         className,
       )}
       {...rest}
     >
-      <Image source={{ uri: product.imageUrl }} />
+      <Text className="p-2 text-center">{product.name}</Text>
 
-      <View className="items-center">
-        <Text className="p-2">{product.name}</Text>
-        <Text>{product.basePrice}</Text>
+      <Image source={{ uri: product.image_url }} className="flex-1" />
+
+      <View className="flex-row items-center gap-1">
+        <Text>R$ {calcTotalPrice(product)}</Text>
+        <Text className="text-xs line-through">
+          {formatCurrentcy(product.base_price)}
+        </Text>
       </View>
     </View>
   );

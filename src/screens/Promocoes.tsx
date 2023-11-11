@@ -1,7 +1,6 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FlatList, View } from "react-native";
 
-import { useQuery } from "@tanstack/react-query";
 import { fetchPromotions } from "@services/fetchData";
 
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -13,10 +12,9 @@ import { Loading } from "@layout/Loading";
 import { PromotionItemList } from "@layout/PromotionItemList";
 
 export function Promocoes() {
-  const { data: promotions, isLoading: isLoadingPromotions } = useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchPromotions,
-  });
+  const [promotions, setPromotions] = useState<Product[]>();
+  const [isLoadingPromotions, setIsLoadingPromotions] =
+    useState<boolean>(false);
 
   const renderPromotion = useCallback(
     ({ item }: { item: Product }) => (
@@ -24,6 +22,23 @@ export function Promocoes() {
     ),
     [],
   );
+
+  async function handleFetchPromotions() {
+    setIsLoadingPromotions(true);
+
+    try {
+      const data = await fetchPromotions();
+      setPromotions(data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingPromotions(false);
+    }
+  }
+
+  useEffect(() => {
+    handleFetchPromotions();
+  }, []);
 
   return (
     <SafeAreaView className="flex-1">

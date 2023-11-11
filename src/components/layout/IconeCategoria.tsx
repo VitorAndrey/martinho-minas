@@ -30,7 +30,7 @@ export function IconeCategoria({
       {...rest}
     >
       <Text className={`${!active ? "text-zinc-400" : "text-black"}`}>
-        {category.name_class}
+        {category.name}
       </Text>
     </TouchableOpacity>
   );
