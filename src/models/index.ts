@@ -8,6 +8,10 @@ export type Product = {
   category?: Category;
 };
 
+export type EmptyProduct = {
+  empty: true;
+};
+
 export type Category = {
   id: string;
   name: string;

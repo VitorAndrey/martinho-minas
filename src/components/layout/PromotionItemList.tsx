@@ -15,6 +15,9 @@ export function PromotionItemList({
   product,
   ...rest
 }: PromotionItemListProps) {
+  if (product.name === "_EMPTY_ITEM_")
+    return <View className="h-52 flex-1"></View>;
+
   return (
     <View
       className={twMerge(

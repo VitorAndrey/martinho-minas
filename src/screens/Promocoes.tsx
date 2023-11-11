@@ -10,6 +10,7 @@ import { Header } from "@layout/Header";
 import { Product } from "@models/index";
 import { Loading } from "@layout/Loading";
 import { PromotionItemList } from "@layout/PromotionItemList";
+import { generateEmptyItem } from "@utils/emptyItem";
 
 export function Promocoes() {
   const [promotions, setPromotions] = useState<Product[]>();
@@ -28,6 +29,11 @@ export function Promocoes() {
 
     try {
       const data = await fetchPromotions();
+
+      if (data.length % 2 !== 0) {
+        data.push(generateEmptyItem());
+      }
+
       setPromotions(data);
     } catch (error) {
       console.log(error);
@@ -44,9 +50,7 @@ export function Promocoes() {
     <SafeAreaView className="flex-1">
       <Header />
 
-      <View className="px-6 py-4">
-        <Text className="text-xl font-semibold">Promoções</Text>
-      </View>
+      <Text className="mx-8 mt-8 mb-4 text-xl">Promoções</Text>
 
       {!isLoadingPromotions ? (
         <FlatList
@@ -60,10 +64,11 @@ export function Promocoes() {
             columnGap: 20,
           }}
           contentContainerStyle={{
-            flexGrow: 1,
-            gap: 20,
-            paddingHorizontal: 20,
+            gap: 10,
+            paddingHorizontal: 30,
             paddingVertical: 20,
+
+            flexGrow: 1,
           }}
         />
       ) : (

@@ -43,7 +43,9 @@ export function ProductItemList({
       style={{ height: 50 }}
       {...rest}
     >
-      <Text className="flex-1">{product.name}</Text>
+      <Text className="flex-1 pr-4" numberOfLines={1}>
+        {product.name}
+      </Text>
 
       {isInCart ? (
         <Trash2 color="black" size={16} />

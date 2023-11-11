@@ -30,8 +30,6 @@ export function Mapa() {
     queryFn: () => fetchShoppingRoute(),
   });
 
-  console.log(shoppingRoute);
-
   // if (isSuccess) {
   //   setCurrentAisle(shoppingRoute[0].aisle);
   // }
