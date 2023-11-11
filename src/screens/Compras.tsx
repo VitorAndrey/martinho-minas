@@ -101,7 +101,7 @@ export function Compras() {
 
   function handleUpdateFilteredProducts() {
     const filteredList = products?.filter((product) =>
-      product.name.includes(searchInputValue),
+      product.name.toLowerCase().includes(searchInputValue.toLowerCase()),
     );
 
     setFilteredBySearchProducts(filteredList);
@@ -109,7 +109,7 @@ export function Compras() {
 
   useEffect(() => {
     handleUpdateFilteredProducts();
-  }, [searchInputValue]);
+  }, [searchInputValue, products]);
 
   useEffect(() => {
     handleFetchCategories();
