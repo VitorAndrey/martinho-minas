@@ -35,8 +35,6 @@ export function Compras() {
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleUpdateFiltersList(id: string) {
-    // console.log(id);
-
     setFiltersList([id]);
   }
 
@@ -105,7 +103,6 @@ export function Compras() {
   }, []);
 
   useEffect(() => {
-    console.log(filtersList);
     handleFetchProducts();
   }, [filtersList]);
 
