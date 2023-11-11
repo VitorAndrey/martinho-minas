@@ -2,13 +2,11 @@ import axios from "axios";
 
 import { Aisle, Category, Product } from "@models/index";
 
-export async function fetchProducts(
-  filtersList?: string[],
-): Promise<Product[]> {
+export async function fetchProducts(filtersList: string[]): Promise<Product[]> {
   let data = null;
   let url = "https://supermercadoapi.vercel.app/products";
 
-  if (filtersList && filtersList?.length > 0) {
+  if (filtersList?.length > 0) {
     url += "?classes=" + filtersList.join();
   }
 

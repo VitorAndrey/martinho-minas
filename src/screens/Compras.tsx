@@ -34,20 +34,10 @@ export function Compras() {
 
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
-  function handleUpdateFiltersList(category: Category) {
-    const filteredList = [...filtersList];
-    const matches = filtersList.includes(category.id);
+  function handleUpdateFiltersList(id: string) {
+    // console.log(id);
 
-    if (matches) {
-      const index = filteredList.indexOf(category.id);
-      if (index !== -1) {
-        filteredList.splice(index, 1);
-      }
-    } else {
-      filteredList.push(category.id);
-    }
-
-    setFiltersList(filteredList);
+    setFiltersList([id]);
   }
 
   function handleNavigateToCart() {
@@ -66,8 +56,7 @@ export function Compras() {
       <IconeCategoria
         key={item.id}
         category={item}
-        onPress={() => handleUpdateFiltersList(item)}
-        active={filtersList.includes(item.id)}
+        onPress={() => handleUpdateFiltersList(item.id)}
       />
     ),
     [],
@@ -90,7 +79,7 @@ export function Compras() {
     setIsLoadingProducts(true);
 
     try {
-      const data = await fetchProducts();
+      const data = await fetchProducts(filtersList);
       setProducts(data);
     } catch (error) {
       console.log(error);
@@ -116,6 +105,7 @@ export function Compras() {
   }, []);
 
   useEffect(() => {
+    console.log(filtersList);
     handleFetchProducts();
   }, [filtersList]);
 
@@ -132,7 +122,7 @@ export function Compras() {
           <TextInput
             value={searchInputValue}
             onChangeText={setSearchInputValue}
-            className="h-12 flex-1 rounded-full bg-theme-green-300 px-5 text-base"
+            className="h-12 flex-1 rounded-full bg-theme-green-300 px-6 text-base"
           />
         </View>
 
@@ -156,8 +146,8 @@ export function Compras() {
           )}
         </View>
 
-        <View className="flex-1 gap-4 px-8">
-          <Text>Adicione Produtos</Text>
+        <View className="flex-1 gap-3">
+          <Text className="px-8">Adicione Produtos</Text>
 
           {!isLoadingProducts ? (
             <FlatList
@@ -166,8 +156,12 @@ export function Compras() {
               data={filterdBySearchProducts}
               renderItem={renderProduct}
               contentContainerStyle={{
-                flexGrow: 1,
                 gap: 10,
+                paddingHorizontal: 30,
+                paddingBottom: 20,
+                paddingTop: 10,
+
+                flexGrow: 1,
               }}
             />
           ) : (

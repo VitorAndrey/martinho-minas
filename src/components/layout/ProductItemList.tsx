@@ -17,21 +17,13 @@ export function ProductItemList({
   product,
   ...rest
 }: ProductItemListProps) {
-  const [isInCart, setIsInCart] = useState<boolean>(false);
-
-  const { addProduct, removeProduct } = useContext(ShoppingListContext);
+  const { addProduct, cartList } = useContext(ShoppingListContext);
 
   function handleAddToCart() {
-    if (isInCart) {
-      setIsInCart(false);
-      removeProduct(product);
-    } else {
-      setIsInCart(true);
-      addProduct(product);
-    }
-  }
+    if (cartList.includes(product)) return;
 
-  useEffect(() => {}, [isInCart]);
+    addProduct(product);
+  }
 
   return (
     <TouchableOpacity
@@ -47,11 +39,7 @@ export function ProductItemList({
         {product.name}
       </Text>
 
-      {isInCart ? (
-        <Trash2 color="black" size={16} />
-      ) : (
-        <Plus color="black" size={18} />
-      )}
+      <Plus color="black" size={18} />
     </TouchableOpacity>
   );
 }

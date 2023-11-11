@@ -6,7 +6,7 @@ import { Category } from "@models/index";
 import { twMerge } from "tailwind-merge";
 
 export type IconeCategoriaProps = TouchableOpacityProps & {
-  active: boolean;
+  active?: boolean;
   category: Category;
   onPress: (category: Category) => void;
 };

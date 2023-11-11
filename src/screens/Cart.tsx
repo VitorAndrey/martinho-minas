@@ -50,8 +50,11 @@ export function Cart() {
       />
 
       <Btn
-        className="my-4 mx-8 bg-theme-pink-300"
+        className={`my-4 mx-8 ${
+          cartList.length < 1 ? " bg-zinc-200" : "bg-theme-pink-300"
+        }`}
         onPress={handleNavigateToMap}
+        disabled={cartList.length < 1}
       >
         Concluir
       </Btn>
