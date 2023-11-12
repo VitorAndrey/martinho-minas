@@ -1,6 +1,6 @@
-import { View, Keyboard } from "react-native";
 import { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { View, ScrollView, TouchableOpacity } from "react-native";
 
 import { UserContext } from "@contexts/UserContext";
 
@@ -11,7 +11,9 @@ import { Controller, useForm } from "react-hook-form";
 import { Btn } from "@ui/Btn";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
-import { UserInfoInput } from "@ui/UserInfoInput";
+import { Input } from "@ui/Input";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { Check, Pencil } from "lucide-react-native";
 
 const schema = yup
   .object({
@@ -22,15 +24,16 @@ const schema = yup
       .min(8, "A senha deve ter no mínimo 8 caracteres."),
     confirmNewPassword: yup
       .string()
-      .oneOf([yup.ref("Passwd")], "As duas senhas devem combinar."),
+      .oneOf([yup.ref("newPassword")], "As duas senhas devem combinar."),
   })
   .required();
+
 type FormData = yup.InferType<typeof schema>;
 
 export type ActiveInputType = "name" | "email" | "password" | null;
 
 export function Perfil() {
-  const [activeInput, setActiveInput] = useState<ActiveInputType>(null);
+  const [isEditing, setIsEditing] = useState<boolean>(false);
   const { handleUserUnlogged } = useContext(UserContext);
 
   const { userInfo } = useContext(UserContext);
@@ -44,7 +47,10 @@ export function Perfil() {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
+    if (isEditing) {
+      // await updateUser(data)
+    }
+    setIsEditing((prev) => !prev);
   };
 
   function handleLoggOut() {
@@ -52,23 +58,11 @@ export function Perfil() {
     handleUserUnlogged();
   }
 
-  function handleChangeActiveInput(value: ActiveInputType) {
-    setActiveInput((prev) => {
-      if (prev === value) {
-        handleSubmit(onSubmit);
-
-        return null;
-      } else {
-        return value;
-      }
-    });
-  }
-
   return (
     <SafeAreaView className="flex-1">
       <Header />
 
-      <View className="flex-1 p-8">
+      <ScrollView className="flex-1 p-8">
         <Text className="mb-8 text-xl">Perfil</Text>
 
         <Text className="px-2">Nome:</Text>
@@ -76,64 +70,68 @@ export function Perfil() {
           defaultValue={userInfo.name}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <UserInfoInput
-              name="name"
-              isActive={activeInput === "name"}
-              onChangeActiveInput={handleChangeActiveInput}
+            <Input
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,
                 value: value,
-              }}
-              containerProps={{
-                containerClass: "mb-6",
+                editable: isEditing,
               }}
             />
           )}
           name="newName"
         />
+        <InputErrorMessage message={errors.newName?.message} />
 
         <Text className="px-2">E-mail:</Text>
         <Controller
           defaultValue={userInfo.email}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <UserInfoInput
-              name="email"
-              isActive={activeInput === "email"}
-              onChangeActiveInput={handleChangeActiveInput}
+            <Input
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,
                 value: value,
-              }}
-              containerProps={{
-                containerClass: "mb-6",
+                editable: isEditing,
               }}
             />
           )}
           name="newEmail"
         />
+        <InputErrorMessage message={errors.newEmail?.message} />
 
         <Text className="px-2">Senha:</Text>
         <Controller
           defaultValue={userInfo.password}
           control={control}
           render={({ field: { onChange, onBlur, value } }) => (
-            <UserInfoInput
-              name="password"
-              isActive={activeInput === "password"}
-              onChangeActiveInput={handleChangeActiveInput}
+            <Input
               inputProps={{
                 onChangeText: onChange,
                 onBlur: onBlur,
                 value: value,
+                editable: isEditing,
               }}
             />
           )}
           name="newPassword"
         />
-      </View>
+        <InputErrorMessage message={errors.newPassword?.message} />
+
+        <TouchableOpacity
+          onPress={handleSubmit(onSubmit)}
+          className="mt-6 h-12 w-28 flex-row items-center justify-center self-center rounded-2xl bg-theme-pink-300"
+        >
+          <Text className="mr-2">{isEditing ? "Salvar" : "Editar"}</Text>
+
+          {isEditing ? (
+            <Check color="black" size={18} />
+          ) : (
+            <Pencil color="black" size={16} />
+          )}
+        </TouchableOpacity>
+      </ScrollView>
 
       <Btn className="my-4 mx-8" onPress={handleLoggOut}>
         Sair

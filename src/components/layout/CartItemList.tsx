@@ -20,7 +20,9 @@ export function CartItemList({ product }: CartItemProps) {
       className="flex-row items-center rounded-2xl bg-zinc-200 px-4 pr-2"
       style={{ height: 50 }}
     >
-      <Text className="flex-1">{product.name}</Text>
+      <Text className="flex-1" numberOfLines={1}>
+        {product.name}
+      </Text>
 
       <TouchableOpacity className="p-2" onPress={handleRemoveProduct}>
         <Trash2 color="black" size={16} />

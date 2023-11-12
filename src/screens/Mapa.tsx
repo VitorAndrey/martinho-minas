@@ -1,34 +1,32 @@
-import { ShoppingListContext } from "@contexts/ShoppingList";
-import { AisleCircle } from "@layout/AisleCircle";
-import { AisleSeparator } from "@layout/AisleSeparator";
-import { Loading } from "@layout/Loading";
-import { Aisle } from "@models/index";
-import { useNavigation } from "@react-navigation/native";
-import { fetchShoppingRoute } from "@services/fetchData";
-import { useQuery } from "@tanstack/react-query";
-import { X } from "lucide-react-native";
 import React, { useCallback, useContext, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList } from "react-native";
+
+import { ShoppingListContext } from "@contexts/ShoppingList";
 import { SafeAreaView } from "react-native-safe-area-context";
 
+import { Loading } from "@layout/Loading";
+import { AisleCircle } from "@layout/AisleCircle";
+import { AisleSeparator } from "@layout/AisleSeparator";
+
+import { Aisle } from "@models/index";
+import { useNavigation } from "@react-navigation/native";
+
+import { fetchShoppingRoute } from "@services/fetchData";
+
+import { X } from "lucide-react-native";
+
 export function Mapa() {
-  const [currentAisle, setCurrentAisle] = useState<number | null>(null);
+  const [shoppingRoute, setShoppingRoute] = useState();
+  const [isLoadingShoppingRoute, setIsLoadingShoppingRoute] =
+    useState<boolean>();
+
+  const [currentAisle, setCurrentAisle] = useState<number>();
   const [currentList, setCurrentList] = useState<"products" | "promotions">(
     "products",
   );
 
-  const { cartList } = useContext(ShoppingListContext);
-
   const navigation = useNavigation();
-
-  const {
-    data: shoppingRoute,
-    isLoading: isLoadingShoppingRoute,
-    isSuccess,
-  } = useQuery({
-    queryKey: ["shoppingRoute"],
-    queryFn: () => fetchShoppingRoute(),
-  });
+  const { cartList } = useContext(ShoppingListContext);
 
   // if (isSuccess) {
   //   setCurrentAisle(shoppingRoute[0].aisle);
