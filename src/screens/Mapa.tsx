@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useState } from "react";
-import { Text, View, TouchableOpacity, FlatList } from "react-native";
+import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -9,31 +9,33 @@ import { AisleCircle } from "@layout/AisleCircle";
 import { AisleSeparator } from "@layout/AisleSeparator";
 
 import { Aisle, Product } from "@models/index";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { fetchShoppingRoute } from "@services/fetchData";
 
 import { X } from "lucide-react-native";
 import { MapItemList } from "@layout/MapItemList";
+import { AppNavigationRoutesProps } from "@routes/app.routes";
 
 export function Mapa() {
-  const [shoppingRoute, setShoppingRoute] = useState();
+  const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);
   const [isLoadingShoppingRoute, setIsLoadingShoppingRoute] =
     useState<boolean>();
 
-  const [currentAisle, setCurrentAisle] = useState<number>();
+  const [currentAisle, setCurrentAisle] = useState<number>(0);
   const [currentList, setCurrentList] = useState<"products" | "promotions">(
     "products",
   );
 
-  const promotions: Product[] = [];
-  const products: Product[] = [];
-
-  const navigation = useNavigation();
+  const navigation = useNavigation<AppNavigationRoutesProps>();
   const { cartList } = useContext(ShoppingListContext);
 
   function handleNavigateBack() {
     navigation.goBack();
+  }
+
+  function handleNavigateToCompras() {
+    navigation.navigate("Compras");
   }
 
   const renderMapItem = useCallback(
@@ -41,6 +43,37 @@ export function Mapa() {
       <MapItemList key={item.id} product={item} />
     ),
     [],
+  );
+
+  async function handleFetchShoppingRoute() {
+    setIsLoadingShoppingRoute(true);
+
+    try {
+      const shoppingRoute = await fetchShoppingRoute(cartList);
+
+      if (shoppingRoute) {
+        setShoppingRoute(shoppingRoute);
+        setCurrentAisle(shoppingRoute[0].id);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoadingShoppingRoute(false);
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      if (cartList.length > 0) {
+        handleFetchShoppingRoute();
+      } else {
+        Alert.alert(
+          "Carrinho vazio",
+          "Não é possivel buscar a rota de compras com o carrinho vazio.",
+          [{ text: "Comprar", onPress: () => handleNavigateToCompras() }],
+        );
+      }
+    }, [cartList]),
   );
 
   return (
@@ -85,34 +118,38 @@ export function Mapa() {
           </TouchableOpacity>
         </View>
 
-        {currentList === "products" ? (
-          <FlatList
-            className="min-h-10"
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            initialNumToRender={5}
-            updateCellsBatchingPeriod={1000}
-            data={products}
-            renderItem={renderMapItem}
-            contentContainerStyle={{
-              gap: 10,
-              paddingHorizontal: 30,
-            }}
-          />
+        {!isLoadingShoppingRoute ? (
+          <>
+            {currentList === "products" ? (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                initialNumToRender={5}
+                updateCellsBatchingPeriod={1000}
+                data={shoppingRoute[currentAisle]?.products}
+                renderItem={renderMapItem}
+                contentContainerStyle={{
+                  gap: 10,
+                  paddingHorizontal: 30,
+                }}
+              />
+            ) : (
+              <FlatList
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                initialNumToRender={5}
+                updateCellsBatchingPeriod={1000}
+                data={shoppingRoute[currentAisle]?.promotions}
+                renderItem={renderMapItem}
+                contentContainerStyle={{
+                  gap: 10,
+                  paddingHorizontal: 30,
+                }}
+              />
+            )}
+          </>
         ) : (
-          <FlatList
-            className="min-h-10"
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            initialNumToRender={5}
-            updateCellsBatchingPeriod={1000}
-            data={promotions}
-            renderItem={renderMapItem}
-            contentContainerStyle={{
-              gap: 10,
-              paddingHorizontal: 30,
-            }}
-          />
+          <Loading />
         )}
       </View>
     </SafeAreaView>
