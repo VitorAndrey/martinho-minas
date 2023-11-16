@@ -17,19 +17,26 @@ export function ProductItemList({
   product,
   ...rest
 }: ProductItemListProps) {
-  const { addProduct, cartList } = useContext(ShoppingListContext);
+  const { addProduct, removeProduct, cartList } =
+    useContext(ShoppingListContext);
 
   function handleAddToCart() {
-    if (cartList.includes(product)) return;
-
-    addProduct(product);
+    if (cartList.includes(product)) {
+      removeProduct(product);
+    } else {
+      addProduct(product);
+    }
   }
+
+  const isInCart = cartList.includes(product);
 
   return (
     <TouchableOpacity
       onPress={handleAddToCart}
       className={twMerge(
-        "flex-row items-center rounded-2xl bg-zinc-200 px-4",
+        `flex-row items-center rounded-2xl bg-zinc-200 px-4 ${
+          isInCart && "bg-theme-pink-300"
+        }`,
         className,
       )}
       style={{ height: 50 }}
@@ -39,7 +46,11 @@ export function ProductItemList({
         {product.name}
       </Text>
 
-      <Plus color="black" size={18} />
+      {!isInCart ? (
+        <Plus color="black" size={16} />
+      ) : (
+        <Trash2 color="black" size={16} />
+      )}
     </TouchableOpacity>
   );
 }

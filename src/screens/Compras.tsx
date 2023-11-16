@@ -35,7 +35,11 @@ export function Compras() {
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleUpdateFiltersList(id: string) {
-    setFiltersList([id]);
+    setFiltersList((prev) => {
+      if (prev.includes(id)) {
+        return [];
+      } else return [id];
+    });
   }
 
   function handleNavigateToCart() {
@@ -127,6 +131,7 @@ export function Compras() {
           <Text className="px-8">Filtrar</Text>
           {!isLoadingCategories ? (
             <FlatList
+              className="min-h-10"
               horizontal
               showsHorizontalScrollIndicator={false}
               initialNumToRender={5}

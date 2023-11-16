@@ -8,12 +8,13 @@ import { Loading } from "@layout/Loading";
 import { AisleCircle } from "@layout/AisleCircle";
 import { AisleSeparator } from "@layout/AisleSeparator";
 
-import { Aisle } from "@models/index";
+import { Aisle, Product } from "@models/index";
 import { useNavigation } from "@react-navigation/native";
 
 import { fetchShoppingRoute } from "@services/fetchData";
 
 import { X } from "lucide-react-native";
+import { MapItemList } from "@layout/MapItemList";
 
 export function Mapa() {
   const [shoppingRoute, setShoppingRoute] = useState();
@@ -25,34 +26,22 @@ export function Mapa() {
     "products",
   );
 
+  const promotions: Product[] = [];
+  const products: Product[] = [];
+
   const navigation = useNavigation();
   const { cartList } = useContext(ShoppingListContext);
-
-  // if (isSuccess) {
-  //   setCurrentAisle(shoppingRoute[0].aisle);
-  // }
 
   function handleNavigateBack() {
     navigation.goBack();
   }
 
-  function handleSetCurrentList() {
-    if (currentList === "products") {
-      setCurrentList("promotions");
-    } else setCurrentList("products");
-  }
-
-  // const renderAisleCircle = useCallback(
-  //   ({ item }: { item: Aisle }) => <AisleCircle data={item} key={item.id} />,
-  //   [],
-  // );
-
-  // const renderAisleSeparator = useCallback(
-  //   ({ item }: { item: Aisle }) => <AisleSeparator key={item.id} />,
-  //   [],
-  // );
-
-  // const productList = shoppingRoute?.find((aisle) => (aisle.id = currentAisle));
+  const renderMapItem = useCallback(
+    ({ item }: { item: Product }) => (
+      <MapItemList key={item.id} product={item} />
+    ),
+    [],
+  );
 
   return (
     <SafeAreaView className="flex-1">
@@ -79,30 +68,51 @@ export function Mapa() {
         <Loading />
       )}
 
-      <View className="h-52 bg-[#D9D9D9] p-4">
-        <View className="m-1 mb-4">
-          <Text>Corredor Atual</Text>
-        </View>
+      <View className="h-[30%] bg-[#D9D9D9] p-4">
         <View className="flex-row gap-2">
           <TouchableOpacity
             onPress={() => setCurrentList("products")}
-            className="m-2 h-[33] w-[110] items-center justify-center bg-[#FAFAFA]"
+            className="m-2 h-[33] w-[110] items-center justify-center rounded-lg bg-[#FAFAFA]"
           >
             <Text>Produtos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => setCurrentList("promotions")}
-            className="m-2 h-[33] w-[110] items-center justify-center bg-[#FAFAFA]"
+            className="m-2 h-[33] w-[110] items-center justify-center rounded-lg bg-[#FAFAFA]"
           >
             <Text>Promoções</Text>
           </TouchableOpacity>
         </View>
 
         {currentList === "products" ? (
-          <Text>Products</Text>
+          <FlatList
+            className="min-h-10"
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            initialNumToRender={5}
+            updateCellsBatchingPeriod={1000}
+            data={products}
+            renderItem={renderMapItem}
+            contentContainerStyle={{
+              gap: 10,
+              paddingHorizontal: 30,
+            }}
+          />
         ) : (
-          <Text>Promotions</Text>
+          <FlatList
+            className="min-h-10"
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            initialNumToRender={5}
+            updateCellsBatchingPeriod={1000}
+            data={promotions}
+            renderItem={renderMapItem}
+            contentContainerStyle={{
+              gap: 10,
+              paddingHorizontal: 30,
+            }}
+          />
         )}
       </View>
     </SafeAreaView>
