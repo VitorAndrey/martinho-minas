@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, TextInput } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -26,6 +26,10 @@ const schema = yup
       .string()
       .required("Preencha o Email.")
       .email("Insira um Email válido."),
+     phoneNumber: yup
+      .string()
+      .required("Preencha o número de telefone.")
+      .email("Insira um número válido."),
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -34,6 +38,7 @@ const schema = yup
       .string()
       .required("Confirme sua Senha.")
       .oneOf([yup.ref("password")], "As duas senhas devem combinar."),
+      
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
@@ -86,7 +91,7 @@ export function Cadastro() {
         showsVerticalScrollIndicator={false}
       >
         <View className="flex-1 justify-center p-10">
-          <Text className="mb-10 text-center text-xl font-semibold">
+          <Text className="mb-10 text-center text-2xl font-semibold">
             Crie sua conta!
           </Text>
 
@@ -122,6 +127,14 @@ export function Cadastro() {
           />
           <InputErrorMessage message={errors.email?.message} />
 
+          <View className="h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4">
+          <TextInput className="h-12 flex-1 px-2 font-poppins-400 text-base">Número de telefone:</TextInput>
+          </View>
+  
+          <View className="h-6"></View>
+
+
+
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -147,17 +160,18 @@ export function Cadastro() {
                   onBlur: onBlur,
                   value: value,
                 }}
-                label="Comfirmar senha:"
+                label="Confirmar senha:"
               />
             )}
             name="confirmPassword"
           />
           <InputErrorMessage message={errors.confirmPassword?.message} />
 
+
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
           ) : (
-            <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+            <TextBtn  className="mt-6 text-xl" onPress={handleSubmit(onSubmit)}>
               Avançar
             </TextBtn>
           )}

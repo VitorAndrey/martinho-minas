@@ -173,7 +173,7 @@ export function Compras() {
       </View>
 
       <Btn className="my-4 mx-8" onPress={handleNavigateToCart}>
-        Ver carrinhouuuuuuu
+        Ver carrinho
       </Btn>
     </SafeAreaView>
   );
