@@ -119,6 +119,11 @@ export function Perfil() {
         />
         <InputErrorMessage message={errors.newPassword?.message} />
 
+        <Text className="px-2">Número de telefone:</Text>
+        <View className="mb-6">
+          <Input inputProps={{placeholder: "(00) 000000-0000"}} />
+          </View>
+
         <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
           className="mt-6 h-12 w-28 flex-row items-center justify-center self-center rounded-2xl bg-theme-pink-300"

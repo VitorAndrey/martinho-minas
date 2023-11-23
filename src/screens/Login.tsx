@@ -6,7 +6,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Text } from "@ui/Text";
 import { Input } from "@ui/Input";
-import { TextBtn } from "@ui/TextBtn";
+import { Btn } from "@ui/Btn";
 import { Header } from "@layout/Header";
 
 import { useForm, Controller } from "react-hook-form";
@@ -115,9 +115,9 @@ export function Login() {
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
           ) : (
-            <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+            <Btn  className="mt-6 text-xl bg-transparent  bg-theme-pink-300 w-28 self-center" onPress={handleSubmit(onSubmit)}>
               Avançar
-            </TextBtn>
+            </Btn>
           )}
         </View>
       </ScrollView>

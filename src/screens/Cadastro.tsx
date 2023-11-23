@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View, TextInput } from "react-native";
+import { ScrollView, View, TextInput, } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +7,7 @@ import { AuthNavigationRoutesProps } from "../routes/auth.routes";
 
 import { Text } from "@ui/Text";
 import { Input } from "@ui/Input";
-import { TextBtn } from "@ui/TextBtn";
+import { Btn } from "@ui/Btn";
 import { Header } from "@layout/Header";
 import { Loading } from "@layout/Loading";
 
@@ -25,11 +25,7 @@ const schema = yup
     email: yup
       .string()
       .required("Preencha o Email.")
-      .email("Insira um Email válido."),
-     phoneNumber: yup
-      .string()
-      .required("Preencha o número de telefone.")
-      .email("Insira um número válido."),
+      .email("Insira um Email válido."),      
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -85,6 +81,7 @@ export function Cadastro() {
       <Header />
 
       <ScrollView
+        keyboardShouldPersistTaps= 'always'
         contentContainerStyle={{
           flexGrow: 1,
         }}
@@ -127,11 +124,12 @@ export function Cadastro() {
           />
           <InputErrorMessage message={errors.email?.message} />
 
-          <View className="h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4">
-          <TextInput className="h-12 flex-1 px-2 font-poppins-400 text-base">Número de telefone:</TextInput>
+          <View className="mb-6">
+          <Input label="Número de telefone:" />
           </View>
   
-          <View className="h-6"></View>
+        
+  
 
 
 
@@ -171,9 +169,9 @@ export function Cadastro() {
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
           ) : (
-            <TextBtn  className="mt-6 text-xl" onPress={handleSubmit(onSubmit)}>
+            <Btn  className="mt-6 text-xl bg-transparent  bg-theme-pink-300 w-28 self-center" onPress={handleSubmit(onSubmit)}>
               Avançar
-            </TextBtn>
+            </Btn>
           )}
         </View>
       </ScrollView>
