@@ -58,7 +58,7 @@ export async function fetchShoppingRoute(
 
   let data = null;
 
-  const url = "https://supermercadoapi.vercel.app/shoppingroute";
+  const url = "https://supermercadoapi.vercel.app/shoppingroutes";
 
   try {
     const response = await axios.post(url, shoppingListIds);

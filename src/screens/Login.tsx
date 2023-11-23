@@ -34,7 +34,7 @@ type FormData = yup.InferType<typeof schema>;
 
 export function Login() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { handleUserLogged } = useContext(UserContext);
+  const { handleUserLogged, handleUpdateUserInfo } = useContext(UserContext);
 
   const {
     control,
@@ -51,12 +51,13 @@ export function Login() {
     const { email, password } = data;
 
     try {
-      await loginUser({
+      const user = await loginUser({
         email,
         password,
       } satisfies UserLogin);
 
       reset();
+      handleUpdateUserInfo(user);
       handleUserLogged();
     } catch (error) {
       console.log(error);
