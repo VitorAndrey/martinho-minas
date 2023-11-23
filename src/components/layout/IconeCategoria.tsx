@@ -22,14 +22,14 @@ export function IconeCategoria({
     <TouchableOpacity
       onPress={() => onPress(category)}
       className={twMerge(
-        `flex h-10 items-center justify-center rounded-xl border  px-3 ${
-          !active ? "border-zinc-200" : "border-theme-green-300"
+        `flex h-12 items-center justify-center rounded-xl border  px-3 ${
+          !active ? "border-green-200" : "border-zinc-300"
         }`,
         className,
       )}
       {...rest}
     >
-      <Text className={`${!active ? "text-zinc-400" : "text-black"}`}>
+      <Text className={`${!active ? "text-zinc-600" : "text-black"}`}>
         {category.name}
       </Text>
     </TouchableOpacity>

@@ -30,7 +30,7 @@ export function Inicio() {
         </Text>
 
         <View className="gap-6">
-          <Btn>Entrar com Google</Btn>
+          {/* <Btn>Entrar com Google</Btn> */}
 
           <Btn onPress={handleNavigateLogin}>Sou cliente MartMais</Btn>
         </View>

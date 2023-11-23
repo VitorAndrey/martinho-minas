@@ -35,7 +35,7 @@ export function ProductItemList({
       onPress={handleAddToCart}
       className={twMerge(
         `flex-row items-center rounded-2xl bg-zinc-200 px-4 ${
-          isInCart && "bg-theme-green-200"
+          isInCart && "bg-theme-green-300"
         }`,
         className,
       )}

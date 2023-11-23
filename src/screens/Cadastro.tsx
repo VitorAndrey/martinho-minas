@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, TextInput, } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -7,7 +7,7 @@ import { AuthNavigationRoutesProps } from "../routes/auth.routes";
 
 import { Text } from "@ui/Text";
 import { Input } from "@ui/Input";
-import { TextBtn } from "@ui/TextBtn";
+import { Btn } from "@ui/Btn";
 import { Header } from "@layout/Header";
 import { Loading } from "@layout/Loading";
 
@@ -25,7 +25,7 @@ const schema = yup
     email: yup
       .string()
       .required("Preencha o Email.")
-      .email("Insira um Email válido."),
+      .email("Insira um Email válido."),      
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -34,6 +34,7 @@ const schema = yup
       .string()
       .required("Confirme sua Senha.")
       .oneOf([yup.ref("password")], "As duas senhas devem combinar."),
+      
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
@@ -80,13 +81,14 @@ export function Cadastro() {
       <Header />
 
       <ScrollView
+        keyboardShouldPersistTaps= 'always'
         contentContainerStyle={{
           flexGrow: 1,
         }}
         showsVerticalScrollIndicator={false}
       >
         <View className="flex-1 justify-center p-10">
-          <Text className="mb-10 text-center text-xl font-semibold">
+          <Text className="mb-10 text-center text-2xl font-semibold">
             Crie sua conta!
           </Text>
 
@@ -122,6 +124,15 @@ export function Cadastro() {
           />
           <InputErrorMessage message={errors.email?.message} />
 
+          <View className="mb-6">
+          <Input label="Número de telefone:" />
+          </View>
+  
+        
+  
+
+
+
           <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -147,19 +158,20 @@ export function Cadastro() {
                   onBlur: onBlur,
                   value: value,
                 }}
-                label="Comfirmar senha:"
+                label="Confirmar senha:"
               />
             )}
             name="confirmPassword"
           />
           <InputErrorMessage message={errors.confirmPassword?.message} />
 
+
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
           ) : (
-            <TextBtn className="mt-6" onPress={handleSubmit(onSubmit)}>
+            <Btn  className="mt-6 text-xl bg-transparent  bg-theme-pink-300 w-28 self-center" onPress={handleSubmit(onSubmit)}>
               Avançar
-            </TextBtn>
+            </Btn>
           )}
         </View>
       </ScrollView>

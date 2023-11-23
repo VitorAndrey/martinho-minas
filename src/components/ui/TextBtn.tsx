@@ -11,7 +11,7 @@ export function TextBtn({ children, disabled, ...rest }: TextBtnProps) {
       <Text
         className={`${
           disabled ? "!text-zinc-400" : "text-theme-green-500"
-        } text-center font-semibold `}
+        } text-center font-semibold text-lg `}
       >
         {children}
       </Text>
