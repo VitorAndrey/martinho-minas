@@ -7,14 +7,12 @@ type AisleCircleProps = TouchableOpacityProps & {
 };
 
 export function AisleCircle({ data, ...rest }: AisleCircleProps) {
-  console.log(data);
-
   return (
     <TouchableOpacity
-      className="h-20 w-20 flex-1 rounded-full bg-theme-green-300"
+      className="h-20 w-20 flex-1 items-center justify-center self-center rounded-full bg-theme-green-300"
       {...rest}
     >
-      <Text className="text-2xl ">{data.id}</Text>
+      <Text className="text-xl">{data.AisleNumber}</Text>
     </TouchableOpacity>
   );
 }
