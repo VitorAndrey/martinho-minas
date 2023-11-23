@@ -18,7 +18,7 @@ export type Category = {
 };
 
 export type Aisle = {
-  id: number;
+  AisleNumber: number;
   products: Product[];
   promotions: Product[];
 };

@@ -22,6 +22,8 @@ export function Mapa() {
   const [isLoadingShoppingRoute, setIsLoadingShoppingRoute] =
     useState<boolean>();
 
+  const [aisleMap, setAisleMap] = useState<Record<number, Aisle>>({});
+
   const [currentAisle, setCurrentAisle] = useState<number>(0);
   const [currentList, setCurrentList] = useState<"products" | "promotions">(
     "products",
@@ -53,7 +55,16 @@ export function Mapa() {
 
       if (shoppingRoute) {
         setShoppingRoute(shoppingRoute);
-        setCurrentAisle(shoppingRoute[0].id);
+        setCurrentAisle(shoppingRoute[0].AisleNumber);
+
+        const aisleMap = shoppingRoute.reduce<Record<number, Aisle>>(
+          (map, aisle) => {
+            map[aisle.AisleNumber] = aisle;
+            return map;
+          },
+          {},
+        );
+        setAisleMap(aisleMap);
       }
     } catch (error) {
       console.log(error);
@@ -88,12 +99,14 @@ export function Mapa() {
         <FlatList
           data={shoppingRoute}
           renderItem={({ item }) => (
-            <AisleCircle data={item} onPress={() => setCurrentAisle(item.id)} />
+            <AisleCircle
+              data={item}
+              onPress={() => setCurrentAisle(item.AisleNumber)}
+            />
           )}
           ItemSeparatorComponent={(item) => <AisleSeparator />}
           contentContainerStyle={{
             flexGrow: 1,
-            alignItems: "center",
             paddingVertical: 30,
           }}
         />
@@ -102,6 +115,7 @@ export function Mapa() {
       )}
 
       <View className="h-[30%] bg-[#D9D9D9] p-4">
+        <Text>{currentAisle}</Text>
         <View className="flex-row gap-2">
           <TouchableOpacity
             onPress={() => setCurrentList("products")}
@@ -126,7 +140,7 @@ export function Mapa() {
                 showsHorizontalScrollIndicator={false}
                 initialNumToRender={5}
                 updateCellsBatchingPeriod={1000}
-                data={shoppingRoute[currentAisle]?.products}
+                data={aisleMap[currentAisle]?.products}
                 renderItem={renderMapItem}
                 contentContainerStyle={{
                   gap: 10,
@@ -139,7 +153,7 @@ export function Mapa() {
                 showsHorizontalScrollIndicator={false}
                 initialNumToRender={5}
                 updateCellsBatchingPeriod={1000}
-                data={shoppingRoute[currentAisle]?.promotions}
+                data={aisleMap[currentAisle]?.promotions}
                 renderItem={renderMapItem}
                 contentContainerStyle={{
                   gap: 10,
