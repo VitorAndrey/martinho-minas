@@ -64,83 +64,88 @@ export function Perfil() {
 
       <ScrollView className="flex-1 p-8">
         <Text className="mb-8 text-xl">Perfil</Text>
+        <View className="flex-1">
+          <Text className="px-2">Nome:</Text>
+          <Controller
+            defaultValue={userInfo.name}
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                  editable: isEditing,
+                }}
+              />
+            )}
+            name="newName"
+          />
+          <InputErrorMessage message={errors.newName?.message} />
 
-        <Text className="px-2">Nome:</Text>
-        <Controller
-          defaultValue={userInfo.name}
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              inputProps={{
-                onChangeText: onChange,
-                onBlur: onBlur,
-                value: value,
-                editable: isEditing,
-              }}
-            />
-          )}
-          name="newName"
-        />
-        <InputErrorMessage message={errors.newName?.message} />
+          <Text className="px-2">E-mail:</Text>
+          <Controller
+            defaultValue={userInfo.email}
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                  editable: isEditing,
+                }}
+              />
+            )}
+            name="newEmail"
+          />
+          <InputErrorMessage message={errors.newEmail?.message} />
 
-        <Text className="px-2">E-mail:</Text>
-        <Controller
-          defaultValue={userInfo.email}
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              inputProps={{
-                onChangeText: onChange,
-                onBlur: onBlur,
-                value: value,
-                editable: isEditing,
-              }}
-            />
-          )}
-          name="newEmail"
-        />
-        <InputErrorMessage message={errors.newEmail?.message} />
+          <Text className="px-2">Senha:</Text>
+          <Controller
+            defaultValue={userInfo.password}
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                  editable: isEditing,
+                }}
+              />
+            )}
+            name="newPassword"
+          />
+          <InputErrorMessage message={errors.newPassword?.message} />
 
-        <Text className="px-2">Senha:</Text>
-        <Controller
-          defaultValue={userInfo.password}
-          control={control}
-          render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-              inputProps={{
-                onChangeText: onChange,
-                onBlur: onBlur,
-                value: value,
-                editable: isEditing,
-              }}
-            />
-          )}
-          name="newPassword"
-        />
-        <InputErrorMessage message={errors.newPassword?.message} />
-
-        <Text className="px-2">Número de telefone:</Text>
-        <View className="mb-6">
-          <Input inputProps={{placeholder: "(00) 000000-0000"}} />
+          <Text className="px-2">Número de telefone:</Text>
+          <View className="mb-6">
+            <Input inputProps={{ placeholder: "(00) 000000-0000" }} />
           </View>
+        </View>
 
-        <TouchableOpacity
-          onPress={handleSubmit(onSubmit)}
-          className="mt-6 h-12 w-28 flex-row items-center justify-center self-center rounded-2xl bg-theme-pink-300"
-        >
-          <Text className="mr-2">{isEditing ? "Salvar" : "Editar"}</Text>
+        <View className=" h-12 flex-row justify-center gap-10 self-center   ">
+          <Btn className=" w-28 text-base" onPress={handleLoggOut}>
+            Sair
+          </Btn>
 
-          {isEditing ? (
-            <Check color="black" size={18} />
-          ) : (
-            <Pencil color="black" size={16} />
-          )}
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={handleSubmit(onSubmit)}
+            className=" h-12 w-28 flex-row items-center justify-center rounded-2xl bg-theme-pink-300 "
+          >
+            <Text className="mr-2 text-base">
+              {isEditing ? "Salvar" : "Editar"}
+            </Text>
+
+            {isEditing ? (
+              <Check color="black" size={18} />
+            ) : (
+              <Pencil color="black" size={16} />
+            )}
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-
-      <Btn className="my-4 mx-8" onPress={handleLoggOut}>
-        Sair
-      </Btn>
     </SafeAreaView>
   );
 }

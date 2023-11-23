@@ -17,7 +17,7 @@ export function CartItemList({ product }: CartItemProps) {
 
   return (
     <View
-      className="flex-row items-center rounded-2xl bg-green-200 px-4 pr-2"
+      className="flex-row items-center rounded-2xl bg-theme-green-300 px-4 pr-2"
       style={{ height: 50 }}
     >
       <Text className="flex-1" numberOfLines={1}>
