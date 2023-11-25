@@ -1,6 +1,6 @@
-import { Product } from "@models/index";
+import { ReactNode, createContext, useState } from "react";
 
-import { createContext, useState } from "react";
+import { Product } from "@models/index";
 
 type ShoppingListContextProps = {
   cartList: Product[];
@@ -13,11 +13,7 @@ export const ShoppingListContext = createContext(
   {} as ShoppingListContextProps,
 );
 
-export function ShoppingListProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function ShoppingListProvider({ children }: { children: ReactNode }) {
   const [cartList, setCartList] = useState<Product[]>([]);
 
   function addProduct(product: Product) {

@@ -8,12 +8,14 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 
-import { Btn } from "@ui/Btn";
+import colors from "@theme/colors";
+import { CheckIcon, PencilIcon } from "lucide-react-native";
+
+import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { Input } from "@ui/Input";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
-import { Check, Pencil } from "lucide-react-native";
 
 const schema = yup
   .object({
@@ -32,7 +34,7 @@ type FormData = yup.InferType<typeof schema>;
 
 export type ActiveInputType = "name" | "email" | "password" | null;
 
-export function Perfil() {
+export function Profile() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { handleUserUnlogged } = useContext(UserContext);
 
@@ -126,9 +128,9 @@ export function Perfil() {
         </View>
 
         <View className=" h-12 flex-row justify-center gap-10 self-center   ">
-          <Btn className=" w-28 text-base" onPress={handleLoggOut}>
+          <Button className=" w-28 text-base" onPress={handleLoggOut}>
             Sair
-          </Btn>
+          </Button>
 
           <TouchableOpacity
             onPress={handleSubmit(onSubmit)}
@@ -139,9 +141,9 @@ export function Perfil() {
             </Text>
 
             {isEditing ? (
-              <Check color="black" size={18} />
+              <CheckIcon color={colors["theme-icon"].active} size={18} />
             ) : (
-              <Pencil color="black" size={16} />
+              <PencilIcon color={colors["theme-icon"].active} size={16} />
             )}
           </TouchableOpacity>
         </View>

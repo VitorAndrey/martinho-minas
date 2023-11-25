@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 
 import { fetchPromotions } from "@services/fetchData";
 
@@ -12,7 +12,7 @@ import { Loading } from "@layout/Loading";
 import { PromotionItemList } from "@layout/PromotionItemList";
 import { generateEmptyItem } from "@utils/emptyItem";
 
-export function Promocoes() {
+export function Promotions() {
   const [promotions, setPromotions] = useState<Product[]>();
   const [isLoadingPromotions, setIsLoadingPromotions] =
     useState<boolean>(false);

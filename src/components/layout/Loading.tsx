@@ -1,5 +1,7 @@
 import { View, ActivityIndicator, ViewProps } from "react-native";
 
+import colors from "@theme/colors";
+
 import { twMerge } from "tailwind-merge";
 
 type LoadingProps = ViewProps & {};
@@ -13,7 +15,7 @@ export function Loading({ className, ...rest }: LoadingProps) {
       )}
       {...rest}
     >
-      <ActivityIndicator color="#10C700" />
+      <ActivityIndicator color={colors["theme-green"][500]} />
     </View>
   );
 }

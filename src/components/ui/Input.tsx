@@ -1,6 +1,8 @@
 import { TextInput, View, ViewProps, TextInputProps } from "react-native";
-import { Text } from "./Text";
+
 import { twMerge, ClassNameValue } from "tailwind-merge";
+
+import { Text } from "./Text";
 
 type InputProps = {
   containerProps?: ViewProps & {

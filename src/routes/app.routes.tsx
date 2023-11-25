@@ -3,27 +3,28 @@ import {
   BottomTabNavigationProp,
 } from "@react-navigation/bottom-tabs";
 
-import { Mapa } from "@screens/Mapa";
-import { Promocoes } from "@screens/Promocoes";
-import { Perfil } from "@screens/Perfil";
-import { Compras } from "@screens/Compras";
+import { Map } from "@screens/app/Map";
+import { Promotions } from "@screens/app/Promotions";
+import { Profile } from "@screens/app/Profile";
+import { Shopping } from "@screens/app/Shopping";
+import { Cart } from "@screens/app/Cart";
 
 import {
-  BadgePercent,
-  Map,
-  ShoppingCart,
-  Store,
-  User2,
+  BadgePercentIcon,
+  MapIcon,
+  StoreIcon,
+  User2Icon,
 } from "lucide-react-native";
-import { Cart } from "@screens/Cart";
+
 import { CartIcon } from "@ui/CartIcon";
+import colors from "@theme/colors";
 
 type AppRoutes = {
-  Compras: undefined;
-  Promocoes: undefined;
-  Mapa: undefined;
+  Shopping: undefined;
+  Promotions: undefined;
+  Map: undefined;
   Cart: undefined;
-  Perfil: undefined;
+  Profile: undefined;
 };
 
 export type AppNavigationRoutesProps = BottomTabNavigationProp<AppRoutes>;
@@ -33,14 +34,14 @@ const { Navigator, Screen } = createBottomTabNavigator<AppRoutes>();
 export function AppRoutes() {
   return (
     <Navigator
-      initialRouteName="Promocoes"
+      initialRouteName="Promotions"
       sceneContainerStyle={{ backgroundColor: "transparent" }}
       backBehavior="history"
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: "#222222",
-        tabBarInactiveTintColor: "#999999",
+        tabBarActiveTintColor: colors["theme-icon"].active,
+        tabBarInactiveTintColor: colors["theme-icon"].inactive,
         tabBarStyle: {
           backgroundColor: "transparent",
           elevation: 0,
@@ -48,20 +49,22 @@ export function AppRoutes() {
       }}
     >
       <Screen
-        name="Promocoes"
-        component={Promocoes}
-        options={{ tabBarIcon: ({ color }) => <BadgePercent color={color} /> }}
-      />
-      <Screen
-        name="Compras"
-        component={Compras}
-        options={{ tabBarIcon: ({ color }) => <Store color={color} /> }}
-      />
-      <Screen
-        name="Mapa"
-        component={Mapa}
+        name="Promotions"
+        component={Promotions}
         options={{
-          tabBarIcon: ({ color }) => <Map color={color} />,
+          tabBarIcon: ({ color }) => <BadgePercentIcon color={color} />,
+        }}
+      />
+      <Screen
+        name="Shopping"
+        component={Shopping}
+        options={{ tabBarIcon: ({ color }) => <StoreIcon color={color} /> }}
+      />
+      <Screen
+        name="Map"
+        component={Map}
+        options={{
+          tabBarIcon: ({ color }) => <MapIcon color={color} />,
           tabBarStyle: { display: "none" },
         }}
       />
@@ -73,9 +76,9 @@ export function AppRoutes() {
       />
 
       <Screen
-        name="Perfil"
-        component={Perfil}
-        options={{ tabBarIcon: ({ color }) => <User2 color={color} /> }}
+        name="Profile"
+        component={Profile}
+        options={{ tabBarIcon: ({ color }) => <User2Icon color={color} /> }}
       />
     </Navigator>
   );

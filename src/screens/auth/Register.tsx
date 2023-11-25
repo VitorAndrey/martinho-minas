@@ -1,15 +1,9 @@
 import { useState } from "react";
-import { ScrollView, View, TextInput, } from "react-native";
+import { ScrollView, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthNavigationRoutesProps } from "../routes/auth.routes";
-
-import { Text } from "@ui/Text";
-import { Input } from "@ui/Input";
-import { Btn } from "@ui/Btn";
-import { Header } from "@layout/Header";
-import { Loading } from "@layout/Loading";
+import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -19,13 +13,19 @@ import { RegisterUser } from "@models/index";
 import { registerUser } from "@services/authentication";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
 
+import { Text } from "@ui/Text";
+import { Input } from "@ui/Input";
+import { Button } from "@ui/Button";
+import { Header } from "@layout/Header";
+import { Loading } from "@layout/Loading";
+
 const schema = yup
   .object({
     name: yup.string().required("Preencha o Nome."),
     email: yup
       .string()
       .required("Preencha o Email.")
-      .email("Insira um Email válido."),      
+      .email("Insira um Email válido."),
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -34,12 +34,11 @@ const schema = yup
       .string()
       .required("Confirme sua Senha.")
       .oneOf([yup.ref("password")], "As duas senhas devem combinar."),
-      
   })
   .required();
 type FormData = yup.InferType<typeof schema>;
 
-export function Cadastro() {
+export function Register() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigation = useNavigation<AuthNavigationRoutesProps>();
 
@@ -81,7 +80,7 @@ export function Cadastro() {
       <Header />
 
       <ScrollView
-        keyboardShouldPersistTaps= 'always'
+        keyboardShouldPersistTaps="always"
         contentContainerStyle={{
           flexGrow: 1,
         }}
@@ -125,13 +124,8 @@ export function Cadastro() {
           <InputErrorMessage message={errors.email?.message} />
 
           <View className="mb-6">
-          <Input label="Número de telefone:" />
+            <Input label="Número de telefone:" />
           </View>
-  
-        
-  
-
-
 
           <Controller
             control={control}
@@ -165,13 +159,15 @@ export function Cadastro() {
           />
           <InputErrorMessage message={errors.confirmPassword?.message} />
 
-
           {isLoading ? (
             <Loading className="mt-7 flex-[0]" />
           ) : (
-            <Btn  className="mt-6 text-xl bg-transparent  bg-theme-pink-300 w-28 self-center" onPress={handleSubmit(onSubmit)}>
+            <Button
+              className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"
+              onPress={handleSubmit(onSubmit)}
+            >
               Avançar
-            </Btn>
+            </Button>
           )}
         </View>
       </ScrollView>

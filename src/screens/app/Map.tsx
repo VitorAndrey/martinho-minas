@@ -1,23 +1,25 @@
-import React, { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
 import { SafeAreaView } from "react-native-safe-area-context";
-
-import { Loading } from "@layout/Loading";
-import { AisleCircle } from "@layout/AisleCircle";
-import { AisleSeparator } from "@layout/AisleSeparator";
 
 import { Aisle, Product } from "@models/index";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import { fetchShoppingRoute } from "@services/fetchData";
 
-import { X } from "lucide-react-native";
+import colors from "@theme/colors";
+
+import { XIcon } from "lucide-react-native";
 import { MapItemList } from "@layout/MapItemList";
 import { AppNavigationRoutesProps } from "@routes/app.routes";
 
-export function Mapa() {
+import { Loading } from "@layout/Loading";
+import { AisleCircle } from "@layout/AisleCircle";
+import { AisleSeparator } from "@layout/AisleSeparator";
+
+export function Map() {
   const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);
   const [isLoadingShoppingRoute, setIsLoadingShoppingRoute] =
     useState<boolean>();
@@ -36,8 +38,8 @@ export function Mapa() {
     navigation.goBack();
   }
 
-  function handleNavigateToCompras() {
-    navigation.navigate("Compras");
+  function handleNavigateToShopping() {
+    navigation.navigate("Shopping");
   }
 
   const renderMapItem = useCallback(
@@ -82,8 +84,8 @@ export function Mapa() {
       } else {
         Alert.alert(
           "Carrinho vazio",
-          "Não é possivel buscar a rota de compras com o carrinho vazio.",
-          [{ text: "Comprar", onPress: () => handleNavigateToCompras() }],
+          "Não é possivel buscar a rota de Shopping com o carrinho vazio.",
+          [{ text: "Comprar", onPress: () => handleNavigateToShopping() }],
         );
       }
     }, [cartList]),
@@ -93,7 +95,7 @@ export function Mapa() {
     <SafeAreaView className="flex-1">
       <View className="mb-10 px-4 py-2">
         <TouchableOpacity onPress={handleNavigateBack}>
-          <X color="black" size={20} />
+          <XIcon color={colors["theme-icon"].active} size={20} />
         </TouchableOpacity>
       </View>
 
@@ -116,19 +118,19 @@ export function Mapa() {
         <Loading />
       )}
 
-      <View className="h-[30%] bg-[#D9D9D9] p-4">
+      <View className="bg-theme-gray-300 h-[30%] p-4">
         <Text>{currentAisle}</Text>
         <View className="flex-row gap-2">
           <TouchableOpacity
             onPress={() => setCurrentList("products")}
-            className="m-2 h-[33] w-[110] items-center justify-center rounded-lg bg-[#FAFAFA]"
+            className="bg-theme-gray-100 m-2 h-10 w-40 items-center justify-center rounded-lg"
           >
             <Text>Produtos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => setCurrentList("promotions")}
-            className="m-2 h-[33] w-[110] items-center justify-center rounded-lg bg-[#FAFAFA]"
+            className="bg-theme-gray-100 m-2 h-10 w-40 items-center justify-center rounded-lg"
           >
             <Text>Promoções</Text>
           </TouchableOpacity>

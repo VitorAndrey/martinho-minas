@@ -1,8 +1,10 @@
+import { ReactNode } from "react";
 import { Text as NativeText, TextProps as NativeTextProps } from "react-native";
+
 import { twMerge } from "tailwind-merge";
 
 type TextProps = NativeTextProps & {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export function Text({ className, children, ...rest }: TextProps) {

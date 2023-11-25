@@ -1,5 +1,6 @@
-import { User } from "@models/index";
 import { ReactNode, createContext, useState } from "react";
+
+import { User } from "@models/index";
 
 type UserContextType = {
   isUserLogged: boolean;

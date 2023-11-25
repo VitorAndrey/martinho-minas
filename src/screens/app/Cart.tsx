@@ -9,7 +9,9 @@ import { AppNavigationRoutesProps } from "@routes/app.routes";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Btn } from "@ui/Btn";
+import colors from "@theme/colors";
+
+import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { CartItemList } from "@layout/CartItemList";
@@ -21,7 +23,7 @@ export function Cart() {
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleNavigateToMap() {
-    navigation.navigate("Mapa");
+    navigation.navigate("Map");
   }
 
   function handleClearCartList() {
@@ -55,30 +57,38 @@ export function Cart() {
       />
 
       <View className="flex-row py-4 px-8">
-        <Btn
+        <Button
           className={`mr-4 flex-1 ${
-            cartList.length < 1 ? "bg-zinc-200" : "bg-theme-green-300"
+            cartList.length < 1 ? "bg-theme-gray-200" : "bg-theme-green-300"
           }`}
           onPress={handleNavigateToMap}
           disabled={cartList.length < 1}
           icon={() => (
-            <BadgeCheckIcon color="black" className="ml-2" size={18} />
+            <BadgeCheckIcon
+              color={colors["theme-icon"].active}
+              className="ml-2"
+              size={18}
+            />
           )}
         >
           Concluir
-        </Btn>
-        <Btn
+        </Button>
+        <Button
           className={`flex-1 ${
-            cartList.length < 1 ? "bg-zinc-200" : "bg-theme-pink-300"
+            cartList.length < 1 ? "bg-theme-gray-200" : "bg-theme-pink-300"
           }`}
           onPress={handleClearCartList}
           disabled={cartList.length < 1}
           icon={() => (
-            <BadgeMinusIcon color="black" className="ml-2" size={18} />
+            <BadgeMinusIcon
+              color={colors["theme-icon"].active}
+              className="ml-2"
+              size={18}
+            />
           )}
         >
           Limpar
-        </Btn>
+        </Button>
       </View>
     </SafeAreaView>
   );

@@ -2,18 +2,17 @@ import { View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthNavigationRoutesProps } from "../routes/auth.routes";
+import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
-import { Btn } from "@ui/Btn";
+import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
-import { TextBtn } from "@ui/TextBtn";
 import { Header } from "@layout/Header";
 
-export function Inicio() {
+export function Welcome() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();
 
-  function navegarCadastro() {
-    navigation.navigate("Cadastro");
+  function navegarRegister() {
+    navigation.navigate("Register");
   }
 
   function handleNavigateLogin() {
@@ -30,15 +29,15 @@ export function Inicio() {
         </Text>
 
         <View className="gap-6">
-          {/* <Btn>Entrar com Google</Btn> */}
+          {/* <Button>Entrar com Google</Button> */}
 
-          <Btn onPress={handleNavigateLogin}>Sou cliente MartMais</Btn>
+          <Button onPress={handleNavigateLogin}>Sou cliente MartMais</Button>
         </View>
 
         <View className="flex-row items-center justify-center gap-2 pt-10">
           <Text>Não tem conta?</Text>
 
-          <TextBtn onPress={navegarCadastro}>Cadastar!</TextBtn>
+          <Button onPress={navegarRegister}>Cadastar!</Button>
         </View>
       </View>
     </SafeAreaView>

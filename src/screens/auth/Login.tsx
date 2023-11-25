@@ -4,11 +4,6 @@ import { ScrollView, View } from "react-native";
 import { UserContext } from "@contexts/UserContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Text } from "@ui/Text";
-import { Input } from "@ui/Input";
-import { Btn } from "@ui/Btn";
-import { Header } from "@layout/Header";
-
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -16,6 +11,11 @@ import { loginUser } from "@services/authentication";
 import { Loading } from "@layout/Loading";
 import { UserLogin } from "@models/index";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
+
+import { Text } from "@ui/Text";
+import { Input } from "@ui/Input";
+import { Button } from "@ui/Button";
+import { Header } from "@layout/Header";
 
 const schema = yup
   .object({
@@ -114,11 +114,20 @@ export function Login() {
           <InputErrorMessage message={errors.password?.message} />
 
           {isLoading ? (
-            <Loading className="mt-7 flex-[0]" />
+            <Button
+              className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"
+              onPress={handleSubmit(onSubmit)}
+              icon={() => <Loading />}
+            >
+              ""
+            </Button>
           ) : (
-            <Btn  className="mt-6 text-xl bg-transparent  bg-theme-pink-300 w-28 self-center" onPress={handleSubmit(onSubmit)}>
+            <Button
+              className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"
+              onPress={handleSubmit(onSubmit)}
+            >
               Avançar
-            </Btn>
+            </Button>
           )}
         </View>
       </ScrollView>

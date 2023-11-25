@@ -1,15 +1,17 @@
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { Text } from "./Text";
 import { ReactNode } from "react";
+import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+
 import { twMerge } from "tailwind-merge";
+
+import { Text } from "./Text";
 
 type BtnProps = TouchableOpacityProps & {
   children: ReactNode;
   textClassName?: string;
-  icon?: () => React.ReactNode;
+  icon?: () => ReactNode;
 };
 
-export function Btn({
+export function Button({
   children,
   className,
   icon,

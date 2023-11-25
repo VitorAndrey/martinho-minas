@@ -8,7 +8,7 @@ import { twMerge } from "tailwind-merge";
 import { styles } from "src/theme/inlineStyles";
 import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
 
-import { Btn } from "@ui/Btn";
+import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
 
 type PromotionItemListProps = ViewProps & {
@@ -64,21 +64,21 @@ export function PromotionItemList({
       </View>
 
       {isInCart ? (
-        <Btn
+        <Button
           className="mt-1 h-10 w-full bg-theme-pink-300"
           textClassName="text-sm"
           onPress={handleRemoveProduct}
         >
           Remover
-        </Btn>
+        </Button>
       ) : (
-        <Btn
+        <Button
           className="mt-1 h-10 w-full"
           textClassName="text-sm"
           onPress={handleAddProduct}
         >
           Adicionar
-        </Btn>
+        </Button>
       )}
     </View>
   );

@@ -5,19 +5,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Category, Product } from "@models/index";
 
-import { Btn } from "@ui/Btn";
-import { Text } from "@ui/Text";
-import { Header } from "@layout/Header";
-import { IconeCategoria } from "@layout/IconeCategoria";
-import { ProductItemList } from "@layout/ProductItemList";
-
-import { Loading } from "@layout/Loading";
-import { fetchCategories, fetchProducts } from "@services/fetchData";
-import { useNavigation } from "@react-navigation/native";
-import { AppNavigationRoutesProps } from "@routes/app.routes";
+import colors from "@theme/colors";
 import { Search } from "lucide-react-native";
 
-export function Compras() {
+import { fetchCategories, fetchProducts } from "@services/fetchData";
+
+import { useNavigation } from "@react-navigation/native";
+import { AppNavigationRoutesProps } from "@routes/app.routes";
+
+import { Text } from "@ui/Text";
+import { Button } from "@ui/Button";
+import { Header } from "@layout/Header";
+import { Loading } from "@layout/Loading";
+import { ProductItemList } from "@layout/ProductItemList";
+import { CategoryItemList } from "@layout/CategoryItemList";
+
+export function Shopping() {
   const [categories, setCategories] = useState<Category[]>();
   const [isLoadingCategories, setIsLoadingCategories] =
     useState<boolean>(false);
@@ -57,7 +60,7 @@ export function Compras() {
 
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
-      <IconeCategoria
+      <CategoryItemList
         key={item.id}
         category={item}
         onPress={() => handleUpdateFiltersList(item.id)}
@@ -119,7 +122,7 @@ export function Compras() {
       <View className="flex-1">
         <View className="flex-row gap-2 py-4 px-8">
           <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-theme-pink-300">
-            <Search color="black" size={16} />
+            <Search color={colors["theme-icon"].active} size={16} />
           </TouchableOpacity>
 
           <TextInput
@@ -174,9 +177,9 @@ export function Compras() {
         </View>
       </View>
 
-      <Btn className="my-4 mx-8" onPress={handleNavigateToCart}>
+      <Button className="my-4 mx-8" onPress={handleNavigateToCart}>
         Ver carrinho
-      </Btn>
+      </Button>
     </SafeAreaView>
   );
 }

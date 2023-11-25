@@ -26,19 +26,22 @@ export function CategoryItemList({
     onPress(category);
   }
 
-  const border = isActive ? "border-green-300" : "border-zinc-300";
-  const text = isActive ? "text-black" : "text-zinc-400";
-
   return (
     <TouchableOpacity
       onPress={handleSelectCategory}
       className={twMerge(
-        `flex h-10 items-center justify-center rounded-xl border px-3 ${border}`,
+        `flex h-10 items-center justify-center rounded-xl border px-3 ${
+          isActive ? "border-theme-green-300" : "border-theme-gray-300"
+        }`,
         className,
       )}
       {...rest}
     >
-      <Text className={text}>{category.name}</Text>
+      <Text
+        className={isActive ? "text-theme-gray-950" : "text-theme-gray-400"}
+      >
+        {category.name}
+      </Text>
     </TouchableOpacity>
   );
 }

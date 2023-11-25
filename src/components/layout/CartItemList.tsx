@@ -8,6 +8,7 @@ import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
 
 import { BadgePercentIcon, Trash2 } from "lucide-react-native";
 
+import colors from "@theme/colors";
 import { styles } from "@theme/inlineStyles";
 
 import { Text } from "@ui/Text";
@@ -26,7 +27,7 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
   return (
     <View
       style={styles.boxShadow}
-      className="flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 p-2"
+      className="border-theme-gray-200 bg-theme-gray-50 flex-row items-center rounded-2xl border p-2"
       {...rest}
     >
       <View className="relative h-16 w-16 pr-2">
@@ -37,7 +38,7 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
 
         {product.discount_percentage > 0 && (
           <BadgePercentIcon
-            color="black"
+            color={colors["theme-icon"].active}
             className="absolute bottom-0 right-0 rounded-full bg-theme-green-300"
           />
         )}
@@ -48,7 +49,7 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
         <View className="flex-row items-center">
           <Text>R$ {calcTotalPrice(product)}</Text>
           {product.discount_percentage > 0 && (
-            <Text className="ml-2 text-xs text-zinc-500 line-through">
+            <Text className="text-theme-gray-500 ml-2 text-xs line-through">
               {formatCurrentcy(product.base_price)}
             </Text>
           )}
@@ -56,7 +57,7 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
       </View>
 
       <TouchableOpacity className="p-2" onPress={handleRemoveProduct}>
-        <Trash2 color="black" size={16} />
+        <Trash2 color={colors["theme-icon"].active} size={16} />
       </TouchableOpacity>
     </View>
   );

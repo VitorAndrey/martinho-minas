@@ -12,8 +12,8 @@ export function EmptyCart({ className, ...rest }: EmptyCartProps) {
       className={twMerge("flex-1 items-center justify-center", className)}
       {...rest}
     >
-      <Text className="text-zinc-500">O carrinho está vazio.</Text>
-      <Text className="text-zinc-500">Adicione items para iniciar.</Text>
+      <Text className="text-theme-gray-500">O carrinho está vazio.</Text>
+      <Text className="text-theme-gray-500">Adicione items para iniciar.</Text>
     </View>
   );
 }

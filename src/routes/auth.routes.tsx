@@ -3,14 +3,14 @@ import {
   NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 
-import { Login } from "@screens/Login";
-import { Inicio } from "@screens/Inicio";
-import { Cadastro } from "@screens/Cadastro";
+import { Login } from "@screens/auth/Login";
+import { Welcome } from "@screens/auth/Welcome";
+import { Register } from "@screens/auth/Register";
 
 export type AuthRoutes = {
-  Inicio: undefined;
+  Welcome: undefined;
   Login: undefined;
-  Cadastro: undefined;
+  Register: undefined;
 };
 
 export type AuthNavigationRoutesProps = NativeStackNavigationProp<AuthRoutes>;
@@ -19,10 +19,13 @@ const { Navigator, Screen } = createNativeStackNavigator<AuthRoutes>();
 
 export function AuthRoutes() {
   return (
-    <Navigator initialRouteName="Inicio" screenOptions={{ headerShown: false }}>
-      <Screen name="Inicio" component={Inicio} />
+    <Navigator
+      initialRouteName="Welcome"
+      screenOptions={{ headerShown: false }}
+    >
+      <Screen name="Welcome" component={Welcome} />
       <Screen name="Login" component={Login} />
-      <Screen name="Cadastro" component={Cadastro} />
+      <Screen name="Register" component={Register} />
     </Navigator>
   );
 }

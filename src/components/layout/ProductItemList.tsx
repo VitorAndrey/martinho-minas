@@ -10,6 +10,8 @@ import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { CircleIcon } from "lucide-react-native";
 
+import colors from "@theme/colors";
+
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
 import { styles } from "src/theme/inlineStyles";
@@ -66,10 +68,10 @@ export function ProductItemList({
       </Text>
 
       {!isInCart ? (
-        <CircleIcon color="black" size={16} />
+        <CircleIcon color={colors["theme-icon"].active} size={16} />
       ) : (
         <CircleIcon
-          color="black"
+          color={colors["theme-icon"].active}
           size={16}
           className="rounded-full bg-theme-green-300"
         />
