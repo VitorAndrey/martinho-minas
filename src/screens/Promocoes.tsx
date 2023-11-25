@@ -61,11 +61,11 @@ export function Promocoes() {
           columnWrapperStyle={{
             flexGrow: 1,
             justifyContent: "space-around",
-            columnGap: 20,
+            columnGap: 10,
           }}
           contentContainerStyle={{
             gap: 10,
-            paddingHorizontal: 30,
+            paddingHorizontal: 20,
             paddingVertical: 20,
 
             flexGrow: 1,
