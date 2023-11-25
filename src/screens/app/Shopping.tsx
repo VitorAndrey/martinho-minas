@@ -177,7 +177,7 @@ export function Shopping() {
         </View>
       </View>
 
-      <Button className="my-4 mx-8" onPress={handleNavigateToCart}>
+      <Button className="my-2 mx-8" onPress={handleNavigateToCart}>
         Ver carrinho
       </Button>
     </SafeAreaView>

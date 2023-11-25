@@ -5,7 +5,7 @@ import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
-import { styles } from "src/theme/inlineStyles";
+import { styles } from "@styles/inlineStyles";
 import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
 
 import { Button } from "@ui/Button";

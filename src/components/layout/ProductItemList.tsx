@@ -14,7 +14,7 @@ import colors from "@theme/colors";
 
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
-import { styles } from "src/theme/inlineStyles";
+import { styles } from "@styles/inlineStyles";
 
 import { Text } from "@ui/Text";
 
@@ -51,7 +51,7 @@ export function ProductItemList({
       style={styles.boxShadow}
       onPress={handleAddToCart}
       className={twMerge(
-        "flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4",
+        "h-[50px] flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4",
         className,
       )}
       {...rest}

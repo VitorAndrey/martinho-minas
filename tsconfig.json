@@ -16,6 +16,9 @@
       "@theme/*": [
         "./src/theme/*"
       ],
+      "@styles/*": [
+        "./src/styles/*"
+      ],
       "@models/*": [
         "./src/models/*"
       ],

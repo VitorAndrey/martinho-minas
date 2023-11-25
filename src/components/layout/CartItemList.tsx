@@ -9,7 +9,7 @@ import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
 import { BadgePercentIcon, Trash2 } from "lucide-react-native";
 
 import colors from "@theme/colors";
-import { styles } from "@theme/inlineStyles";
+import { styles } from "@styles/inlineStyles";
 
 import { Text } from "@ui/Text";
 
@@ -27,7 +27,7 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
   return (
     <View
       style={styles.boxShadow}
-      className="border-theme-gray-200 bg-theme-gray-50 flex-row items-center rounded-2xl border p-2"
+      className="h-20 flex-row items-center rounded-2xl border border-theme-gray-200 bg-theme-gray-50 p-2"
       {...rest}
     >
       <View className="relative h-16 w-16 pr-2">
@@ -44,12 +44,12 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
         )}
       </View>
 
-      <View className="flex-1 gap-1 px-4">
+      <View className="flex-1 px-4">
         <Text numberOfLines={1}>{product.name}</Text>
         <View className="flex-row items-center">
           <Text>R$ {calcTotalPrice(product)}</Text>
           {product.discount_percentage > 0 && (
-            <Text className="text-theme-gray-500 ml-2 text-xs line-through">
+            <Text className="ml-2 text-xs text-theme-gray-500 line-through">
               {formatCurrentcy(product.base_price)}
             </Text>
           )}

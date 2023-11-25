@@ -66,7 +66,7 @@ export function Promotions() {
           contentContainerStyle={{
             gap: 10,
             paddingHorizontal: 20,
-            paddingVertical: 20,
+            paddingVertical: 10,
 
             flexGrow: 1,
           }}

@@ -49,7 +49,7 @@ export function Cart() {
         contentContainerStyle={{
           gap: 10,
           paddingHorizontal: 30,
-          paddingVertical: 20,
+          paddingVertical: 10,
 
           flexGrow: 1,
         }}
