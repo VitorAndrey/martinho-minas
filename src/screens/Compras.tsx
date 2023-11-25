@@ -37,8 +37,10 @@ export function Compras() {
   function handleUpdateFiltersList(id: string) {
     setFiltersList((prev) => {
       if (prev.includes(id)) {
-        return [];
-      } else return [id];
+        return prev.filter((filterId) => filterId !== id);
+      } else {
+        return [...prev, id];
+      }
     });
   }
 
@@ -56,7 +58,6 @@ export function Compras() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <IconeCategoria
-        activeFilter={filtersList}
         key={item.id}
         category={item}
         onPress={() => handleUpdateFiltersList(item.id)}

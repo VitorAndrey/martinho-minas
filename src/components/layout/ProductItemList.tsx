@@ -10,7 +10,7 @@ import { CircleIcon } from "lucide-react-native";
 import { Text } from "@ui/Text";
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 type ProductItemListProps = TouchableOpacityProps & {
@@ -25,7 +25,11 @@ export function ProductItemList({
   const { addProduct, removeProduct, cartList } =
     useContext(ShoppingListContext);
 
+  const [isInCart, setIsInCart] = useState<boolean>(cartList.includes(product));
+
   function handleAddToCart() {
+    setIsInCart((prev) => !prev);
+
     if (cartList.includes(product)) {
       removeProduct(product);
     } else {
@@ -33,7 +37,9 @@ export function ProductItemList({
     }
   }
 
-  const isInCart = cartList.includes(product);
+  useEffect(() => {
+    setIsInCart(cartList.includes(product));
+  }, [cartList]);
 
   return (
     <TouchableOpacity

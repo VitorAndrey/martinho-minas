@@ -6,9 +6,16 @@ import { twMerge } from "tailwind-merge";
 type BtnProps = TouchableOpacityProps & {
   children: ReactNode;
   textClassName?: string;
+  icon?: () => React.ReactNode;
 };
 
-export function Btn({ children, className, textClassName, ...rest }: BtnProps) {
+export function Btn({
+  children,
+  className,
+  icon,
+  textClassName,
+  ...rest
+}: BtnProps) {
   return (
     <TouchableOpacity
       className={twMerge(
@@ -21,6 +28,8 @@ export function Btn({ children, className, textClassName, ...rest }: BtnProps) {
       <Text className={twMerge("text-base font-semibold", textClassName)}>
         {children}
       </Text>
+
+      {icon && icon()}
     </TouchableOpacity>
   );
 }

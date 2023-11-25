@@ -5,7 +5,7 @@ type LoadingProps = ViewProps & {};
 export function Loading({ className, ...rest }: LoadingProps) {
   return (
     <View className="w-full flex-1 items-center justify-center" {...rest}>
-      <ActivityIndicator />
+      <ActivityIndicator color="#10C700" />
     </View>
   );
 }

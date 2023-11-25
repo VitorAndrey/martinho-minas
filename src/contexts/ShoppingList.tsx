@@ -1,11 +1,12 @@
 import { Product } from "@models/index";
 
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 
 type ShoppingListContextProps = {
   cartList: Product[];
   addProduct: (product: Product) => void;
   removeProduct: (product: Product) => void;
+  clearCart: () => void;
 };
 
 export const ShoppingListContext = createContext(
@@ -28,9 +29,13 @@ export function ShoppingListProvider({
     setCartList(filteredList);
   }
 
+  function clearCart() {
+    setCartList([]);
+  }
+
   return (
     <ShoppingListContext.Provider
-      value={{ addProduct, removeProduct, cartList }}
+      value={{ addProduct, removeProduct, cartList, clearCart }}
     >
       {children}
     </ShoppingListContext.Provider>

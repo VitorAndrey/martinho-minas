@@ -1,4 +1,4 @@
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 import { useCallback, useContext } from "react";
 
 import { Product } from "@models/index";
@@ -14,13 +14,18 @@ import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { CartItemList } from "@layout/CartItemList";
 import { EmptyCart } from "@layout/EmptyCart";
+import { BadgeCheckIcon, BadgeMinusIcon } from "lucide-react-native";
 
 export function Cart() {
-  const { cartList } = useContext(ShoppingListContext);
+  const { cartList, clearCart } = useContext(ShoppingListContext);
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
   function handleNavigateToMap() {
     navigation.navigate("Mapa");
+  }
+
+  function handleClearCartList() {
+    clearCart();
   }
 
   const renderCartItem = useCallback(
@@ -49,15 +54,32 @@ export function Cart() {
         ListEmptyComponent={() => <EmptyCart />}
       />
 
-      <Btn
-        className={`my-4 mx-8 ${
-          cartList.length < 1 ? "bg-zinc-200" : "bg-theme-green-300"
-        }`}
-        onPress={handleNavigateToMap}
-        disabled={cartList.length < 1}
-      >
-        Concluir
-      </Btn>
+      <View className="flex-row py-4 px-8">
+        <Btn
+          className={`mr-4 flex-1 ${
+            cartList.length < 1 ? "bg-zinc-200" : "bg-theme-green-300"
+          }`}
+          onPress={handleNavigateToMap}
+          disabled={cartList.length < 1}
+          icon={() => (
+            <BadgeCheckIcon color="black" className="ml-2" size={18} />
+          )}
+        >
+          Concluir
+        </Btn>
+        <Btn
+          className={`flex-1 ${
+            cartList.length < 1 ? "bg-zinc-200" : "bg-theme-pink-300"
+          }`}
+          onPress={handleClearCartList}
+          disabled={cartList.length < 1}
+          icon={() => (
+            <BadgeMinusIcon color="black" className="ml-2" size={18} />
+          )}
+        >
+          Limpar
+        </Btn>
+      </View>
     </SafeAreaView>
   );
 }
