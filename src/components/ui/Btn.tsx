@@ -11,17 +11,6 @@ type BtnProps = TouchableOpacityProps & {
 export function Btn({ children, className, textClassName, ...rest }: BtnProps) {
   return (
     <TouchableOpacity
-      style={{
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 12,
-        },
-        shadowOpacity: 0.58,
-        shadowRadius: 16.0,
-
-        elevation: 10,
-      }}
       className={twMerge(
         "h-12 flex-row items-center justify-center rounded-2xl bg-theme-green-300",
         className,

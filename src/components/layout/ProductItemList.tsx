@@ -41,7 +41,7 @@ export function ProductItemList({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
 
-        elevation: 2,
+        elevation: 1,
         height: 50,
       }}
       onPress={handleAddToCart}

@@ -56,6 +56,7 @@ export function Compras() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <IconeCategoria
+        activeFilter={filtersList}
         key={item.id}
         category={item}
         onPress={() => handleUpdateFiltersList(item.id)}
@@ -127,7 +128,7 @@ export function Compras() {
           />
         </View>
 
-        <View className="mb-4 gap-2">
+        <View className="mb-4 h-24 gap-2">
           <Text className="px-8">Filtrar</Text>
           {!isLoadingCategories ? (
             <FlatList
@@ -148,7 +149,7 @@ export function Compras() {
           )}
         </View>
 
-        <View className="flex-1 gap-3">
+        <View className="flex-1 gap-2">
           <Text className="px-8">Adicione Produtos</Text>
 
           {!isLoadingProducts ? (
@@ -161,7 +162,6 @@ export function Compras() {
                 gap: 10,
                 paddingHorizontal: 30,
                 paddingBottom: 20,
-                paddingTop: 10,
 
                 flexGrow: 1,
               }}

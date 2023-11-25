@@ -45,7 +45,7 @@ export function PromotionItemList({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
 
-        elevation: 3,
+        elevation: 1,
       }}
       className={twMerge(
         "h-64 flex-1 items-center rounded-3xl border border-zinc-200 bg-zinc-50 p-3",
@@ -55,7 +55,12 @@ export function PromotionItemList({
     >
       <Text className="p-1 text-center">{product.name}</Text>
 
-      <Image source={{ uri: product.image_url }} className="flex-1" />
+      <View className="h-full w-full flex-1 overflow-hidden rounded-xl p-4">
+        <Image
+          source={{ uri: product.image_url }}
+          className="h-full w-full object-cover"
+        />
+      </View>
 
       <View className="flex-row items-center gap-1">
         <Text className="text-base">R$ {calcTotalPrice(product)}</Text>
