@@ -1,6 +1,5 @@
-import { View } from "react-native";
-import React from "react";
 import { Text } from "@ui/Text";
+import { View } from "react-native";
 
 type InputErrorMessageProps = {
   message: string | undefined;

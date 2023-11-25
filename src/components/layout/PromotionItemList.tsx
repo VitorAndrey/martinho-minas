@@ -53,7 +53,9 @@ export function PromotionItemList({
       )}
       {...rest}
     >
-      <Text className="p-1 text-center">{product.name}</Text>
+      <Text className="p-1 text-center" numberOfLines={2}>
+        {product.name}
+      </Text>
 
       <View className="h-full w-full flex-1 overflow-hidden rounded-xl p-4">
         <Image

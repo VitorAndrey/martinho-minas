@@ -32,7 +32,7 @@ export function IconeCategoria({
     <TouchableOpacity
       onPress={handleSelectCategory}
       className={twMerge(
-        `flex h-12 items-center justify-center rounded-xl border px-3 ${border}`,
+        `flex h-10 items-center justify-center rounded-xl border px-3 ${border}`,
         className,
       )}
       {...rest}

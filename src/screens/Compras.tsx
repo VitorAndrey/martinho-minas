@@ -129,7 +129,7 @@ export function Compras() {
           />
         </View>
 
-        <View className="mb-4 h-24 gap-2">
+        <View className="mb-4 h-20 gap-2">
           <Text className="px-8">Filtrar</Text>
           {!isLoadingCategories ? (
             <FlatList
@@ -162,6 +162,7 @@ export function Compras() {
               contentContainerStyle={{
                 gap: 10,
                 paddingHorizontal: 30,
+                paddingVertical: 10,
                 paddingBottom: 20,
 
                 flexGrow: 1,
