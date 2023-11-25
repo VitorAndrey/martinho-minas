@@ -51,7 +51,7 @@ export function Cart() {
 
       <Btn
         className={`my-4 mx-8 ${
-          cartList.length < 1 ? " bg-zinc-200" : "bg-theme-pink-300"
+          cartList.length < 1 ? "bg-zinc-200" : "bg-theme-green-300"
         }`}
         onPress={handleNavigateToMap}
         disabled={cartList.length < 1}

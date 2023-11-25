@@ -1,11 +1,16 @@
-import { TouchableOpacity, TouchableOpacityProps } from "react-native";
+import {
+  Image,
+  TouchableOpacity,
+  TouchableOpacityProps,
+  View,
+} from "react-native";
 
-import { Plus, Trash2 } from "lucide-react-native";
+import { CircleIcon } from "lucide-react-native";
 
 import { Text } from "@ui/Text";
 import { Product } from "@models/index";
 import { twMerge } from "tailwind-merge";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 type ProductItemListProps = TouchableOpacityProps & {
@@ -41,26 +46,35 @@ export function ProductItemList({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
 
-        elevation: 1,
+        elevation: 2,
         height: 50,
       }}
       onPress={handleAddToCart}
       className={twMerge(
-        `flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4 ${
-          isInCart && "bg-theme-green-300"
-        }`,
+        "flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4",
         className,
       )}
       {...rest}
     >
+      <View className="mr-3 h-8 w-8 overflow-hidden rounded-xl">
+        <Image
+          source={{ uri: product.image_url }}
+          className="h-full w-full object-cover"
+        />
+      </View>
+
       <Text className="flex-1 pr-4" numberOfLines={1}>
         {product.name}
       </Text>
 
       {!isInCart ? (
-        <Plus color="black" size={16} />
+        <CircleIcon color="black" size={16} />
       ) : (
-        <Trash2 color="black" size={16} />
+        <CircleIcon
+          color="black"
+          size={16}
+          className="rounded-full bg-theme-green-300"
+        />
       )}
     </TouchableOpacity>
   );

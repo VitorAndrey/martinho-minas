@@ -75,6 +75,8 @@ export function Mapa() {
 
   useFocusEffect(
     useCallback(() => {
+      setShoppingRoute([]);
+
       if (cartList.length > 0) {
         handleFetchShoppingRoute();
       } else {

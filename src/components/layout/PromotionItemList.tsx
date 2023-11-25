@@ -45,7 +45,7 @@ export function PromotionItemList({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
 
-        elevation: 1,
+        elevation: 2,
       }}
       className={twMerge(
         "h-64 flex-1 items-center rounded-3xl border border-zinc-200 bg-zinc-50 p-3",
