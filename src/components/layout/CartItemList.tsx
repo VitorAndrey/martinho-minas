@@ -1,16 +1,22 @@
-import { ShoppingListContext } from "@contexts/ShoppingList";
-import { Product } from "@models/index";
-import { Text } from "@ui/Text";
-import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
-import { BadgePercentIcon, Trash2 } from "lucide-react-native";
 import { useContext } from "react";
-import { View, TouchableOpacity, Image } from "react-native";
+import { View, TouchableOpacity, Image, ViewProps } from "react-native";
 
-type CartItemProps = {
+import { ShoppingListContext } from "@contexts/ShoppingList";
+
+import { Product } from "@models/index";
+import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
+
+import { BadgePercentIcon, Trash2 } from "lucide-react-native";
+
+import { styles } from "@theme/inlineStyles";
+
+import { Text } from "@ui/Text";
+
+type CartItemProps = ViewProps & {
   product: Product;
 };
 
-export function CartItemList({ product }: CartItemProps) {
+export function CartItemList({ product, className, ...rest }: CartItemProps) {
   const { removeProduct } = useContext(ShoppingListContext);
 
   function handleRemoveProduct() {
@@ -19,18 +25,9 @@ export function CartItemList({ product }: CartItemProps) {
 
   return (
     <View
-      style={{
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 2,
-      }}
+      style={styles.boxShadow}
       className="flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 p-2"
+      {...rest}
     >
       <View className="relative h-16 w-16 pr-2">
         <Image
@@ -46,7 +43,7 @@ export function CartItemList({ product }: CartItemProps) {
         )}
       </View>
 
-      <View className="z-0 flex-1 gap-1 px-4">
+      <View className="flex-1 gap-1 px-4">
         <Text numberOfLines={1}>{product.name}</Text>
         <View className="flex-row items-center">
           <Text>R$ {calcTotalPrice(product)}</Text>

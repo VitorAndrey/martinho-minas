@@ -1,17 +1,18 @@
+import { useState } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
-import { Text } from "@ui/Text";
+import { twMerge } from "tailwind-merge";
 
 import { Category } from "@models/index";
-import { twMerge } from "tailwind-merge";
-import { useState } from "react";
+
+import { Text } from "@ui/Text";
 
 export type IconeCategoriaProps = TouchableOpacityProps & {
   category: Category;
   onPress: (category: Category) => void;
 };
 
-export function IconeCategoria({
+export function CategoryItemList({
   className,
   category,
   onPress,

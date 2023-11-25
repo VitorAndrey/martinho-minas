@@ -1,13 +1,16 @@
-import { Product } from "@models/index";
-import { View, Text } from "react-native";
+import { View, Text, ViewProps } from "react-native";
 
-type MapItemListProps = {
+import { Product } from "@models/index";
+
+import { twMerge } from "tailwind-merge";
+
+type MapItemListProps = ViewProps & {
   product: Product;
 };
 
-export function MapItemList({ product }: MapItemListProps) {
+export function MapItemList({ product, className, ...rest }: MapItemListProps) {
   return (
-    <View>
+    <View className={twMerge("", className)} {...rest}>
       <Text>{product.name}</Text>
     </View>
   );

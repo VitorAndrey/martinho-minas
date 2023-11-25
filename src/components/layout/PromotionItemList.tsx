@@ -1,13 +1,15 @@
+import { useContext } from "react";
 import { Image, View, ViewProps } from "react-native";
 
-import { Product } from "@models/index";
-
-import { Text } from "@ui/Text";
-import { twMerge } from "tailwind-merge";
-import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
-import { Btn } from "@ui/Btn";
-import { useContext } from "react";
 import { ShoppingListContext } from "@contexts/ShoppingList";
+
+import { Product } from "@models/index";
+import { twMerge } from "tailwind-merge";
+import { styles } from "src/theme/inlineStyles";
+import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
+
+import { Btn } from "@ui/Btn";
+import { Text } from "@ui/Text";
 
 type PromotionItemListProps = ViewProps & {
   product: Product;
@@ -36,17 +38,7 @@ export function PromotionItemList({
 
   return (
     <View
-      style={{
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-
-        elevation: 2,
-      }}
+      style={styles.boxShadow}
       className={twMerge(
         "h-64 flex-1 items-center rounded-3xl border border-zinc-200 bg-zinc-50 p-3",
         className,
