@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, ScrollView, TouchableOpacity } from "react-native";
+import { View, ScrollView } from "react-native";
 
 import { UserContext } from "@contexts/UserContext";
 
@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 
 import colors from "@theme/colors";
-import { CheckIcon, PencilIcon } from "lucide-react-native";
+import { CheckIcon, LogOutIcon, PencilIcon } from "lucide-react-native";
 
 import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
@@ -19,14 +19,10 @@ import { InputErrorMessage } from "@layout/InputErrorMessage";
 
 const schema = yup
   .object({
-    newName: yup.string(),
-    newEmail: yup.string().email("Insira um Email válido."),
-    newPassword: yup
-      .string()
-      .min(8, "A senha deve ter no mínimo 8 caracteres."),
-    confirmNewPassword: yup
-      .string()
-      .oneOf([yup.ref("newPassword")], "As duas senhas devem combinar."),
+    name: yup.string(),
+    email: yup.string().email("Insira um Email válido."),
+    phoneNumber: yup.string(),
+    password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres."),
   })
   .required();
 
@@ -81,9 +77,9 @@ export function Profile() {
                 }}
               />
             )}
-            name="newName"
+            name="name"
           />
-          <InputErrorMessage message={errors.newName?.message} />
+          <InputErrorMessage message={errors.name?.message} />
 
           <Text className="px-2">E-mail:</Text>
           <Controller
@@ -99,9 +95,27 @@ export function Profile() {
                 }}
               />
             )}
-            name="newEmail"
+            name="email"
           />
-          <InputErrorMessage message={errors.newEmail?.message} />
+          <InputErrorMessage message={errors.email?.message} />
+
+          <Text className="px-2">Telefone:</Text>
+          <Controller
+            defaultValue={userInfo.phoneNumber}
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                  editable: isEditing,
+                }}
+              />
+            )}
+            name="phoneNumber"
+          />
+          <InputErrorMessage message={errors.phoneNumber?.message} />
 
           <Text className="px-2">Senha:</Text>
           <Controller
@@ -117,37 +131,52 @@ export function Profile() {
                 }}
               />
             )}
-            name="newPassword"
+            name="password"
           />
-          <InputErrorMessage message={errors.newPassword?.message} />
-
-          <Text className="px-2">Número de telefone:</Text>
-          <View className="mb-6">
-            <Input inputProps={{ placeholder: "(00) 000000-0000" }} />
-          </View>
-        </View>
-
-        <View className=" h-12 flex-row justify-center gap-10 self-center   ">
-          <Button className=" w-28 text-base" onPress={handleLoggOut}>
-            Sair
-          </Button>
-
-          <TouchableOpacity
-            onPress={handleSubmit(onSubmit)}
-            className=" h-12 w-28 flex-row items-center justify-center rounded-2xl bg-theme-pink-300 "
-          >
-            <Text className="mr-2 text-base">
-              {isEditing ? "Salvar" : "Editar"}
-            </Text>
-
-            {isEditing ? (
-              <CheckIcon color={colors["theme-icon"].active} size={18} />
-            ) : (
-              <PencilIcon color={colors["theme-icon"].active} size={16} />
-            )}
-          </TouchableOpacity>
+          <InputErrorMessage message={errors.password?.message} />
         </View>
       </ScrollView>
+
+      <View className="flex-row py-4 px-8">
+        <Button
+          className="mr-4 flex-1 bg-theme-green-300"
+          onPress={handleSubmit(onSubmit)}
+          icon={() => {
+            if (isEditing) {
+              return (
+                <CheckIcon
+                  color={colors["theme-icon"].active}
+                  size={18}
+                  className="ml-2"
+                />
+              );
+            } else {
+              return (
+                <PencilIcon
+                  color={colors["theme-icon"].active}
+                  size={16}
+                  className="ml-2"
+                />
+              );
+            }
+          }}
+        >
+          {isEditing ? "Salvar" : "Editar"}
+        </Button>
+        <Button
+          className="flex-1 bg-theme-pink-300"
+          onPress={handleLoggOut}
+          icon={() => (
+            <LogOutIcon
+              color={colors["theme-icon"].active}
+              className="ml-2"
+              size={18}
+            />
+          )}
+        >
+          Sair
+        </Button>
+      </View>
     </SafeAreaView>
   );
 }

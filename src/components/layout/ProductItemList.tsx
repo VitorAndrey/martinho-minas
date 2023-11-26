@@ -20,38 +20,31 @@ import { Text } from "@ui/Text";
 
 type ProductItemListProps = TouchableOpacityProps & {
   product: Product;
+  isInCart: boolean;
 };
 
 export function ProductItemList({
   className,
   product,
+  isInCart,
   ...rest
 }: ProductItemListProps) {
-  const { addProduct, removeProduct, cartList } =
-    useContext(ShoppingListContext);
-
-  const [isInCart, setIsInCart] = useState<boolean>(cartList.includes(product));
+  const { addProduct, removeProduct } = useContext(ShoppingListContext);
 
   function handleAddToCart() {
-    setIsInCart((prev) => !prev);
-
-    if (cartList.includes(product)) {
+    if (isInCart) {
       removeProduct(product);
     } else {
       addProduct(product);
     }
   }
 
-  useEffect(() => {
-    setIsInCart(cartList.includes(product));
-  }, [cartList]);
-
   return (
     <TouchableOpacity
       style={styles.boxShadow}
       onPress={handleAddToCart}
       className={twMerge(
-        "h-[50px] flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4",
+        "h-[58px] flex-row items-center rounded-2xl border border-zinc-200 bg-zinc-50 px-4",
         className,
       )}
       {...rest}

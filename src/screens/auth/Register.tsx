@@ -26,6 +26,7 @@ const schema = yup
       .string()
       .required("Preencha o Email.")
       .email("Insira um Email válido."),
+    phoneNumber: yup.string().required("Preencha o Telefone."),
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -115,6 +116,7 @@ export function Register() {
                   onChangeText: onChange,
                   onBlur: onBlur,
                   value: value,
+                  keyboardType: "email-address",
                 }}
                 label="Email:"
               />
@@ -123,9 +125,22 @@ export function Register() {
           />
           <InputErrorMessage message={errors.email?.message} />
 
-          <View className="mb-6">
-            <Input label="Número de telefone:" />
-          </View>
+          <Controller
+            control={control}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Input
+                inputProps={{
+                  onChangeText: onChange,
+                  onBlur: onBlur,
+                  value: value,
+                  keyboardType: "phone-pad",
+                }}
+                label="Telefone:"
+              />
+            )}
+            name="phoneNumber"
+          />
+          <InputErrorMessage message={errors.phoneNumber?.message} />
 
           <Controller
             control={control}

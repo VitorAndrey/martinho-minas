@@ -71,6 +71,7 @@ export function Login() {
       <Header />
 
       <ScrollView
+        keyboardShouldPersistTaps="always"
         contentContainerStyle={{
           flexGrow: 1,
         }}

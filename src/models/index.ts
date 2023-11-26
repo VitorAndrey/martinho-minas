@@ -24,11 +24,21 @@ export type Aisle = {
 };
 
 export type User = {
+  id: string;
   name: string;
   email: string;
   password: string;
+  phoneNumber?: string;
 };
 
-export type RegisterUser = User;
+export type RegisterUser = {
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber?: string;
+};
 
-export type UserLogin = Omit<RegisterUser, "name">;
+export type UserLogin = {
+  email: string;
+  password: string;
+};

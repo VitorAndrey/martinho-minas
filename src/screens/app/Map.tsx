@@ -118,19 +118,19 @@ export function Map() {
         <Loading />
       )}
 
-      <View className="bg-theme-gray-300 h-[30%] p-4">
+      <View className="h-[30%] p-4">
         <Text>{currentAisle}</Text>
         <View className="flex-row gap-2">
           <TouchableOpacity
             onPress={() => setCurrentList("products")}
-            className="bg-theme-gray-100 m-2 h-10 w-40 items-center justify-center rounded-lg"
+            className="m-2 h-10 w-40 items-center justify-center rounded-lg bg-theme-gray-100"
           >
             <Text>Produtos</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
             onPress={() => setCurrentList("promotions")}
-            className="bg-theme-gray-100 m-2 h-10 w-40 items-center justify-center rounded-lg"
+            className="m-2 h-10 w-40 items-center justify-center rounded-lg bg-theme-gray-100"
           >
             <Text>Promoções</Text>
           </TouchableOpacity>
@@ -148,7 +148,6 @@ export function Map() {
                 renderItem={renderMapItem}
                 contentContainerStyle={{
                   gap: 10,
-                  paddingHorizontal: 30,
                 }}
               />
             ) : (
