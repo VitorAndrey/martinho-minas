@@ -20,24 +20,31 @@ import { Text } from "@ui/Text";
 
 type ProductItemListProps = TouchableOpacityProps & {
   product: Product;
-  isInCart: boolean;
 };
 
 export function ProductItemList({
   className,
   product,
-  isInCart,
   ...rest
 }: ProductItemListProps) {
-  const { addProduct, removeProduct } = useContext(ShoppingListContext);
+  const { addProduct, removeProduct, cartList } =
+    useContext(ShoppingListContext);
+
+  const [isInCart, setIsInCart] = useState<boolean>(cartList.includes(product));
 
   function handleAddToCart() {
+    setIsInCart((prev) => !prev);
+
     if (isInCart) {
       removeProduct(product);
     } else {
       addProduct(product);
     }
   }
+
+  useEffect(() => {
+    setIsInCart(cartList.includes(product));
+  }, [cartList]);
 
   return (
     <TouchableOpacity

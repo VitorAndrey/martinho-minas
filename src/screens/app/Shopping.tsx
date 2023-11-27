@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, useContext } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { View, FlatList, TouchableOpacity, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -19,7 +19,6 @@ import { Header } from "@layout/Header";
 import { Loading } from "@layout/Loading";
 import { ProductItemList } from "@layout/ProductItemList";
 import { CategoryItemList } from "@layout/CategoryItemList";
-import { ShoppingListContext } from "@contexts/ShoppingList";
 
 export function Shopping() {
   const [categories, setCategories] = useState<Category[]>();
@@ -30,9 +29,6 @@ export function Shopping() {
   const [filterdBySearchProducts, setFilteredBySearchProducts] = useState<
     Product[] | null
   >();
-
-  const { cartList } = useContext(ShoppingListContext);
-
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
 
   const [filtersList, setFiltersList] = useState<string[]>([]);
@@ -57,11 +53,7 @@ export function Shopping() {
 
   const renderProduct = useCallback(
     ({ item }: { item: Product }) => (
-      <ProductItemList
-        isInCart={cartList.includes(item)}
-        product={item}
-        key={item.id}
-      />
+      <ProductItemList product={item} key={item.id} />
     ),
     [],
   );
