@@ -102,16 +102,18 @@ export function Map() {
       {!isLoadingShoppingRoute ? (
         <FlatList
           data={shoppingRoute}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <AisleCircle
               data={item}
+              quantity={item.products.length}
+              index={index}
               onPress={() => setCurrentAisle(item.AisleNumber)}
             />
           )}
-          ItemSeparatorComponent={(item) => <AisleSeparator />}
           contentContainerStyle={{
             flexGrow: 1,
             paddingVertical: 30,
+            gap: 20,
           }}
         />
       ) : (

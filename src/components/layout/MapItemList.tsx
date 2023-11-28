@@ -20,7 +20,7 @@ export function MapItemList({ product, className, ...rest }: MapItemListProps) {
       )}
       {...rest}
     >
-      <Text className="p-1 text-center" numberOfLines={2}>
+      <Text className="p-1 text-center" numberOfLines={1}>
         {product.name}
       </Text>
 

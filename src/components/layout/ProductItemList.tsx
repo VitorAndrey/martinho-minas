@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import {
   Image,
   TouchableOpacity,
@@ -8,7 +8,7 @@ import {
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
-import { CircleIcon } from "lucide-react-native";
+import { BadgeDollarSignIcon, BadgePercentIcon } from "lucide-react-native";
 
 import colors from "@theme/colors";
 
@@ -27,24 +27,11 @@ export function ProductItemList({
   product,
   ...rest
 }: ProductItemListProps) {
-  const { addProduct, removeProduct, cartList } =
-    useContext(ShoppingListContext);
-
-  const [isInCart, setIsInCart] = useState<boolean>(cartList.includes(product));
+  const { addProduct, cartList } = useContext(ShoppingListContext);
 
   function handleAddToCart() {
-    setIsInCart((prev) => !prev);
-
-    if (isInCart) {
-      removeProduct(product);
-    } else {
-      addProduct(product);
-    }
+    if (!cartList.includes(product)) addProduct(product);
   }
-
-  useEffect(() => {
-    setIsInCart(cartList.includes(product));
-  }, [cartList]);
 
   return (
     <TouchableOpacity
@@ -56,26 +43,26 @@ export function ProductItemList({
       )}
       {...rest}
     >
-      <View className="mr-3 h-8 w-8 overflow-hidden rounded-xl">
+      <View className="relative h-10 w-10 pr-2">
         <Image
           source={{ uri: product.image_url }}
-          className="h-full w-full object-cover"
+          className="h-full w-full rounded-xl object-cover"
         />
+
+        {product.discount_percentage > 0 && (
+          <BadgePercentIcon
+            color={colors["theme-icon"].active}
+            className="absolute bottom-1 right-1 rounded-full bg-theme-green-300"
+            size={16}
+          />
+        )}
       </View>
 
       <Text className="flex-1 pr-4" numberOfLines={1}>
         {product.name}
       </Text>
 
-      {!isInCart ? (
-        <CircleIcon color={colors["theme-icon"].active} size={16} />
-      ) : (
-        <CircleIcon
-          color={colors["theme-icon"].active}
-          size={16}
-          className="rounded-full bg-theme-green-300"
-        />
-      )}
+      <BadgeDollarSignIcon color={colors["theme-icon"].inactive} size={20} />
     </TouchableOpacity>
   );
 }
