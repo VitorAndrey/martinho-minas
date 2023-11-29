@@ -181,7 +181,8 @@ export function Map() {
                     renderItem={renderMapItem}
                     contentContainerStyle={{
                       gap: 10,
-                      paddingVertical: 3,
+                      paddingVertical: 2,
+                      paddingHorizontal: 2,
                     }}
                   />
                 ) : (
@@ -194,7 +195,8 @@ export function Map() {
                     renderItem={renderMapItem}
                     contentContainerStyle={{
                       gap: 10,
-                      paddingHorizontal: 30,
+                      paddingVertical: 2,
+                      paddingHorizontal: 2,
                     }}
                   />
                 )}

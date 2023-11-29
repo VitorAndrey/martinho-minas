@@ -50,11 +50,14 @@ export function Input({
       />
 
       {searchInput && (
-        <TouchableOpacity onPress={handleToggleHidden}>
+        <TouchableOpacity
+          onPress={handleToggleHidden}
+          className="h-12 w-12 items-center justify-center"
+        >
           {charsHidden ? (
-            <EyeIcon color={colors["theme-icon"].active} size={16} />
+            <EyeIcon color={colors["theme-icon"].active} size={22} />
           ) : (
-            <EyeOffIcon color={colors["theme-icon"].active} size={16} />
+            <EyeOffIcon color={colors["theme-icon"].active} size={22} />
           )}
         </TouchableOpacity>
       )}
