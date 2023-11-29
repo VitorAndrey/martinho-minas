@@ -1,5 +1,3 @@
-import "react-native-gesture-handler";
-
 import {
   useFonts,
   Poppins_400Regular,

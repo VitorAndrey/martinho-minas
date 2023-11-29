@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import {
   SafeAreaProvider,
@@ -11,7 +11,7 @@ import { ShoppingListProvider } from "@contexts/ShoppingList";
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (
-    <View className="flex-1">
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <UserContextProvider>
         <ShoppingListProvider>
           <SafeAreaProvider initialMetrics={initialWindowMetrics}>
@@ -19,6 +19,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
           </SafeAreaProvider>
         </ShoppingListProvider>
       </UserContextProvider>
-    </View>
+    </GestureHandlerRootView>
   );
 }

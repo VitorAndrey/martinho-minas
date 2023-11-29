@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { RefObject, useCallback, useContext, useRef, useState } from "react";
 import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
@@ -18,10 +18,18 @@ import { AppNavigationRoutesProps } from "@routes/app.routes";
 import { Loading } from "@layout/Loading";
 import { AisleCircle } from "@layout/AisleCircle";
 
+import { Modalize } from "react-native-modalize";
+
 export function Map() {
   const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);
   const [isLoadingShoppingRoute, setIsLoadingShoppingRoute] =
     useState<boolean>();
+
+  const modalizeRef: RefObject<Modalize> = useRef(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   const [aisleMap, setAisleMap] = useState<Record<number, Aisle>>({});
 
@@ -39,6 +47,12 @@ export function Map() {
 
   function handleNavigateToShopping() {
     navigation.navigate("Shopping");
+  }
+
+  function handleCurrentList(current: "promotions" | "products") {
+    onOpen();
+
+    setCurrentList(current);
   }
 
   const renderMapItem = useCallback(
@@ -120,57 +134,59 @@ export function Map() {
           <Loading />
         )}
 
-        <View className="h-[40%] w-full bg-white p-4">
-          <Text className="mb-4">{currentAisle}</Text>
-          <View className="mb-4 w-full flex-row">
-            <TouchableOpacity
-              onPress={() => setCurrentList("products")}
-              className="mr-4 h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
-            >
-              <Text>Produtos</Text>
-            </TouchableOpacity>
+        <Modalize adjustToContentHeight alwaysOpen={5} ref={modalizeRef}>
+          <View className="h-[40%] bg-theme-gray-50">
+            <Text className="mb-4">{currentAisle}</Text>
+            <View className="mb-4 w-full flex-row items-center">
+              <TouchableOpacity
+                onPress={() => handleCurrentList("products")}
+                className="mr-4 h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+              >
+                <Text>Produtos</Text>
+              </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => setCurrentList("promotions")}
-              className="h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
-            >
-              <Text>Promoções</Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => handleCurrentList("promotions")}
+                className="h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+              >
+                <Text>Promoções</Text>
+              </TouchableOpacity>
+            </View>
+
+            {!isLoadingShoppingRoute ? (
+              <>
+                {currentList === "products" ? (
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    initialNumToRender={5}
+                    updateCellsBatchingPeriod={1000}
+                    data={aisleMap[currentAisle]?.products}
+                    renderItem={renderMapItem}
+                    contentContainerStyle={{
+                      gap: 10,
+                    }}
+                  />
+                ) : (
+                  <FlatList
+                    horizontal
+                    showsHorizontalScrollIndicator={false}
+                    initialNumToRender={5}
+                    updateCellsBatchingPeriod={1000}
+                    data={aisleMap[currentAisle]?.promotions}
+                    renderItem={renderMapItem}
+                    contentContainerStyle={{
+                      gap: 10,
+                      paddingHorizontal: 30,
+                    }}
+                  />
+                )}
+              </>
+            ) : (
+              <Loading />
+            )}
           </View>
-
-          {!isLoadingShoppingRoute ? (
-            <>
-              {currentList === "products" ? (
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  initialNumToRender={5}
-                  updateCellsBatchingPeriod={1000}
-                  data={aisleMap[currentAisle]?.products}
-                  renderItem={renderMapItem}
-                  contentContainerStyle={{
-                    gap: 10,
-                  }}
-                />
-              ) : (
-                <FlatList
-                  horizontal
-                  showsHorizontalScrollIndicator={false}
-                  initialNumToRender={5}
-                  updateCellsBatchingPeriod={1000}
-                  data={aisleMap[currentAisle]?.promotions}
-                  renderItem={renderMapItem}
-                  contentContainerStyle={{
-                    gap: 10,
-                    paddingHorizontal: 30,
-                  }}
-                />
-              )}
-            </>
-          ) : (
-            <Loading />
-          )}
-        </View>
+        </Modalize>
       </SafeAreaView>
     </View>
   );
