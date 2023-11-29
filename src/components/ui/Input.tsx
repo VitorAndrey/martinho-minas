@@ -3,6 +3,10 @@ import { TextInput, View, ViewProps, TextInputProps } from "react-native";
 import { twMerge, ClassNameValue } from "tailwind-merge";
 
 import { Text } from "./Text";
+import { useState } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { EyeIcon, EyeOffIcon } from "lucide-react-native";
+import colors from "@theme/colors";
 
 type InputProps = {
   containerProps?: ViewProps & {
@@ -12,9 +16,21 @@ type InputProps = {
     inputClass?: ClassNameValue;
   };
   label?: string;
+  searchInput?: boolean;
 };
 
-export function Input({ containerProps, inputProps, label }: InputProps) {
+export function Input({
+  searchInput = false,
+  containerProps,
+  inputProps,
+  label,
+}: InputProps) {
+  const [charsHidden, setCharsHidden] = useState<boolean>(false);
+
+  function handleToggleHidden() {
+    setCharsHidden((prev) => !prev);
+  }
+
   return (
     <View
       className={twMerge(
@@ -25,12 +41,23 @@ export function Input({ containerProps, inputProps, label }: InputProps) {
     >
       {label && <Text>{label}</Text>}
       <TextInput
+        secureTextEntry={searchInput && charsHidden}
         className={twMerge(
           "h-12 flex-1 px-2 font-poppins-400 text-base",
           inputProps?.inputClass,
         )}
         {...inputProps}
       />
+
+      {searchInput && (
+        <TouchableOpacity onPress={handleToggleHidden}>
+          {charsHidden ? (
+            <EyeIcon color={colors["theme-icon"].active} size={16} />
+          ) : (
+            <EyeOffIcon color={colors["theme-icon"].active} size={16} />
+          )}
+        </TouchableOpacity>
+      )}
     </View>
   );
 }
