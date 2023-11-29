@@ -16,13 +16,21 @@ import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { Input } from "@ui/Input";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { UpdateUser } from "@models/index";
+import { updateUser } from "@services/updateData";
 
 const schema = yup
   .object({
-    name: yup.string(),
-    email: yup.string().email("Insira um Email válido."),
+    name: yup.string().required("O nome é obrigatório."),
+    email: yup
+      .string()
+      .email("Insira um Email válido.")
+      .required("O Email é obrigatório."),
     phoneNumber: yup.string(),
-    password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres."),
+    password: yup
+      .string()
+      .min(8, "A senha deve ter no mínimo 8 caracteres.")
+      .required("A senha é obrigatória."),
   })
   .required();
 
@@ -45,8 +53,16 @@ export function Profile() {
   });
 
   const onSubmit = async (data: FormData) => {
+    const { email, name, password, phoneNumber } = data;
+
     if (isEditing) {
-      // await updateUser(data)
+      await updateUser({
+        id: userInfo.id,
+        email,
+        name,
+        password,
+        phoneNumber,
+      } satisfies UpdateUser);
     }
     setIsEditing((prev) => !prev);
   };
