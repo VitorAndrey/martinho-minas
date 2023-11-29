@@ -17,8 +17,6 @@ import { AppNavigationRoutesProps } from "@routes/app.routes";
 
 import { Loading } from "@layout/Loading";
 import { AisleCircle } from "@layout/AisleCircle";
-import { EmptyPromotions } from "@layout/EmptyPromotions";
-import { EmptyCart } from "@layout/EmptyCart";
 
 export function Map() {
   const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);
