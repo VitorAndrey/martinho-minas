@@ -27,9 +27,9 @@ export function Map() {
 
   const modalizeRef: RefObject<Modalize> = useRef(null);
 
-  const onOpen = () => {
-    modalizeRef.current?.open();
-  };
+  // const onOpen = () => {
+  //   modalizeRef.current?.open();
+  // };
 
   const [aisleMap, setAisleMap] = useState<Record<number, Aisle>>({});
 
@@ -50,8 +50,6 @@ export function Map() {
   }
 
   function handleCurrentList(current: "promotions" | "products") {
-    onOpen();
-
     setCurrentList(current);
   }
 
@@ -134,20 +132,38 @@ export function Map() {
           <Loading />
         )}
 
-        <Modalize adjustToContentHeight alwaysOpen={5} ref={modalizeRef}>
-          <View className="h-[40%] bg-theme-gray-50">
-            <Text className="mb-4">{currentAisle}</Text>
+        <Modalize
+          alwaysOpen={100}
+          modalHeight={300}
+          handlePosition="inside"
+          ref={modalizeRef}
+          modalStyle={{
+            backgroundColor: colors["theme-gray"][50],
+          }}
+        >
+          <View className="h-full bg-theme-gray-50 p-4">
+            <View className=" border-w- mt-3 mb-3 h-8 w-36 items-center justify-center rounded-lg border-theme-pink-300 bg-theme-gray-300">
+              <Text>Corredor atual: {currentAisle}</Text>
+            </View>
             <View className="mb-4 w-full flex-row items-center">
               <TouchableOpacity
                 onPress={() => handleCurrentList("products")}
-                className="mr-4 h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+                className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
+                  currentList === "products"
+                    ? "border border-green-500 bg-theme-green-300"
+                    : "bg-theme-gray-100"
+                }`}
               >
                 <Text>Produtos</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                 onPress={() => handleCurrentList("promotions")}
-                className="h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+                className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
+                  currentList === "promotions"
+                    ? "border border-green-500 bg-theme-green-300"
+                    : "bg-theme-gray-100"
+                }`}
               >
                 <Text>Promoções</Text>
               </TouchableOpacity>
@@ -165,6 +181,7 @@ export function Map() {
                     renderItem={renderMapItem}
                     contentContainerStyle={{
                       gap: 10,
+                      paddingVertical: 3,
                     }}
                   />
                 ) : (
