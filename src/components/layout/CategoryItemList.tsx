@@ -28,7 +28,6 @@ export function CategoryItemList({
 
   return (
     <TouchableOpacity
-      disabled
       onPress={handleSelectCategory}
       className={twMerge(
         `flex h-10 items-center justify-center rounded-xl border px-3 ${

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useEffect, useState } from "react";
 
 import { Product } from "@models/index";
 
@@ -17,7 +17,11 @@ export function ShoppingListProvider({ children }: { children: ReactNode }) {
   const [cartList, setCartList] = useState<Product[]>([]);
 
   function addProduct(product: Product) {
-    setCartList((prevState) => [...prevState, product]);
+    const isInCart = cartList.some((item) => item.id === product.id);
+
+    if (!isInCart) {
+      setCartList((prevState) => [...prevState, product]);
+    }
   }
 
   function removeProduct(product: Product) {

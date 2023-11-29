@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Image,
   TouchableOpacity,
@@ -8,7 +8,7 @@ import {
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
-import { BadgeDollarSignIcon, BadgePercentIcon } from "lucide-react-native";
+import { BadgePercentIcon, CircleIcon } from "lucide-react-native";
 
 import colors from "@theme/colors";
 
@@ -27,10 +27,17 @@ export function ProductItemList({
   product,
   ...rest
 }: ProductItemListProps) {
-  const { addProduct, cartList } = useContext(ShoppingListContext);
+  const { addProduct, removeProduct, cartList } =
+    useContext(ShoppingListContext);
+
+  const isInCart = cartList.some((item) => item.id === product.id);
 
   function handleAddToCart() {
-    if (!cartList.includes(product)) addProduct(product);
+    if (isInCart) {
+      removeProduct(product);
+    } else {
+      addProduct(product);
+    }
   }
 
   return (
@@ -62,7 +69,15 @@ export function ProductItemList({
         {product.name}
       </Text>
 
-      <BadgeDollarSignIcon color={colors["theme-icon"].inactive} size={20} />
+      {!isInCart ? (
+        <CircleIcon color={colors["theme-icon"].active} size={16} />
+      ) : (
+        <CircleIcon
+          color={colors["theme-icon"].active}
+          size={16}
+          className="rounded-full bg-theme-green-300"
+        />
+      )}
     </TouchableOpacity>
   );
 }
