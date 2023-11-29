@@ -115,13 +115,7 @@ export function Login() {
           <InputErrorMessage message={errors.password?.message} />
 
           {isLoading ? (
-            <Button
-              className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"
-              onPress={handleSubmit(onSubmit)}
-              icon={() => <Loading />}
-            >
-              ""
-            </Button>
+            <Loading className="mt-7 flex-[0]" />
           ) : (
             <Button
               className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"

@@ -42,7 +42,7 @@ export function Profile() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { handleUserUnlogged } = useContext(UserContext);
 
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, handleUpdateUserInfo } = useContext(UserContext);
 
   const {
     control,
@@ -56,6 +56,8 @@ export function Profile() {
     const { email, name, password, phoneNumber } = data;
 
     if (isEditing) {
+      if (!userInfo) return;
+
       await updateUser({
         id: userInfo.id,
         email,
@@ -64,11 +66,12 @@ export function Profile() {
         phoneNumber,
       } satisfies UpdateUser);
     }
+
     setIsEditing((prev) => !prev);
   };
 
   function handleLoggOut() {
-    // await logout
+    handleUpdateUserInfo(null);
     handleUserUnlogged();
   }
 
@@ -81,7 +84,7 @@ export function Profile() {
         <View className="flex-1">
           <Text className="px-2">Nome:</Text>
           <Controller
-            defaultValue={userInfo.name}
+            defaultValue={userInfo?.name}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -99,7 +102,7 @@ export function Profile() {
 
           <Text className="px-2">E-mail:</Text>
           <Controller
-            defaultValue={userInfo.email}
+            defaultValue={userInfo?.email}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -117,7 +120,7 @@ export function Profile() {
 
           <Text className="px-2">Telefone:</Text>
           <Controller
-            defaultValue={userInfo.phoneNumber}
+            defaultValue={userInfo?.phoneNumber}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -135,7 +138,7 @@ export function Profile() {
 
           <Text className="px-2">Senha:</Text>
           <Controller
-            defaultValue={userInfo.password}
+            defaultValue={userInfo?.password}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
