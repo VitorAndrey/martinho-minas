@@ -9,7 +9,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { loginUser } from "@services/authentication";
 import { Loading } from "@layout/Loading";
-import { UserLogin } from "@models/index";
+import { LoginUser } from "@models/index";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
 
 import { Text } from "@ui/Text";
@@ -54,7 +54,7 @@ export function Login() {
       const user = await loginUser({
         email,
         password,
-      } satisfies UserLogin);
+      } satisfies LoginUser);
 
       reset();
       handleUpdateUserInfo(user);
@@ -115,13 +115,7 @@ export function Login() {
           <InputErrorMessage message={errors.password?.message} />
 
           {isLoading ? (
-            <Button
-              className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"
-              onPress={handleSubmit(onSubmit)}
-              icon={() => <Loading />}
-            >
-              ""
-            </Button>
+            <Loading className="mt-7 flex-[0]" />
           ) : (
             <Button
               className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"

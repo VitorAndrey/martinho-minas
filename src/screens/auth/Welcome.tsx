@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -37,7 +37,9 @@ export function Welcome() {
         <View className="flex-row items-center justify-center gap-2 pt-10">
           <Text>Não tem conta?</Text>
 
-          <Button onPress={navegarRegister}>Cadastar!</Button>
+          <TouchableOpacity onPress={navegarRegister}>
+            <Text className="text-theme-green-300">Cadastar!</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>

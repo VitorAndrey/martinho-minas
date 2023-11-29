@@ -16,13 +16,21 @@ import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
 import { Input } from "@ui/Input";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { UpdateUser } from "@models/index";
+import { updateUser } from "@services/updateData";
 
 const schema = yup
   .object({
-    name: yup.string(),
-    email: yup.string().email("Insira um Email válido."),
+    name: yup.string().required("O nome é obrigatório."),
+    email: yup
+      .string()
+      .email("Insira um Email válido.")
+      .required("O Email é obrigatório."),
     phoneNumber: yup.string(),
-    password: yup.string().min(8, "A senha deve ter no mínimo 8 caracteres."),
+    password: yup
+      .string()
+      .min(8, "A senha deve ter no mínimo 8 caracteres.")
+      .required("A senha é obrigatória."),
   })
   .required();
 
@@ -34,7 +42,7 @@ export function Profile() {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { handleUserUnlogged } = useContext(UserContext);
 
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, handleUpdateUserInfo } = useContext(UserContext);
 
   const {
     control,
@@ -45,14 +53,25 @@ export function Profile() {
   });
 
   const onSubmit = async (data: FormData) => {
+    const { email, name, password, phoneNumber } = data;
+
     if (isEditing) {
-      // await updateUser(data)
+      if (!userInfo) return;
+
+      await updateUser({
+        id: userInfo.id,
+        email,
+        name,
+        password,
+        phoneNumber,
+      } satisfies UpdateUser);
     }
+
     setIsEditing((prev) => !prev);
   };
 
   function handleLoggOut() {
-    // await logout
+    handleUpdateUserInfo(null);
     handleUserUnlogged();
   }
 
@@ -65,7 +84,7 @@ export function Profile() {
         <View className="flex-1">
           <Text className="px-2">Nome:</Text>
           <Controller
-            defaultValue={userInfo.name}
+            defaultValue={userInfo?.name}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -83,7 +102,7 @@ export function Profile() {
 
           <Text className="px-2">E-mail:</Text>
           <Controller
-            defaultValue={userInfo.email}
+            defaultValue={userInfo?.email}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -101,7 +120,7 @@ export function Profile() {
 
           <Text className="px-2">Telefone:</Text>
           <Controller
-            defaultValue={userInfo.phoneNumber}
+            defaultValue={userInfo?.phoneNumber}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -119,7 +138,7 @@ export function Profile() {
 
           <Text className="px-2">Senha:</Text>
           <Controller
-            defaultValue={userInfo.password}
+            defaultValue={userInfo?.password}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input

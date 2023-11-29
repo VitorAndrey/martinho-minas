@@ -55,13 +55,14 @@ export function Register() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
-    const { name, email, password } = data;
+    const { name, email, password, phoneNumber } = data;
 
     try {
       await registerUser({
         name,
         email,
         password,
+        phoneNumber,
       } satisfies RegisterUser);
 
       reset();

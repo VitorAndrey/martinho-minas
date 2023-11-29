@@ -6,15 +6,15 @@ type UserContextType = {
   isUserLogged: boolean;
   handleUserLogged: () => void;
   handleUserUnlogged: () => void;
-  userInfo: User;
-  handleUpdateUserInfo: (newUserInfo: User) => void;
+  userInfo: User | null;
+  handleUpdateUserInfo: (newUserInfo: User | null) => void;
 };
 
 export const UserContext = createContext({} as UserContextType);
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
   const [isUserLogged, setIsUserLogged] = useState<boolean>(true);
-  const [userInfo, setUserInfo] = useState<User>({
+  const [userInfo, setUserInfo] = useState<User | null>({
     id: "123",
     name: "seu nome",
     email: "exemplo@gmail.com",
@@ -30,7 +30,7 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
     setIsUserLogged(false);
   }
 
-  function handleUpdateUserInfo(newUserInfo: User) {
+  function handleUpdateUserInfo(newUserInfo: User | null) {
     setUserInfo(newUserInfo);
   }
 

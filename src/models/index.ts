@@ -38,7 +38,15 @@ export type RegisterUser = {
   phoneNumber?: string;
 };
 
-export type UserLogin = {
+export type LoginUser = {
   email: string;
   password: string;
+};
+
+export type UpdateUser = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber?: string;
 };
