@@ -17,7 +17,8 @@ import { AppNavigationRoutesProps } from "@routes/app.routes";
 
 import { Loading } from "@layout/Loading";
 import { AisleCircle } from "@layout/AisleCircle";
-import { AisleSeparator } from "@layout/AisleSeparator";
+import { EmptyPromotions } from "@layout/EmptyPromotions";
+import { EmptyCart } from "@layout/EmptyCart";
 
 export function Map() {
   const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);
@@ -92,85 +93,87 @@ export function Map() {
   );
 
   return (
-    <SafeAreaView className="flex-1">
-      <View className="mb-10 px-4 py-2">
-        <TouchableOpacity onPress={handleNavigateBack}>
-          <XIcon color={colors["theme-icon"].active} size={20} />
-        </TouchableOpacity>
-      </View>
-
-      {!isLoadingShoppingRoute ? (
-        <FlatList
-          data={shoppingRoute}
-          renderItem={({ item, index }) => (
-            <AisleCircle
-              data={item}
-              quantity={item.products.length}
-              index={index}
-              onPress={() => setCurrentAisle(item.AisleNumber)}
-            />
-          )}
-          contentContainerStyle={{
-            flexGrow: 1,
-            paddingVertical: 30,
-            gap: 20,
-          }}
-        />
-      ) : (
-        <Loading />
-      )}
-
-      <View className="h-[30%] p-4">
-        <Text>{currentAisle}</Text>
-        <View className="flex-row gap-2">
-          <TouchableOpacity
-            onPress={() => setCurrentList("products")}
-            className="m-2 h-10 w-40 items-center justify-center rounded-lg bg-theme-gray-100"
-          >
-            <Text>Produtos</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={() => setCurrentList("promotions")}
-            className="m-2 h-10 w-40 items-center justify-center rounded-lg bg-theme-gray-100"
-          >
-            <Text>Promoções</Text>
+    <View className="flex-1 bg-theme-gray-100">
+      <SafeAreaView className="flex-1">
+        <View className="py-4 px-4">
+          <TouchableOpacity onPress={handleNavigateBack}>
+            <XIcon color={colors["theme-icon"].active} size={20} />
           </TouchableOpacity>
         </View>
 
         {!isLoadingShoppingRoute ? (
-          <>
-            {currentList === "products" ? (
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                initialNumToRender={5}
-                updateCellsBatchingPeriod={1000}
-                data={aisleMap[currentAisle]?.products}
-                renderItem={renderMapItem}
-                contentContainerStyle={{
-                  gap: 10,
-                }}
-              />
-            ) : (
-              <FlatList
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                initialNumToRender={5}
-                updateCellsBatchingPeriod={1000}
-                data={aisleMap[currentAisle]?.promotions}
-                renderItem={renderMapItem}
-                contentContainerStyle={{
-                  gap: 10,
-                  paddingHorizontal: 30,
-                }}
+          <FlatList
+            data={shoppingRoute}
+            renderItem={({ item, index }) => (
+              <AisleCircle
+                data={item}
+                quantity={item.products.length}
+                index={index}
+                onPress={() => setCurrentAisle(item.AisleNumber)}
               />
             )}
-          </>
+            contentContainerStyle={{
+              flexGrow: 1,
+              paddingVertical: 30,
+              gap: 20,
+            }}
+          />
         ) : (
           <Loading />
         )}
-      </View>
-    </SafeAreaView>
+
+        <View className="h-[40%] w-full bg-white p-4">
+          <Text className="mb-4">{currentAisle}</Text>
+          <View className="mb-4 w-full flex-row">
+            <TouchableOpacity
+              onPress={() => setCurrentList("products")}
+              className="mr-4 h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+            >
+              <Text>Produtos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => setCurrentList("promotions")}
+              className="h-10 flex-1 items-center justify-center rounded-lg bg-theme-gray-100"
+            >
+              <Text>Promoções</Text>
+            </TouchableOpacity>
+          </View>
+
+          {!isLoadingShoppingRoute ? (
+            <>
+              {currentList === "products" ? (
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  initialNumToRender={5}
+                  updateCellsBatchingPeriod={1000}
+                  data={aisleMap[currentAisle]?.products}
+                  renderItem={renderMapItem}
+                  contentContainerStyle={{
+                    gap: 10,
+                  }}
+                />
+              ) : (
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  initialNumToRender={5}
+                  updateCellsBatchingPeriod={1000}
+                  data={aisleMap[currentAisle]?.promotions}
+                  renderItem={renderMapItem}
+                  contentContainerStyle={{
+                    gap: 10,
+                    paddingHorizontal: 30,
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <Loading />
+          )}
+        </View>
+      </SafeAreaView>
+    </View>
   );
 }

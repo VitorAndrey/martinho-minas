@@ -23,12 +23,21 @@ export function AisleCircle({
   index,
   ...rest
 }: AisleCircleProps) {
-  const size = 100 + quantity * 4;
+  const size = 80 + quantity * 3;
 
   const marginLeft = calcMarginLeft(index);
 
   function calcMarginLeft(index: number): DimensionValue {
-    return "-10%";
+    const pattern = [
+      0, -15, -30, -15, 0, 15, 30, 15, 0, -15, -30, -15, 0, 15, 30, 15, 0, -15,
+      -30, -15, 0, 15, 30, 15, 0, -15, -30, -15, 0, 15, 30, 15, 0,
+    ];
+    const repeatCount = Math.floor(index / pattern.length);
+    const patternIndex = index % pattern.length;
+
+    const marginLeft =
+      patternIndex < pattern.length ? pattern[patternIndex] : 0;
+    return `${marginLeft + repeatCount * 45}%`;
   }
 
   return (
