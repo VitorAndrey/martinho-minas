@@ -115,7 +115,7 @@ export function Login() {
           <InputErrorMessage message={errors.password?.message} />
 
           {isLoading ? (
-            <Loading className="mt-7 flex-[0]" />
+            <Loading className="mt-6 h-12 flex-[0] items-center justify-center" />
           ) : (
             <Button
               className="mt-6 w-28 self-center bg-transparent bg-theme-pink-300 text-xl"

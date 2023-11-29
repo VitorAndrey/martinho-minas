@@ -38,7 +38,7 @@ export function Welcome() {
           <Text>Não tem conta?</Text>
 
           <TouchableOpacity onPress={navegarRegister}>
-            <Text className="text-theme-green-300">Cadastar!</Text>
+            <Text className="text-theme-green-500">Cadastar!</Text>
           </TouchableOpacity>
         </View>
       </View>
