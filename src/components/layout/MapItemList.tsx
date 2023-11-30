@@ -1,14 +1,10 @@
-import { View, Text, ViewProps, Image, TouchableOpacity } from "react-native";
+import { View, Text, ViewProps, Image } from "react-native";
 
 import { Product } from "@models/index";
 
 import { twMerge } from "tailwind-merge";
 import { styles } from "@styles/inlineStyles";
-import {
-  BadgeCheckIcon,
-  BadgePercentIcon,
-  Trash2Icon,
-} from "lucide-react-native";
+import { Badge, BadgeCheckIcon, BadgePercentIcon } from "lucide-react-native";
 import colors from "@theme/colors";
 import { Button } from "@ui/Button";
 import { useState } from "react";
@@ -75,9 +71,9 @@ export function MapItemList({
               <BadgeCheckIcon color={colors["theme-icon"].active} size={20} />
             </View>
           ) : (
-            <TouchableOpacity className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl bg-theme-pink-300">
-              <Trash2Icon color={colors["theme-icon"].active} size={20} />
-            </TouchableOpacity>
+            <View className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl">
+              <Badge color={colors["theme-icon"].active} size={20} />
+            </View>
           )}
         </>
       )}

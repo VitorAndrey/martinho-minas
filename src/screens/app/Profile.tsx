@@ -120,7 +120,7 @@ export function Profile() {
 
           <Text className="px-2">Telefone:</Text>
           <Controller
-            defaultValue={userInfo?.phoneNumber}
+            defaultValue={userInfo?.phone}
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -136,7 +136,7 @@ export function Profile() {
           />
           <InputErrorMessage message={errors.phoneNumber?.message} />
 
-          <Text className="px-2">Senha:</Text>
+          {/* <Text className="px-2">Senha:</Text>
           <Controller
             defaultValue={userInfo?.password}
             control={control}
@@ -152,7 +152,7 @@ export function Profile() {
             )}
             name="password"
           />
-          <InputErrorMessage message={errors.password?.message} />
+          <InputErrorMessage message={errors.password?.message} /> */}
         </View>
       </ScrollView>
 

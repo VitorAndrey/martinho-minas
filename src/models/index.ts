@@ -29,6 +29,7 @@ export type User = {
   email: string;
   password: string;
   phoneNumber?: string;
+  phone?: string;
 };
 
 export type RegisterUser = {
