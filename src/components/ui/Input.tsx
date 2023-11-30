@@ -3,7 +3,7 @@ import { TextInput, View, ViewProps, TextInputProps } from "react-native";
 import { twMerge, ClassNameValue } from "tailwind-merge";
 
 import { Text } from "./Text";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { EyeIcon, EyeOffIcon } from "lucide-react-native";
 import colors from "@theme/colors";
@@ -17,15 +17,17 @@ type InputProps = {
   };
   label?: string;
   searchInput?: boolean;
+  icon?: () => ReactNode;
 };
 
 export function Input({
   searchInput = false,
   containerProps,
   inputProps,
+  icon,
   label,
 }: InputProps) {
-  const [charsHidden, setCharsHidden] = useState<boolean>(false);
+  const [charsHidden, setCharsHidden] = useState<boolean>(true);
 
   function handleToggleHidden() {
     setCharsHidden((prev) => !prev);
@@ -34,7 +36,9 @@ export function Input({
   return (
     <View
       className={twMerge(
-        "h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4",
+        `h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4 ${
+          searchInput && "pr-0"
+        }`,
         containerProps?.containerClass,
       )}
       {...containerProps}
@@ -48,6 +52,8 @@ export function Input({
         )}
         {...inputProps}
       />
+
+      {icon && icon()}
 
       {searchInput && (
         <TouchableOpacity

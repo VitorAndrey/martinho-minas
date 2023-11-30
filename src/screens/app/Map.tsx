@@ -110,7 +110,7 @@ export function Map() {
   );
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 pb-[100]">
       <View className="-ml-2 -mt-8 px-4 pb-4">
         <TouchableOpacity
           className="h-8 w-8 items-center justify-center"

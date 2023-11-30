@@ -19,6 +19,7 @@ import { Header } from "@layout/Header";
 import { Loading } from "@layout/Loading";
 import { ProductItemList } from "@layout/ProductItemList";
 import { CategoryItemList } from "@layout/CategoryItemList";
+import { Input } from "@ui/Input";
 
 export function Shopping() {
   const [categories, setCategories] = useState<Category[]>();
@@ -40,9 +41,9 @@ export function Shopping() {
   function handleUpdateFiltersList(id: string) {
     setFiltersList((prev) => {
       if (prev.includes(id)) {
-        return prev.filter((filterId) => filterId !== id);
+        return [];
       } else {
-        return [...prev, id];
+        return [id];
       }
     });
   }
@@ -61,6 +62,7 @@ export function Shopping() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <CategoryItemList
+        filtersList={filtersList}
         key={item.id}
         category={item}
         onPress={() => handleUpdateFiltersList(item.id)}
@@ -120,15 +122,12 @@ export function Shopping() {
       <Header />
 
       <View className="flex-1">
-        <View className="flex-row gap-2 py-4 px-8">
-          <TouchableOpacity className="h-12 w-12 items-center justify-center rounded-full bg-theme-pink-300">
-            <Search color={colors["theme-icon"].active} size={16} />
-          </TouchableOpacity>
-
-          <TextInput
-            value={searchInputValue}
-            onChangeText={setSearchInputValue}
-            className="h-12 flex-1 rounded-full bg-theme-green-300 px-6 text-base"
+        <View className="py-4 px-8">
+          <Input
+            inputProps={{
+              value: searchInputValue,
+              onChangeText: setSearchInputValue,
+            }}
           />
         </View>
 

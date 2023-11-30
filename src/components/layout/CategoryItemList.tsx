@@ -10,18 +10,22 @@ import { Text } from "@ui/Text";
 export type IconeCategoriaProps = TouchableOpacityProps & {
   category: Category;
   onPress: (category: Category) => void;
+  filtersList: string[];
 };
 
 export function CategoryItemList({
   className,
+  filtersList,
   category,
   onPress,
   ...rest
 }: IconeCategoriaProps) {
-  const [isActive, setIsActive] = useState<boolean>(false);
+  // const [isActive, setIsActive] = useState<boolean>(false);
+
+  const isActive = filtersList.some((item: string) => item === category.id);
 
   function handleSelectCategory() {
-    setIsActive((prev) => !prev);
+    // setIsActive((prev) => !prev);
 
     onPress(category);
   }

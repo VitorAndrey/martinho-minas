@@ -20,7 +20,7 @@ export function Welcome() {
   }
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-theme-bg-100">
       <Header />
 
       <View className="flex-1 justify-center px-12">
@@ -38,7 +38,9 @@ export function Welcome() {
           <Text>Não tem conta?</Text>
 
           <TouchableOpacity onPress={navegarRegister}>
-            <Text className="text-theme-green-500">Cadastar!</Text>
+            <Text className="font-poppins-600 text-theme-green-500">
+              Cadastar!
+            </Text>
           </TouchableOpacity>
         </View>
       </View>

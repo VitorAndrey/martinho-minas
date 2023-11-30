@@ -65,6 +65,8 @@ export function Register() {
         phoneNumber,
       } satisfies RegisterUser);
 
+      console.log(data);
+
       reset();
       navegarLogin();
     } catch (error) {
@@ -78,7 +80,7 @@ export function Register() {
     navigation.navigate("Login");
   }
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-theme-bg-100">
       <Header />
 
       <ScrollView
@@ -169,7 +171,7 @@ export function Register() {
                   onBlur: onBlur,
                   value: value,
                 }}
-                label="Confirmar senha:"
+                label="Confirmar:"
                 searchInput
               />
             )}

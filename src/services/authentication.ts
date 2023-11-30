@@ -24,12 +24,12 @@ export async function loginUser(data: LoginUser): Promise<User> {
   const { email, password } = data;
 
   try {
-    const user: User = await axios.post(url, {
+    const { data } = await axios.post(url, {
       email,
       password,
     });
 
-    return user;
+    return data;
   } catch (error) {
     throw new Error("Error while logging in!");
   }

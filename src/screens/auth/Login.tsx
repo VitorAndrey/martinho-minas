@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { ScrollView, View } from "react-native";
+import { Alert, ScrollView, View } from "react-native";
 
 import { UserContext } from "@contexts/UserContext";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -56,18 +56,26 @@ export function Login() {
         password,
       } satisfies LoginUser);
 
+      console.log(user);
+
       reset();
       handleUpdateUserInfo(user);
       handleUserLogged();
     } catch (error) {
       console.log(error);
+
+      Alert.alert(
+        "Falha no login",
+        "Email ou senha incorretos. Usuário não encontrado.",
+        [{ text: "Confirmar", onPress: () => {} }],
+      );
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-theme-bg-100">
       <Header />
 
       <ScrollView
@@ -102,6 +110,7 @@ export function Login() {
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
+                searchInput
                 inputProps={{
                   onChangeText: onChange,
                   onBlur: onBlur,

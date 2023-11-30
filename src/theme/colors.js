@@ -27,7 +27,7 @@ module.exports = {
   },
 
   "theme-bg": {
-    100: "#fefefe",
+    100: "#ffffff",
   },
 
   "theme-icon": {
