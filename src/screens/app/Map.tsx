@@ -53,9 +53,16 @@ export function Map() {
     setCurrentList(current);
   }
 
-  const renderMapItem = useCallback(
+  const renderProductMapItem = useCallback(
     ({ item }: { item: Product }) => (
       <MapItemList key={item.id} product={item} />
+    ),
+    [],
+  );
+
+  const renderPromotionMapItem = useCallback(
+    ({ item }: { item: Product }) => (
+      <MapItemList key={item.id} product={item} isPromotional />
     ),
     [],
   );
@@ -103,110 +110,112 @@ export function Map() {
   );
 
   return (
-    <View className="flex-1 bg-theme-gray-100">
-      <SafeAreaView className="flex-1">
-        <View className="py-4 px-4">
-          <TouchableOpacity onPress={handleNavigateBack}>
-            <XIcon color={colors["theme-icon"].active} size={20} />
-          </TouchableOpacity>
-        </View>
-
-        {!isLoadingShoppingRoute ? (
-          <FlatList
-            data={shoppingRoute}
-            renderItem={({ item, index }) => (
-              <AisleCircle
-                data={item}
-                quantity={item.products.length}
-                index={index}
-                onPress={() => setCurrentAisle(item.AisleNumber)}
-              />
-            )}
-            contentContainerStyle={{
-              flexGrow: 1,
-              paddingVertical: 30,
-              gap: 20,
-            }}
-          />
-        ) : (
-          <Loading />
-        )}
-
-        <Modalize
-          alwaysOpen={100}
-          modalHeight={300}
-          handlePosition="inside"
-          ref={modalizeRef}
-          modalStyle={{
-            backgroundColor: colors["theme-gray"][50],
-          }}
+    <SafeAreaView className="flex-1">
+      <View className="-ml-2 -mt-8 px-4 pb-4">
+        <TouchableOpacity
+          className="h-8 w-8 items-center justify-center"
+          onPress={handleNavigateBack}
         >
-          <View className="h-full bg-theme-gray-50 p-4">
-            <View className=" border-w- mt-3 mb-3 h-8 w-36 items-center justify-center rounded-lg border-theme-pink-300 bg-theme-gray-300">
-              <Text>Corredor atual: {currentAisle}</Text>
-            </View>
-            <View className="mb-4 w-full flex-row items-center">
-              <TouchableOpacity
-                onPress={() => handleCurrentList("products")}
-                className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
-                  currentList === "products"
-                    ? "border border-green-500 bg-theme-green-300"
-                    : "bg-theme-gray-100"
-                }`}
-              >
-                <Text>Produtos</Text>
-              </TouchableOpacity>
+          <XIcon color={colors["theme-icon"].active} size={20} />
+        </TouchableOpacity>
+      </View>
 
-              <TouchableOpacity
-                onPress={() => handleCurrentList("promotions")}
-                className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
-                  currentList === "promotions"
-                    ? "border border-green-500 bg-theme-green-300"
-                    : "bg-theme-gray-100"
-                }`}
-              >
-                <Text>Promoções</Text>
-              </TouchableOpacity>
-            </View>
+      {!isLoadingShoppingRoute ? (
+        <FlatList
+          data={shoppingRoute}
+          renderItem={({ item, index }) => (
+            <AisleCircle
+              data={item}
+              quantity={item.products.length}
+              index={index}
+              onPress={() => setCurrentAisle(item.AisleNumber)}
+            />
+          )}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingVertical: 30,
+            gap: 20,
+          }}
+        />
+      ) : (
+        <Loading />
+      )}
 
-            {!isLoadingShoppingRoute ? (
-              <>
-                {currentList === "products" ? (
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    initialNumToRender={5}
-                    updateCellsBatchingPeriod={1000}
-                    data={aisleMap[currentAisle]?.products}
-                    renderItem={renderMapItem}
-                    contentContainerStyle={{
-                      gap: 10,
-                      paddingVertical: 2,
-                      paddingHorizontal: 2,
-                    }}
-                  />
-                ) : (
-                  <FlatList
-                    horizontal
-                    showsHorizontalScrollIndicator={false}
-                    initialNumToRender={5}
-                    updateCellsBatchingPeriod={1000}
-                    data={aisleMap[currentAisle]?.promotions}
-                    renderItem={renderMapItem}
-                    contentContainerStyle={{
-                      gap: 10,
-                      paddingVertical: 2,
-                      paddingHorizontal: 2,
-                    }}
-                  />
-                )}
-              </>
-            ) : (
-              <Loading />
-            )}
+      <Modalize
+        avoidKeyboardLikeIOS
+        alwaysOpen={95}
+        modalHeight={390}
+        handlePosition="inside"
+        ref={modalizeRef}
+        modalStyle={{
+          backgroundColor: colors["theme-gray"][200],
+        }}
+      >
+        <View className="wfull h-full p-4">
+          <View className="my-6 h-8 w-36 items-center justify-center rounded-lg border-theme-pink-300 bg-theme-gray-300">
+            <Text>Corredor atual: {currentAisle}</Text>
           </View>
-        </Modalize>
-      </SafeAreaView>
-    </View>
+          <View className="mb-4 w-full flex-row items-center">
+            <TouchableOpacity
+              onPress={() => handleCurrentList("products")}
+              className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
+                currentList === "products"
+                  ? "border border-green-500 bg-theme-green-300"
+                  : "bg-theme-gray-50"
+              }`}
+            >
+              <Text>Produtos</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => handleCurrentList("promotions")}
+              className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
+                currentList === "promotions"
+                  ? "border border-green-500 bg-theme-green-300"
+                  : "bg-theme-gray-50"
+              }`}
+            >
+              <Text>Promoções</Text>
+            </TouchableOpacity>
+          </View>
+
+          {!isLoadingShoppingRoute ? (
+            <>
+              {currentList === "products" ? (
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  initialNumToRender={5}
+                  updateCellsBatchingPeriod={1000}
+                  data={aisleMap[currentAisle]?.products}
+                  renderItem={renderProductMapItem}
+                  contentContainerStyle={{
+                    gap: 25,
+                    paddingVertical: 10,
+                    paddingHorizontal: 8,
+                  }}
+                />
+              ) : (
+                <FlatList
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  initialNumToRender={5}
+                  updateCellsBatchingPeriod={1000}
+                  data={aisleMap[currentAisle]?.promotions}
+                  renderItem={renderPromotionMapItem}
+                  contentContainerStyle={{
+                    gap: 20,
+                    paddingVertical: 10,
+                    paddingHorizontal: 8,
+                  }}
+                />
+              )}
+            </>
+          ) : (
+            <Loading />
+          )}
+        </View>
+      </Modalize>
+    </SafeAreaView>
   );
 }

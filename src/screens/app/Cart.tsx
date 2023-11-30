@@ -1,4 +1,4 @@
-import { FlatList, View } from "react-native";
+import { Alert, FlatList, View } from "react-native";
 import { useCallback, useContext } from "react";
 
 import { Product } from "@models/index";
@@ -27,7 +27,18 @@ export function Cart() {
   }
 
   function handleClearCartList() {
-    clearCart();
+    Alert.alert(
+      "Deletar",
+      "Você deseja excluir todos os item da sua lista de compras?",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => {},
+          style: "cancel",
+        },
+        { text: "Sim", onPress: () => clearCart() },
+      ],
+    );
   }
 
   const renderCartItem = useCallback(
@@ -71,7 +82,7 @@ export function Cart() {
             />
           )}
         >
-          Concluir
+          Gerar rota
         </Button>
         <Button
           className={`flex-1 ${

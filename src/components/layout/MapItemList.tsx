@@ -1,18 +1,35 @@
-import { View, Text, ViewProps, Image } from "react-native";
+import { View, Text, ViewProps, Image, TouchableOpacity } from "react-native";
 
 import { Product } from "@models/index";
 
 import { twMerge } from "tailwind-merge";
 import { styles } from "@styles/inlineStyles";
-import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
-import { BadgePercentIcon } from "lucide-react-native";
+import {
+  BadgeCheckIcon,
+  BadgePercentIcon,
+  Trash2Icon,
+} from "lucide-react-native";
 import colors from "@theme/colors";
+import { Button } from "@ui/Button";
+import { useState } from "react";
 
 type MapItemListProps = ViewProps & {
   product: Product;
+  isPromotional?: boolean;
 };
 
-export function MapItemList({ product, className, ...rest }: MapItemListProps) {
+export function MapItemList({
+  isPromotional,
+  product,
+  className,
+  ...rest
+}: MapItemListProps) {
+  const [alreadyBought, setAlreadyBought] = useState<boolean>(false);
+
+  function handleAlreadyBought() {
+    setAlreadyBought((prev) => !prev);
+  }
+
   return (
     <View
       style={styles.boxShadow}
@@ -41,12 +58,29 @@ export function MapItemList({ product, className, ...rest }: MapItemListProps) {
         )}
       </View>
 
-      {/* <View className="flex-row items-center gap-1">
-        <Text className="text-base">R$ {calcTotalPrice(product)}</Text>
-        <Text className="text-xs text-zinc-500 line-through">
-          {formatCurrentcy(product.base_price)}
-        </Text>
-      </View> */}
+      {!isPromotional && (
+        <>
+          <Button
+            onPress={handleAlreadyBought}
+            className={`mt-4 h-8 w-full rounded-xl ${
+              alreadyBought && "bg-theme-gray-200"
+            }`}
+            textClassName="text-xs"
+          >
+            {alreadyBought ? "Não adicionei" : "Adicionei"}
+          </Button>
+
+          {alreadyBought ? (
+            <View className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl bg-theme-green-300">
+              <BadgeCheckIcon color={colors["theme-icon"].active} size={20} />
+            </View>
+          ) : (
+            <TouchableOpacity className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl bg-theme-pink-300">
+              <Trash2Icon color={colors["theme-icon"].active} size={20} />
+            </TouchableOpacity>
+          )}
+        </>
+      )}
     </View>
   );
 }

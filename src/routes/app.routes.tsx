@@ -60,6 +60,13 @@ export function AppRoutes() {
         component={Shopping}
         options={{ tabBarIcon: ({ color }) => <StoreIcon color={color} /> }}
       />
+
+      <Screen
+        name="Cart"
+        component={Cart}
+        options={{ tabBarIcon: ({ color }) => <CartIcon color={color} /> }}
+      />
+
       <Screen
         name="Map"
         component={Map}
@@ -67,12 +74,6 @@ export function AppRoutes() {
           tabBarIcon: ({ color }) => <MapIcon color={color} />,
           tabBarStyle: { display: "none" },
         }}
-      />
-
-      <Screen
-        name="Cart"
-        component={Cart}
-        options={{ tabBarIcon: ({ color }) => <CartIcon color={color} /> }}
       />
 
       <Screen
