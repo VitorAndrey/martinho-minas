@@ -3,5 +3,5 @@
 ### Build command
 
 ```bash
-build -p android --profile preview
+eas build -p android --profile preview
 ```
