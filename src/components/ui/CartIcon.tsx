@@ -1,11 +1,11 @@
 import { useContext } from "react";
-import { View, Text, ViewProps } from "react-native";
+import { Text, View, ViewProps } from "react-native";
 
-import { ShoppingCart } from "lucide-react-native";
+import { twMerge } from "tailwind-merge";
 
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
-import { twMerge } from "tailwind-merge";
+import { ShoppingCart } from "lucide-react-native";
 
 type CartIconProps = ViewProps & {
   color: string;

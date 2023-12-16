@@ -1,24 +1,21 @@
 import { RefObject, useCallback, useContext, useRef, useState } from "react";
-import { Text, View, TouchableOpacity, FlatList, Alert } from "react-native";
-
-import { ShoppingListContext } from "@contexts/ShoppingList";
+import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import { Modalize } from "react-native-modalize";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Aisle, Product } from "@models/index";
+import { AisleCircle } from "@layout/AisleCircle";
+import { Loading } from "@layout/Loading";
+import { MapItemList } from "@layout/MapItemList";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
+import { AppNavigationRoutesProps } from "@routes/app.routes";
+import { Aisle, Product } from "@models/index";
+import { ShoppingListContext } from "@contexts/ShoppingList";
 import { fetchShoppingRoute } from "@services/fetchData";
 
-import colors from "@theme/colors";
-
 import { XIcon } from "lucide-react-native";
-import { MapItemList } from "@layout/MapItemList";
-import { AppNavigationRoutesProps } from "@routes/app.routes";
 
-import { Loading } from "@layout/Loading";
-import { AisleCircle } from "@layout/AisleCircle";
-
-import { Modalize } from "react-native-modalize";
+import colors from "@theme/colors";
 
 export function Map() {
   const [shoppingRoute, setShoppingRoute] = useState<Aisle[]>([]);

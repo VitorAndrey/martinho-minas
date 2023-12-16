@@ -1,16 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
 import { FlatList } from "react-native";
-
-import { fetchPromotions } from "@services/fetchData";
-
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Text } from "@ui/Text";
 import { Header } from "@layout/Header";
-import { Product } from "@models/index";
 import { Loading } from "@layout/Loading";
 import { PromotionItemList } from "@layout/PromotionItemList";
+import { Text } from "@ui/Text";
 import { generateEmptyItem } from "@utils/emptyItem";
+
+import { Product } from "@models/index";
+import { fetchPromotions } from "@services/fetchData";
 
 export function Promotions() {
   const [promotions, setPromotions] = useState<Product[]>();

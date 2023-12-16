@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { View } from "react-native";
+
 import { NavigationContainer } from "@react-navigation/native";
+
+import { UserContext } from "@contexts//UserContext";
 
 import { AppRoutes } from "./app.routes";
 import { AuthRoutes } from "./auth.routes";
-import { useContext } from "react";
-import { UserContext } from "@contexts//UserContext";
 
 export function Routes() {
   const { isUserLogged } = useContext(UserContext);

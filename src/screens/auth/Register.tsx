@@ -1,23 +1,21 @@
 import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { ScrollView, View } from "react-native";
-
-import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm, Controller } from "react-hook-form";
+import { Header } from "@layout/Header";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { Loading } from "@layout/Loading";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "@ui/Button";
+import { Input } from "@ui/Input";
+import { Text } from "@ui/Text";
+import * as yup from "yup";
 
+import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 import { RegisterUser } from "@models/index";
 import { registerUser } from "@services/authentication";
-import { InputErrorMessage } from "@layout/InputErrorMessage";
-
-import { Text } from "@ui/Text";
-import { Input } from "@ui/Input";
-import { Button } from "@ui/Button";
-import { Header } from "@layout/Header";
-import { Loading } from "@layout/Loading";
 
 const schema = yup
   .object({
@@ -64,8 +62,6 @@ export function Register() {
         password,
         phoneNumber,
       } satisfies RegisterUser);
-
-      console.log(data);
 
       reset();
       navegarLogin();

@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 
 import { Product } from "@models/index";
 

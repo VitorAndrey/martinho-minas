@@ -1,10 +1,9 @@
 import { View, ViewProps } from "react-native";
 
+import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
-import { Text } from "@ui/Text";
-
-type EmptyCartProps = ViewProps & {};
+type EmptyCartProps = ViewProps;
 
 export function EmptyCart({ className, ...rest }: EmptyCartProps) {
   return (

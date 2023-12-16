@@ -4,11 +4,10 @@ import {
   TouchableOpacityProps,
 } from "react-native";
 
+import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
 import { Aisle } from "@models/index";
-
-import { Text } from "@ui/Text";
 
 type AisleCircleProps = TouchableOpacityProps & {
   data: Aisle;

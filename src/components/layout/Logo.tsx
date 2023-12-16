@@ -2,7 +2,7 @@ import { Image, ImageProps } from "react-native";
 
 import { twMerge } from "tailwind-merge";
 
-type LogoProps = Omit<ImageProps, "source"> & {};
+type LogoProps = Omit<ImageProps, "source">;
 
 export function Logo({ className, ...rest }: LogoProps) {
   return (

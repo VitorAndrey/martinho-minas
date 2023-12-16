@@ -1,11 +1,11 @@
 import { View, ViewProps } from "react-native";
 
+import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
 import { Logo } from "./Logo";
-import { Text } from "@ui/Text";
 
-type HeaderProps = ViewProps & {};
+type HeaderProps = ViewProps;
 
 export function Header({ className, ...rest }: HeaderProps) {
   return (

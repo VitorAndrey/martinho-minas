@@ -1,15 +1,14 @@
 import { useContext } from "react";
 import { Image, View, ViewProps } from "react-native";
 
-import { ShoppingListContext } from "@contexts/ShoppingList";
-
-import { Product } from "@models/index";
-import { twMerge } from "tailwind-merge";
 import { styles } from "@styles/inlineStyles";
-import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
-
 import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
+import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
+import { twMerge } from "tailwind-merge";
+
+import { Product } from "@models/index";
+import { ShoppingListContext } from "@contexts/ShoppingList";
 
 type PromotionItemListProps = ViewProps & {
   product: Product;

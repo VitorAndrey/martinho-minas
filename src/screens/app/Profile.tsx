@@ -1,23 +1,23 @@
 import { useContext, useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { View, ScrollView } from "react-native";
-
-import { UserContext } from "@contexts/UserContext";
-
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
+import { ScrollView, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import colors from "@theme/colors";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Header } from "@layout/Header";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { Button } from "@ui/Button";
+import { Input } from "@ui/Input";
+import { Text } from "@ui/Text";
+import * as yup from "yup";
+
+import { UpdateUser } from "@models/index";
+import { UserContext } from "@contexts/UserContext";
+import { updateUser } from "@services/updateData";
+
 import { CheckIcon, LogOutIcon, PencilIcon } from "lucide-react-native";
 
-import { Button } from "@ui/Button";
-import { Text } from "@ui/Text";
-import { Header } from "@layout/Header";
-import { Input } from "@ui/Input";
-import { InputErrorMessage } from "@layout/InputErrorMessage";
-import { UpdateUser } from "@models/index";
-import { updateUser } from "@services/updateData";
+import colors from "@theme/colors";
 
 const schema = yup
   .object({

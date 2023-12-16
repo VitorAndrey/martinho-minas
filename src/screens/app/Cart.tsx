@@ -1,22 +1,21 @@
-import { Alert, FlatList, View } from "react-native";
 import { useCallback, useContext } from "react";
+import { Alert, FlatList, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
+import { CartItemList } from "@layout/CartItemList";
+import { EmptyCart } from "@layout/EmptyCart";
+import { Header } from "@layout/Header";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "@ui/Button";
+import { Text } from "@ui/Text";
+
+import { AppNavigationRoutesProps } from "@routes/app.routes";
 import { Product } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
-import { useNavigation } from "@react-navigation/native";
-import { AppNavigationRoutesProps } from "@routes/app.routes";
-
-import { SafeAreaView } from "react-native-safe-area-context";
+import { BadgeCheckIcon, BadgeMinusIcon } from "lucide-react-native";
 
 import colors from "@theme/colors";
-
-import { Button } from "@ui/Button";
-import { Text } from "@ui/Text";
-import { Header } from "@layout/Header";
-import { CartItemList } from "@layout/CartItemList";
-import { EmptyCart } from "@layout/EmptyCart";
-import { BadgeCheckIcon, BadgeMinusIcon } from "lucide-react-native";
 
 export function Cart() {
   const { cartList, clearCart } = useContext(ShoppingListContext);

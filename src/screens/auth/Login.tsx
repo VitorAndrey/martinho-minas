@@ -1,21 +1,20 @@
 import { useContext, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { Alert, ScrollView, View } from "react-native";
-
-import { UserContext } from "@contexts/UserContext";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
-import { loginUser } from "@services/authentication";
-import { Loading } from "@layout/Loading";
-import { LoginUser } from "@models/index";
-import { InputErrorMessage } from "@layout/InputErrorMessage";
-
-import { Text } from "@ui/Text";
-import { Input } from "@ui/Input";
-import { Button } from "@ui/Button";
 import { Header } from "@layout/Header";
+import { InputErrorMessage } from "@layout/InputErrorMessage";
+import { Loading } from "@layout/Loading";
+import { Button } from "@ui/Button";
+import { Input } from "@ui/Input";
+import { Text } from "@ui/Text";
+import * as yup from "yup";
+
+import { LoginUser } from "@models/index";
+import { UserContext } from "@contexts/UserContext";
+import { loginUser } from "@services/authentication";
 
 const schema = yup
   .object({
@@ -56,14 +55,10 @@ export function Login() {
         password,
       } satisfies LoginUser);
 
-      console.log(user);
-
       reset();
       handleUpdateUserInfo(user);
       handleUserLogged();
     } catch (error) {
-      console.log(error);
-
       Alert.alert(
         "Falha no login",
         "Email ou senha incorretos. Usuário não encontrado.",

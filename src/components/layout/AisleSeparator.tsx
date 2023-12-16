@@ -2,7 +2,7 @@ import { View, ViewProps } from "react-native";
 
 import { twMerge } from "tailwind-merge";
 
-type AisleSeparatorProps = ViewProps & {};
+type AisleSeparatorProps = ViewProps;
 
 export function AisleSeparator({ className, ...rest }: AisleSeparatorProps) {
   return (

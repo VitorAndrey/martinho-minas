@@ -1,13 +1,15 @@
-import { View, Text, ViewProps, Image } from "react-native";
+import { useState } from "react";
+import { Image, Text, View, ViewProps } from "react-native";
+
+import { styles } from "@styles/inlineStyles";
+import { Button } from "@ui/Button";
+import { twMerge } from "tailwind-merge";
 
 import { Product } from "@models/index";
 
-import { twMerge } from "tailwind-merge";
-import { styles } from "@styles/inlineStyles";
 import { Badge, BadgeCheckIcon, BadgePercentIcon } from "lucide-react-native";
+
 import colors from "@theme/colors";
-import { Button } from "@ui/Button";
-import { useState } from "react";
 
 type MapItemListProps = ViewProps & {
   product: Product;

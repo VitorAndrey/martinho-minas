@@ -1,8 +1,7 @@
 import { View, ViewProps } from "react-native";
 
-import { twMerge } from "tailwind-merge";
-
 import { Text } from "@ui/Text";
+import { twMerge } from "tailwind-merge";
 
 type InputErrorMessageProps = ViewProps & {
   message: string | undefined;

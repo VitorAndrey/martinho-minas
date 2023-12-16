@@ -1,10 +1,9 @@
 import { View, ViewProps } from "react-native";
 
+import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
-import { Text } from "@ui/Text";
-
-type EmptyPromotionsProps = ViewProps & {};
+type EmptyPromotionsProps = ViewProps;
 
 export function EmptyPromotions({ className, ...rest }: EmptyPromotionsProps) {
   return (

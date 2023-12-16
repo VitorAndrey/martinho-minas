@@ -1,25 +1,19 @@
 import { useCallback, useEffect, useState } from "react";
-
-import { View, FlatList, TouchableOpacity, TextInput } from "react-native";
+import { FlatList, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import { Category, Product } from "@models/index";
-
-import colors from "@theme/colors";
-import { Search } from "lucide-react-native";
-
-import { fetchCategories, fetchProducts } from "@services/fetchData";
-
-import { useNavigation } from "@react-navigation/native";
-import { AppNavigationRoutesProps } from "@routes/app.routes";
-
-import { Text } from "@ui/Text";
-import { Button } from "@ui/Button";
+import { CategoryItemList } from "@layout/CategoryItemList";
 import { Header } from "@layout/Header";
 import { Loading } from "@layout/Loading";
 import { ProductItemList } from "@layout/ProductItemList";
-import { CategoryItemList } from "@layout/CategoryItemList";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "@ui/Button";
 import { Input } from "@ui/Input";
+import { Text } from "@ui/Text";
+
+import { AppNavigationRoutesProps } from "@routes/app.routes";
+import { Category, Product } from "@models/index";
+import { fetchCategories, fetchProducts } from "@services/fetchData";
 
 export function Shopping() {
   const [categories, setCategories] = useState<Category[]>();
@@ -131,7 +125,7 @@ export function Shopping() {
           />
         </View>
 
-        <View className="mb-4 h-20 gap-2">
+        <View className="mb-4 gap-2 py-2">
           <Text className="px-8">Filtrar</Text>
           {!isLoadingCategories ? (
             <FlatList

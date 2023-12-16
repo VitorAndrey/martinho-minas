@@ -1,10 +1,10 @@
-import { View, ActivityIndicator, ViewProps } from "react-native";
-
-import colors from "@theme/colors";
+import { ActivityIndicator, View, ViewProps } from "react-native";
 
 import { twMerge } from "tailwind-merge";
 
-type LoadingProps = ViewProps & {};
+import colors from "@theme/colors";
+
+type LoadingProps = ViewProps;
 
 export function Loading({ className, ...rest }: LoadingProps) {
   return (

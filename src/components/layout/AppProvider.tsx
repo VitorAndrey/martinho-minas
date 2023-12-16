@@ -1,13 +1,12 @@
 import { ReactNode } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 import {
-  SafeAreaProvider,
   initialWindowMetrics,
+  SafeAreaProvider,
 } from "react-native-safe-area-context";
 
-import { UserContextProvider } from "@contexts/UserContext";
 import { ShoppingListProvider } from "@contexts/ShoppingList";
+import { UserContextProvider } from "@contexts/UserContext";
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (

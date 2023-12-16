@@ -1,12 +1,12 @@
 import { TouchableOpacity, View } from "react-native";
-
-import { useNavigation } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
+import { Header } from "@layout/Header";
+import { useNavigation } from "@react-navigation/native";
 import { Button } from "@ui/Button";
 import { Text } from "@ui/Text";
-import { Header } from "@layout/Header";
+
+import { AuthNavigationRoutesProps } from "@routes/auth.routes";
 
 export function Welcome() {
   const navigation = useNavigation<AuthNavigationRoutesProps>();

@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { View, TouchableOpacity, Image, ViewProps } from "react-native";
+import { Image, TouchableOpacity, View, ViewProps } from "react-native";
 
-import { ShoppingListContext } from "@contexts/ShoppingList";
+import { styles } from "@styles/inlineStyles";
+import { Text } from "@ui/Text";
+import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
+import { twMerge } from "tailwind-merge";
 
 import { Product } from "@models/index";
-import { calcTotalPrice, formatCurrentcy } from "@utils/currency";
+import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { BadgePercentIcon, Trash2 } from "lucide-react-native";
 
 import colors from "@theme/colors";
-import { styles } from "@styles/inlineStyles";
-
-import { Text } from "@ui/Text";
 
 type CartItemProps = ViewProps & {
   product: Product;
@@ -27,7 +27,10 @@ export function CartItemList({ product, className, ...rest }: CartItemProps) {
   return (
     <View
       style={styles.boxShadow}
-      className="h-20 flex-row items-center rounded-2xl border border-theme-gray-200 bg-theme-gray-50 p-2"
+      className={twMerge(
+        "h-20 flex-row items-center rounded-2xl border border-theme-gray-200 bg-theme-gray-50 p-2",
+        className,
+      )}
       {...rest}
     >
       <View className="relative h-16 w-16 pr-2">

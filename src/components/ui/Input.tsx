@@ -1,12 +1,14 @@
-import { TextInput, View, ViewProps, TextInputProps } from "react-native";
+import { ReactNode, useState } from "react";
+import { TextInput, TextInputProps, View, ViewProps } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-import { twMerge, ClassNameValue } from "tailwind-merge";
+import { ClassNameValue, twMerge } from "tailwind-merge";
+
+import { EyeIcon, EyeOffIcon } from "lucide-react-native";
+
+import colors from "@theme/colors";
 
 import { Text } from "./Text";
-import { ReactNode, useState } from "react";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { EyeIcon, EyeOffIcon } from "lucide-react-native";
-import colors from "@theme/colors";
 
 type InputProps = {
   containerProps?: ViewProps & {

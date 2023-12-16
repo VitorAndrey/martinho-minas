@@ -1,11 +1,9 @@
-import { useState } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
+import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
 import { Category } from "@models/index";
-
-import { Text } from "@ui/Text";
 
 export type IconeCategoriaProps = TouchableOpacityProps & {
   category: Category;
@@ -20,13 +18,9 @@ export function CategoryItemList({
   onPress,
   ...rest
 }: IconeCategoriaProps) {
-  // const [isActive, setIsActive] = useState<boolean>(false);
-
   const isActive = filtersList.some((item: string) => item === category.id);
 
   function handleSelectCategory() {
-    // setIsActive((prev) => !prev);
-
     onPress(category);
   }
 

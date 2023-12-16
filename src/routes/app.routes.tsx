@@ -1,13 +1,14 @@
 import {
-  createBottomTabNavigator,
   BottomTabNavigationProp,
+  createBottomTabNavigator,
 } from "@react-navigation/bottom-tabs";
+import { CartIcon } from "@ui/CartIcon";
 
-import { Map } from "@screens/app/Map";
-import { Promotions } from "@screens/app/Promotions";
-import { Profile } from "@screens/app/Profile";
-import { Shopping } from "@screens/app/Shopping";
 import { Cart } from "@screens/app/Cart";
+import { Map } from "@screens/app/Map";
+import { Profile } from "@screens/app/Profile";
+import { Promotions } from "@screens/app/Promotions";
+import { Shopping } from "@screens/app/Shopping";
 
 import {
   BadgePercentIcon,
@@ -16,7 +17,6 @@ import {
   User2Icon,
 } from "lucide-react-native";
 
-import { CartIcon } from "@ui/CartIcon";
 import colors from "@theme/colors";
 
 type AppRoutes = {

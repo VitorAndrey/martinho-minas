@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { RegisterUser, User, LoginUser } from "@models/index";
+import { LoginUser, RegisterUser, User } from "@models/index";
 
 export async function registerUser(data: RegisterUser) {
   const url = "https://supermercadoapi.vercel.app/register";
