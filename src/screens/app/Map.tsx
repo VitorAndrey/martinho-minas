@@ -1,5 +1,12 @@
 import { RefObject, useCallback, useContext, useRef, useState } from "react";
-import { Alert, FlatList, Text, TouchableOpacity, View } from "react-native";
+import {
+  Alert,
+  FlatList,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Modalize } from "react-native-modalize";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -24,9 +31,9 @@ export function Map() {
 
   const modalizeRef: RefObject<Modalize> = useRef(null);
 
-  // const onOpen = () => {
-  //   modalizeRef.current?.open();
-  // };
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
 
   const [aisleMap, setAisleMap] = useState<Record<number, Aisle>>({});
 
@@ -90,6 +97,11 @@ export function Map() {
     }
   }
 
+  function handleUpdateAisle(aisle: number) {
+    setCurrentAisle(aisle);
+    onOpen();
+  }
+
   useFocusEffect(
     useCallback(() => {
       setShoppingRoute([]);
@@ -117,7 +129,19 @@ export function Map() {
         </TouchableOpacity>
       </View>
 
-      {!isLoadingShoppingRoute ? (
+      <ScrollView className="flex-1">
+        {shoppingRoute.map((item, index) => (
+          <AisleCircle
+            key={item.AisleNumber}
+            data={item}
+            quantity={item.products.length}
+            index={index}
+            onPress={() => handleUpdateAisle(item.AisleNumber)}
+          />
+        ))}
+      </ScrollView>
+
+      {/* {!isLoadingShoppingRoute ? (
         <FlatList
           data={shoppingRoute}
           renderItem={({ item, index }) => (
@@ -136,11 +160,11 @@ export function Map() {
         />
       ) : (
         <Loading />
-      )}
+      )} */}
 
       <Modalize
         avoidKeyboardLikeIOS
-        alwaysOpen={95}
+        // alwaysOpen={95}
         modalHeight={390}
         handlePosition="inside"
         ref={modalizeRef}

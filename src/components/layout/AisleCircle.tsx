@@ -42,19 +42,24 @@ export function AisleCircle({
   return (
     <TouchableOpacity
       style={{
-        width: size,
-        height: size,
+        width: data.products.length < 1 ? 22 : size,
+        height: data.products.length < 1 ? 22 : size,
         maxHeight: 150,
         maxWidth: 150,
         marginLeft,
       }}
+      disabled={data.products.length < 1}
       className={twMerge(
-        "flex-1 items-center justify-center self-center rounded-full bg-theme-green-300",
+        `my-2 ${
+          data.products.length < 1 ? "bg-theme-gray-300" : "bg-theme-green-300"
+        } flex-1 items-center justify-center self-center rounded-full`,
         className,
       )}
       {...rest}
     >
-      <Text className="text-xl">{data.AisleNumber}</Text>
+      <Text className={`${data.products.length < 1 ? "text-xs" : "text-lg"}`}>
+        {data.AisleNumber}
+      </Text>
     </TouchableOpacity>
   );
 }

@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
 
 import { Text } from "@ui/Text";
@@ -8,28 +9,38 @@ import { Category } from "@models/index";
 export type IconeCategoriaProps = TouchableOpacityProps & {
   category: Category;
   onPress: (category: Category) => void;
-  filtersList: string[];
+  filter: string | null;
 };
 
 export function CategoryItemList({
   className,
-  filtersList,
   category,
+  filter,
   onPress,
   ...rest
 }: IconeCategoriaProps) {
-  const isActive = filtersList.some((item: string) => item === category.id);
+  const [isActive, setIsActive] = useState<boolean>(false);
 
   function handleSelectCategory() {
     onPress(category);
   }
+
+  function handleCheckIfActive() {
+    if (filter === category.id) {
+      setIsActive(true);
+    }
+  }
+
+  useEffect(() => {
+    handleCheckIfActive();
+  }, [filter]);
 
   return (
     <TouchableOpacity
       onPress={handleSelectCategory}
       className={twMerge(
         `flex h-10 items-center justify-center rounded-xl border px-3 ${
-          isActive ? "border-theme-green-300" : "border-theme-gray-300"
+          isActive ? "bg-theme-green-300" : "border-theme-gray-300"
         }`,
         className,
       )}

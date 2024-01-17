@@ -38,7 +38,7 @@ export function Input({
   return (
     <View
       className={twMerge(
-        `h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4 ${
+        `relative h-12 flex-row items-center rounded-2xl bg-theme-green-300 px-4 ${
           searchInput && "pr-0"
         }`,
         containerProps?.containerClass,

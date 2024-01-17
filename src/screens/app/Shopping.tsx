@@ -15,6 +15,10 @@ import { AppNavigationRoutesProps } from "@routes/app.routes";
 import { Category, Product } from "@models/index";
 import { fetchCategories, fetchProducts } from "@services/fetchData";
 
+import { SearchIcon } from "lucide-react-native";
+
+import colors from "@theme/colors";
+
 export function Shopping() {
   const [categories, setCategories] = useState<Category[]>();
   const [isLoadingCategories, setIsLoadingCategories] =
@@ -26,19 +30,16 @@ export function Shopping() {
   >();
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
 
-  const [filtersList, setFiltersList] = useState<string[]>([]);
+  const [filter, setFilter] = useState<string | null>(null);
 
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
-  function handleUpdateFiltersList(id: string) {
-    setFiltersList((prev) => {
-      if (prev.includes(id)) {
-        return [];
-      } else {
-        return [id];
-      }
+  function handleUpdatefilter(id: string) {
+    setFilter((prev) => {
+      if (!prev) return id;
+      else return null;
     });
   }
 
@@ -56,10 +57,10 @@ export function Shopping() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <CategoryItemList
-        filtersList={filtersList}
         key={item.id}
         category={item}
-        onPress={() => handleUpdateFiltersList(item.id)}
+        filter={filter}
+        onPress={() => handleUpdatefilter(item.id)}
       />
     ),
     [],
@@ -82,7 +83,8 @@ export function Shopping() {
     setIsLoadingProducts(true);
 
     try {
-      const data = await fetchProducts(filtersList);
+      const filters = filter ? [filter] : [];
+      const data = await fetchProducts(filters);
       setProducts(data);
     } catch (error) {
       console.log(error);
@@ -109,7 +111,7 @@ export function Shopping() {
 
   useEffect(() => {
     handleFetchProducts();
-  }, [filtersList]);
+  }, [filter]);
 
   return (
     <SafeAreaView className="flex-1">
@@ -121,7 +123,18 @@ export function Shopping() {
             inputProps={{
               value: searchInputValue,
               onChangeText: setSearchInputValue,
+              inputClass: "z-50 pl-8",
             }}
+            containerProps={{
+              containerClass: "rounded-full",
+            }}
+            icon={() => (
+              <SearchIcon
+                className="absolute left-4 z-0"
+                color={colors["theme-icon"].active}
+                size={18}
+              />
+            )}
           />
         </View>
 
