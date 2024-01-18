@@ -7,6 +7,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Header } from "@layout/Header";
 import { InputErrorMessage } from "@layout/InputErrorMessage";
 import { Loading } from "@layout/Loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "@ui/Button";
 import { Input } from "@ui/Input";
 import { Text } from "@ui/Text";
@@ -57,6 +58,8 @@ export function Login() {
 
       reset();
       handleUpdateUserInfo(user);
+      const jsonValue = JSON.stringify(user);
+      await AsyncStorage.setItem("@martinho:user", jsonValue);
       handleUserLogged();
     } catch (error) {
       Alert.alert(

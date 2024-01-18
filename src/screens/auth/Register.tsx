@@ -24,7 +24,6 @@ const schema = yup
       .string()
       .required("Preencha o Email.")
       .email("Insira um Email válido."),
-    phoneNumber: yup.string().required("Preencha o Telefone."),
     password: yup
       .string()
       .required("Defina uma Senha.")
@@ -53,7 +52,8 @@ export function Register() {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
 
-    const { name, email, password, phoneNumber } = data;
+    const { name, email, password } = data;
+    const phoneNumber = "999";
 
     try {
       await registerUser({
@@ -124,7 +124,7 @@ export function Register() {
           />
           <InputErrorMessage message={errors.email?.message} />
 
-          <Controller
+          {/* <Controller
             control={control}
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
@@ -139,7 +139,7 @@ export function Register() {
             )}
             name="phoneNumber"
           />
-          <InputErrorMessage message={errors.phoneNumber?.message} />
+          <InputErrorMessage message={errors.phoneNumber?.message} /> */}
 
           <Controller
             control={control}

@@ -30,16 +30,19 @@ export function Shopping() {
   >();
   const [isLoadingProducts, setIsLoadingProducts] = useState<boolean>(false);
 
-  const [filter, setFilter] = useState<string | null>(null);
+  const [filtersList, setFiltersList] = useState<string[]>([]);
 
   const [searchInputValue, setSearchInputValue] = useState<string>("");
 
   const navigation = useNavigation<AppNavigationRoutesProps>();
 
-  function handleUpdatefilter(id: string) {
-    setFilter((prev) => {
-      if (!prev) return id;
-      else return null;
+  function handleUpdateFiltersList(id: string) {
+    setFiltersList((prev) => {
+      if (prev.includes(id)) {
+        return [];
+      } else {
+        return [id];
+      }
     });
   }
 
@@ -57,10 +60,10 @@ export function Shopping() {
   const renderCategory = useCallback(
     ({ item }: { item: Category }) => (
       <CategoryItemList
+        filtersList={filtersList}
         key={item.id}
         category={item}
-        filter={filter}
-        onPress={() => handleUpdatefilter(item.id)}
+        onPress={() => handleUpdateFiltersList(item.id)}
       />
     ),
     [],
@@ -83,8 +86,7 @@ export function Shopping() {
     setIsLoadingProducts(true);
 
     try {
-      const filters = filter ? [filter] : [];
-      const data = await fetchProducts(filters);
+      const data = await fetchProducts(filtersList);
       setProducts(data);
     } catch (error) {
       console.log(error);
@@ -111,7 +113,11 @@ export function Shopping() {
 
   useEffect(() => {
     handleFetchProducts();
-  }, [filter]);
+  }, [filtersList]);
+
+  const currentCategory = categories?.find(
+    (category) => filtersList[0] === category.id,
+  );
 
   return (
     <SafeAreaView className="flex-1">
@@ -160,7 +166,9 @@ export function Shopping() {
         </View>
 
         <View className="flex-1 gap-2">
-          <Text className="px-8">Adicione Produtos</Text>
+          <Text className="px-8">
+            {currentCategory?.name || "Todos os Produtos"}
+          </Text>
 
           {!isLoadingProducts ? (
             <FlatList

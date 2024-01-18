@@ -192,13 +192,18 @@ export function Map() {
 
               <TouchableOpacity
                 onPress={() => handleCurrentList("promotions")}
-                className={`mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
+                className={`relative mr-4 h-10 flex-1 items-center justify-center rounded-lg  ${
                   currentList === "promotions"
                     ? "border border-green-500 bg-theme-green-300"
                     : "bg-theme-gray-50"
                 }`}
               >
                 <Text>Promoções</Text>
+                {aisleMap[currentAisle]?.promotions.length > 0 && (
+                  <View className="absolute -top-2 -right-2 h-6 w-6 items-center justify-center rounded-full border border-green-500 bg-white">
+                    <Text>{aisleMap[currentAisle]?.promotions.length}</Text>
+                  </View>
+                )}
               </TouchableOpacity>
             </View>
 
@@ -224,9 +229,20 @@ export function Map() {
                     showsHorizontalScrollIndicator={false}
                     initialNumToRender={5}
                     updateCellsBatchingPeriod={1000}
+                    ListEmptyComponent={
+                      <View className="h-40 flex-1 items-center justify-center">
+                        <Text className="text-center text-theme-gray-400">
+                          Não há promoções
+                        </Text>
+                        <Text className="text-center text-theme-gray-400">
+                          no corredor atual
+                        </Text>
+                      </View>
+                    }
                     data={aisleMap[currentAisle]?.promotions}
                     renderItem={renderPromotionMapItem}
                     contentContainerStyle={{
+                      flexGrow: 1,
                       gap: 20,
                       paddingVertical: 10,
                       paddingHorizontal: 8,
@@ -235,7 +251,7 @@ export function Map() {
                 )}
               </>
             ) : (
-              <Loading />
+              <Loading className="h-44" />
             )}
           </View>
         </Modalize>

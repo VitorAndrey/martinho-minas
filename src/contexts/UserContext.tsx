@@ -1,4 +1,6 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { User } from "@models/index";
 
@@ -13,7 +15,7 @@ type UserContextType = {
 export const UserContext = createContext({} as UserContextType);
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
-  const [isUserLogged, setIsUserLogged] = useState<boolean>(true);
+  const [isUserLogged, setIsUserLogged] = useState<boolean>(false);
   const [userInfo, setUserInfo] = useState<User | null>({
     id: "123",
     name: "seu nome",
@@ -33,6 +35,18 @@ export function UserContextProvider({ children }: { children: ReactNode }) {
   function handleUpdateUserInfo(newUserInfo: User | null) {
     setUserInfo(newUserInfo);
   }
+
+  async function handleVerifyIfAlreadyLogged() {
+    const user = await AsyncStorage.getItem("@martinho:user");
+    if (!user) return;
+    const parsedUser = JSON.parse(user);
+    setUserInfo(parsedUser);
+    setIsUserLogged(true);
+  }
+
+  useEffect(() => {
+    handleVerifyIfAlreadyLogged();
+  }, []);
 
   return (
     <UserContext.Provider
