@@ -2,28 +2,38 @@ import {
   DimensionValue,
   TouchableOpacity,
   TouchableOpacityProps,
+  View,
 } from "react-native";
 
 import { Text } from "@ui/Text";
 import { twMerge } from "tailwind-merge";
 
-import { Aisle } from "@models/index";
+import { MapAisle } from "@contexts/MapList";
+
+import {
+  BadgeCheckIcon,
+  ShoppingCartIcon,
+  XCircleIcon,
+} from "lucide-react-native";
 
 type AisleCircleProps = TouchableOpacityProps & {
-  data: Aisle;
+  data: MapAisle;
   quantity: number;
   index: number;
+  currentVisiting: boolean;
 };
 
 export function AisleCircle({
   data,
   quantity,
   className,
+  currentVisiting,
   index,
   ...rest
 }: AisleCircleProps) {
-  const size = 80 + quantity * 3;
+  const isAisleDone = data.products.every((product) => product.alreadyBought);
 
+  const size = 80 + quantity * 3;
   const marginLeft = calcMarginLeft(index);
 
   function calcMarginLeft(index: number): DimensionValue {
@@ -36,14 +46,18 @@ export function AisleCircle({
 
     const marginLeft =
       patternIndex < pattern.length ? pattern[patternIndex] : 0;
+
+    if (data.products.length < 1)
+      return `${marginLeft / 1.7 + repeatCount * 45}%`;
     return `${marginLeft + repeatCount * 45}%`;
   }
 
   return (
     <TouchableOpacity
+      activeOpacity={0.9}
       style={{
-        width: data.products.length < 1 ? 22 : size,
-        height: data.products.length < 1 ? 22 : size,
+        width: data.products.length < 1 ? 18 : size,
+        height: data.products.length < 1 ? 18 : size,
         maxHeight: 150,
         maxWidth: 150,
         marginLeft,
@@ -51,15 +65,41 @@ export function AisleCircle({
       disabled={data.products.length < 1}
       className={twMerge(
         `my-2 ${
-          data.products.length < 1 ? "bg-theme-gray-300" : "bg-theme-green-300"
-        } flex-1 items-center justify-center self-center rounded-full`,
+          data.products.length < 1 ? "bg-theme-gray-200" : "bg-theme-green-300"
+        } relative flex-1 items-center justify-center self-center rounded-full border`,
         className,
       )}
       {...rest}
     >
-      <Text className={`${data.products.length < 1 ? "text-xs" : "text-lg"}`}>
-        {data.AisleNumber}
+      <Text className="mt-2 text-3xl">
+        {data.products.length < 1 ? "" : data.AisleNumber}
       </Text>
+
+      {currentVisiting && (
+        <View className="absolute bottom-0 right-0 h-6 w-6 items-center justify-center rounded-full border bg-yellow-200 p-1">
+          <ShoppingCartIcon size={14} color="black" />
+        </View>
+      )}
+
+      {!(data.products.length < 1) && isAisleDone && !currentVisiting && (
+        <View className="absolute bottom-0 right-0 h-6 w-6 items-center justify-center rounded-full p-1">
+          <BadgeCheckIcon
+            size={25}
+            color="black"
+            className="rounded-full bg-theme-green-500"
+          />
+        </View>
+      )}
+
+      {!(data.products.length < 1) && !isAisleDone && !currentVisiting && (
+        <View className="absolute bottom-0 right-0 h-6 w-6 items-center justify-center rounded-full p-1">
+          <XCircleIcon
+            size={25}
+            color="black"
+            className="rounded-full bg-theme-pink-300"
+          />
+        </View>
+      )}
     </TouchableOpacity>
   );
 }

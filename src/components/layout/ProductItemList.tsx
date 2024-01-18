@@ -6,17 +6,16 @@ import {
   View,
 } from "react-native";
 
+import { styles } from "@styles/inlineStyles";
+import { Text } from "@ui/Text";
+import { twMerge } from "tailwind-merge";
+
+import { Product } from "@models/index";
 import { ShoppingListContext } from "@contexts/ShoppingList";
 
 import { BadgePercentIcon, CircleIcon } from "lucide-react-native";
 
 import colors from "@theme/colors";
-
-import { Product } from "@models/index";
-import { twMerge } from "tailwind-merge";
-import { styles } from "@styles/inlineStyles";
-
-import { Text } from "@ui/Text";
 
 type ProductItemListProps = TouchableOpacityProps & {
   product: Product;

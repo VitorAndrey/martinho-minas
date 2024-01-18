@@ -1,53 +1,51 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image, Text, View, ViewProps } from "react-native";
 
-// Importe os outros componentes e estilos necessários
 import { styles } from "@styles/inlineStyles";
 import { Button } from "@ui/Button";
 import { twMerge } from "tailwind-merge";
 
-import { MapListContext, MapProduct } from "@contexts/MapList";
+import { Product } from "@models/index";
+import { MapListContext } from "@contexts/MapList";
 
-import { BadgeCheckIcon, BadgePercentIcon } from "lucide-react-native";
+import { Badge, BadgeCheckIcon, BadgePercentIcon } from "lucide-react-native";
 
 import colors from "@theme/colors";
 
 type MapItemListProps = ViewProps & {
-  product: MapProduct;
+  product: Product;
   isPromotional?: boolean;
 };
 
-export function MapItemList({
+export function MapItemListPromotion({
   isPromotional,
   product,
   className,
   ...rest
 }: MapItemListProps) {
-  const [localAlreadyBought, setLocalAlreadyBought] = useState<boolean>(false);
   const { toggleProductStatus, mapList } = useContext(MapListContext);
 
-  useEffect(() => {
-    // Verifique se o produto está na lista
-    const productInList = mapList.find((mapAisle) =>
-      mapAisle.products.some((mapProduct) => mapProduct.id === product.id),
-    );
+  const [alreadyBought, setAlreadyBought] = useState<boolean>(false);
 
-    // Atualize o estado local com base no contexto
-    if (productInList) {
-      const { alreadyBought } = productInList.products.find(
-        (mapProduct) => mapProduct.id === product.id,
-      ) || { alreadyBought: false };
-      setLocalAlreadyBought(alreadyBought);
+  function handleCheckIfAlreadyBought() {
+    const aisle = mapList.find((item) => item.AisleNumber === product.aisle);
+
+    if (aisle) {
+      const foundProduct = aisle.products.find((p) => p.id === product.id);
+
+      if (foundProduct) {
+        setAlreadyBought(foundProduct.alreadyBought);
+      }
     }
-  }, [mapList, product]);
+  }
 
   function handleAlreadyBought() {
-    // Atualize o estado local primeiro
-    setLocalAlreadyBought((prev) => !prev);
-
-    // Em seguida, execute a ação no contexto
     toggleProductStatus(product.id);
   }
+
+  useEffect(() => {
+    handleCheckIfAlreadyBought();
+  }, [mapList]);
 
   return (
     <View
@@ -82,19 +80,21 @@ export function MapItemList({
           <Button
             onPress={handleAlreadyBought}
             className={`mt-4 h-8 w-full rounded-xl ${
-              localAlreadyBought && "bg-theme-gray-200"
+              alreadyBought && "bg-theme-gray-200"
             }`}
             textClassName="text-xs"
           >
-            {localAlreadyBought ? "Não adicionei" : "Adicionei"}
+            {alreadyBought ? "Não adicionei" : "Adicionei"}
           </Button>
 
-          {localAlreadyBought ? (
+          {alreadyBought ? (
             <View className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl bg-theme-green-300">
               <BadgeCheckIcon color={colors["theme-icon"].active} size={20} />
             </View>
           ) : (
-            <View className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl"></View>
+            <View className="absolute -top-2 -left-2 h-8 w-8 items-center justify-center rounded-xl">
+              <Badge color={colors["theme-icon"].active} size={20} />
+            </View>
           )}
         </>
       )}

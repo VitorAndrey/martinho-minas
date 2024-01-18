@@ -13,7 +13,7 @@ type UserContextType = {
 export const UserContext = createContext({} as UserContextType);
 
 export function UserContextProvider({ children }: { children: ReactNode }) {
-  const [isUserLogged, setIsUserLogged] = useState<boolean>(false);
+  const [isUserLogged, setIsUserLogged] = useState<boolean>(true);
   const [userInfo, setUserInfo] = useState<User | null>({
     id: "123",
     name: "seu nome",

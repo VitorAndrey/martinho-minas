@@ -5,19 +5,22 @@ import {
   SafeAreaProvider,
 } from "react-native-safe-area-context";
 
+import { MapListProvider } from "@contexts/MapList";
 import { ShoppingListProvider } from "@contexts/ShoppingList";
 import { UserContextProvider } from "@contexts/UserContext";
 
 export function AppProvider({ children }: { children: ReactNode }) {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <UserContextProvider>
-        <ShoppingListProvider>
-          <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-            {children}
-          </SafeAreaProvider>
-        </ShoppingListProvider>
-      </UserContextProvider>
+      <MapListProvider>
+        <UserContextProvider>
+          <ShoppingListProvider>
+            <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+              {children}
+            </SafeAreaProvider>
+          </ShoppingListProvider>
+        </UserContextProvider>
+      </MapListProvider>
     </GestureHandlerRootView>
   );
 }
